@@ -1,0 +1,14 @@
+org/apache/http/client/fluent/InternalHttpRequest.class
+org/apache/http/client/fluent/ContentResponseHandler.class
+org/apache/http/client/fluent/InternalInputStreamEntity.class
+org/apache/http/client/fluent/Async.class
+org/apache/http/client/fluent/HttpHeader.class
+org/apache/http/client/fluent/Async$ExecRunnable.class
+org/apache/http/client/fluent/Response.class
+org/apache/http/client/fluent/InternalEntityEnclosingHttpRequest.class
+org/apache/http/client/fluent/Content.class
+org/apache/http/client/fluent/Request.class
+org/apache/http/client/fluent/InternalByteArrayEntity.class
+org/apache/http/client/fluent/InternalFileEntity.class
+org/apache/http/client/fluent/Executor.class
+org/apache/http/client/fluent/Form.class

@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<checkstyle version="5.5">
+<file name="/Users/microlm/CS451_ChessgameProject/ChessGameFrontEnd/httpcomponents-client-4.5.1/httpclient-cache/src/test/java/org/apache/http/client/cache/TestHttpCacheEntry.java">
+</file>
+<file name="/Users/microlm/CS451_ChessgameProject/ChessGameFrontEnd/httpcomponents-client-4.5.1/httpclient-cache/src/test/java/org/apache/http/impl/client/cache/AbstractProtocolTest.java">
+</file>
+<file name="/Users/microlm/CS451_ChessgameProject/ChessGameFrontEnd/httpcomponents-client-4.5.1/httpclient-cache/src/test/java/org/apache/http/impl/client/cache/ConsumableInputStream.java">
+</file>
+<file name="/Users/microlm/CS451_ChessgameProject/ChessGameFrontEnd/httpcomponents-client-4.5.1/httpclient-cache/src/test/java/org/apache/http/impl/client/cache/Counter.java">
+</file>
+<file name="/Users/microlm/CS451_ChessgameProject/ChessGameFrontEnd/httpcomponents-client-4.5.1/httpclient-cache/src/test/java/org/apache/http/impl/client/cache/DummyBackend.java">
+</file>
+<file name="/Users/microlm/CS451_ChessgameProject/ChessGameFrontEnd/httpcomponents-client-4.5.1/httpclient-cache/src/test/java/org/apache/http/impl/client/cache/ehcache/TestEhcacheHttpCacheStorage.java">
+</file>
+<file name="/Users/microlm/CS451_ChessgameProject/ChessGameFrontEnd/httpcomponents-client-4.5.1/httpclient-cache/src/test/java/org/apache/http/impl/client/cache/ehcache/TestEhcacheProtocolRequirements.java">
+</file>
+<file name="/Users/microlm/CS451_ChessgameProject/ChessGameFrontEnd/httpcomponents-client-4.5.1/httpclient-cache/src/test/java/org/apache/http/impl/client/cache/HttpTestUtils.java">
+</file>
+<file name="/Users/microlm/CS451_ChessgameProject/ChessGameFrontEnd/httpcomponents-client-4.5.1/httpclient-cache/src/test/java/org/apache/http/impl/client/cache/memcached/TestMemcachedCacheEntryFactoryImpl.java">
+</file>
+<file name="/Users/microlm/CS451_ChessgameProject/ChessGameFrontEnd/httpcomponents-client-4.5.1/httpclient-cache/src/test/java/org/apache/http/impl/client/cache/memcached/TestMemcachedCacheEntryImpl.java">
+</file>
+<file name="/Users/microlm/CS451_ChessgameProject/ChessGameFrontEnd/httpcomponents-client-4.5.1/httpclient-cache/src/test/java/org/apache/http/impl/client/cache/memcached/TestMemcachedHttpCacheStorage.java">
+</file>
+<file name="/Users/microlm/CS451_ChessgameProject/ChessGameFrontEnd/httpcomponents-client-4.5.1/httpclient-cache/src/test/java/org/apache/http/impl/client/cache/memcached/TestPrefixKeyHashingScheme.java">
+</file>
+<file name="/Users/microlm/CS451_ChessgameProject/ChessGameFrontEnd/httpcomponents-client-4.5.1/httpclient-cache/src/test/java/org/apache/http/impl/client/cache/memcached/TestSHA256HashingScheme.java">
+</file>
+<file name="/Users/microlm/CS451_ChessgameProject/ChessGameFrontEnd/httpcomponents-client-4.5.1/httpclient-cache/src/test/java/org/apache/http/impl/client/cache/OKStatus.java">
+</file>
+<file name="/Users/microlm/CS451_ChessgameProject/ChessGameFrontEnd/httpcomponents-client-4.5.1/httpclient-cache/src/test/java/org/apache/http/impl/client/cache/RequestEquivalent.java">
+</file>
+<file name="/Users/microlm/CS451_ChessgameProject/ChessGameFrontEnd/httpcomponents-client-4.5.1/httpclient-cache/src/test/java/org/apache/http/impl/client/cache/ResponseEquivalent.java">
+</file>
+<file name="/Users/microlm/CS451_ChessgameProject/ChessGameFrontEnd/httpcomponents-client-4.5.1/httpclient-cache/src/test/java/org/apache/http/impl/client/cache/Serializer.java">
+</file>
+<file name="/Users/microlm/CS451_ChessgameProject/ChessGameFrontEnd/httpcomponents-client-4.5.1/httpclient-cache/src/test/java/org/apache/http/impl/client/cache/SimpleHttpCacheStorage.java">
+</file>
+<file name="/Users/microlm/CS451_ChessgameProject/ChessGameFrontEnd/httpcomponents-client-4.5.1/httpclient-cache/src/test/java/org/apache/http/impl/client/cache/TestAsynchronousValidationRequest.java">
+</file>
+<file name="/Users/microlm/CS451_ChessgameProject/ChessGameFrontEnd/httpcomponents-client-4.5.1/httpclient-cache/src/test/java/org/apache/http/impl/client/cache/TestAsynchronousValidator.java">
+</file>
+<file name="/Users/microlm/CS451_ChessgameProject/ChessGameFrontEnd/httpcomponents-client-4.5.1/httpclient-cache/src/test/java/org/apache/http/impl/client/cache/TestBasicHttpCache.java">
+</file>
+<file name="/Users/microlm/CS451_ChessgameProject/ChessGameFrontEnd/httpcomponents-client-4.5.1/httpclient-cache/src/test/java/org/apache/http/impl/client/cache/TestCacheableRequestPolicy.java">
+</file>
+<file name="/Users/microlm/CS451_ChessgameProject/ChessGameFrontEnd/httpcomponents-client-4.5.1/httpclient-cache/src/test/java/org/apache/http/impl/client/cache/TestCachedHttpResponseGenerator.java">
+</file>
+<file name="/Users/microlm/CS451_ChessgameProject/ChessGameFrontEnd/httpcomponents-client-4.5.1/httpclient-cache/src/test/java/org/apache/http/impl/client/cache/TestCachedResponseSuitabilityChecker.java">
+</file>
+<file name="/Users/microlm/CS451_ChessgameProject/ChessGameFrontEnd/httpcomponents-client-4.5.1/httpclient-cache/src/test/java/org/apache/http/impl/client/cache/TestCacheEntryUpdater.java">
+</file>
+<file name="/Users/microlm/CS451_ChessgameProject/ChessGameFrontEnd/httpcomponents-client-4.5.1/httpclient-cache/src/test/java/org/apache/http/impl/client/cache/TestCacheInvalidator.java">
+</file>
+<file name="/Users/microlm/CS451_ChessgameProject/ChessGameFrontEnd/httpcomponents-client-4.5.1/httpclient-cache/src/test/java/org/apache/http/impl/client/cache/TestCacheKeyGenerator.java">
+</file>
+<file name="/Users/microlm/CS451_ChessgameProject/ChessGameFrontEnd/httpcomponents-client-4.5.1/httpclient-cache/src/test/java/org/apache/http/impl/client/cache/TestCacheValidityPolicy.java">
+</file>
+<file name="/Users/microlm/CS451_ChessgameProject/ChessGameFrontEnd/httpcomponents-client-4.5.1/httpclient-cache/src/test/java/org/apache/http/impl/client/cache/TestCachingExec.java">
+</file>
+<file name="/Users/microlm/CS451_ChessgameProject/ChessGameFrontEnd/httpcomponents-client-4.5.1/httpclient-cache/src/test/java/org/apache/http/impl/client/cache/TestCachingExecChain.java">
+</file>
+<file name="/Users/microlm/CS451_ChessgameProject/ChessGameFrontEnd/httpcomponents-client-4.5.1/httpclient-cache/src/test/java/org/apache/http/impl/client/cache/TestCachingHttpClientBuilder.java">
+</file>
+<file name="/Users/microlm/CS451_ChessgameProject/ChessGameFrontEnd/httpcomponents-client-4.5.1/httpclient-cache/src/test/java/org/apache/http/impl/client/cache/TestCombinedEntity.java">
+</file>
+<file name="/Users/microlm/CS451_ChessgameProject/ChessGameFrontEnd/httpcomponents-client-4.5.1/httpclient-cache/src/test/java/org/apache/http/impl/client/cache/TestConditionalRequestBuilder.java">
+</file>
+<file name="/Users/microlm/CS451_ChessgameProject/ChessGameFrontEnd/httpcomponents-client-4.5.1/httpclient-cache/src/test/java/org/apache/http/impl/client/cache/TestDefaultFailureCache.java">
+</file>
+<file name="/Users/microlm/CS451_ChessgameProject/ChessGameFrontEnd/httpcomponents-client-4.5.1/httpclient-cache/src/test/java/org/apache/http/impl/client/cache/TestExponentialBackingOffSchedulingStrategy.java">
+</file>
+<file name="/Users/microlm/CS451_ChessgameProject/ChessGameFrontEnd/httpcomponents-client-4.5.1/httpclient-cache/src/test/java/org/apache/http/impl/client/cache/TestHttpCacheEntrySerializers.java">
+</file>
+<file name="/Users/microlm/CS451_ChessgameProject/ChessGameFrontEnd/httpcomponents-client-4.5.1/httpclient-cache/src/test/java/org/apache/http/impl/client/cache/TestHttpCacheJiraNumber1147.java">
+</file>
+<file name="/Users/microlm/CS451_ChessgameProject/ChessGameFrontEnd/httpcomponents-client-4.5.1/httpclient-cache/src/test/java/org/apache/http/impl/client/cache/TestImmediateSchedulingStrategy.java">
+</file>
+<file name="/Users/microlm/CS451_ChessgameProject/ChessGameFrontEnd/httpcomponents-client-4.5.1/httpclient-cache/src/test/java/org/apache/http/impl/client/cache/TestProtocolAllowedBehavior.java">
+</file>
+<file name="/Users/microlm/CS451_ChessgameProject/ChessGameFrontEnd/httpcomponents-client-4.5.1/httpclient-cache/src/test/java/org/apache/http/impl/client/cache/TestProtocolDeviations.java">
+</file>
+<file name="/Users/microlm/CS451_ChessgameProject/ChessGameFrontEnd/httpcomponents-client-4.5.1/httpclient-cache/src/test/java/org/apache/http/impl/client/cache/TestProtocolRecommendations.java">
+</file>
+<file name="/Users/microlm/CS451_ChessgameProject/ChessGameFrontEnd/httpcomponents-client-4.5.1/httpclient-cache/src/test/java/org/apache/http/impl/client/cache/TestProtocolRequirements.java">
+</file>
+<file name="/Users/microlm/CS451_ChessgameProject/ChessGameFrontEnd/httpcomponents-client-4.5.1/httpclient-cache/src/test/java/org/apache/http/impl/client/cache/TestRequestProtocolCompliance.java">
+</file>
+<file name="/Users/microlm/CS451_ChessgameProject/ChessGameFrontEnd/httpcomponents-client-4.5.1/httpclient-cache/src/test/java/org/apache/http/impl/client/cache/TestResponseCachingPolicy.java">
+</file>
+<file name="/Users/microlm/CS451_ChessgameProject/ChessGameFrontEnd/httpcomponents-client-4.5.1/httpclient-cache/src/test/java/org/apache/http/impl/client/cache/TestResponseProtocolCompliance.java">
+</file>
+<file name="/Users/microlm/CS451_ChessgameProject/ChessGameFrontEnd/httpcomponents-client-4.5.1/httpclient-cache/src/test/java/org/apache/http/impl/client/cache/TestRFC5861Compliance.java">
+</file>
+<file name="/Users/microlm/CS451_ChessgameProject/ChessGameFrontEnd/httpcomponents-client-4.5.1/httpclient-cache/src/test/java/org/apache/http/impl/client/cache/TestSizeLimitedResponseReader.java">
+</file>
+<file name="/Users/microlm/CS451_ChessgameProject/ChessGameFrontEnd/httpcomponents-client-4.5.1/httpclient-cache/src/test/java/org/apache/http/impl/client/cache/TestStaleWhileRevalidationReleasesConnection.java">
+</file>
+<file name="/Users/microlm/CS451_ChessgameProject/ChessGameFrontEnd/httpcomponents-client-4.5.1/httpclient-cache/src/test/java/org/apache/http/impl/client/cache/TestWarningValue.java">
+</file>
+</checkstyle>

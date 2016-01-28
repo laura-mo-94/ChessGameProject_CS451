@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: org.apache.http.impl.client.cache.ehcache.TestEhcacheProtocolRequirements
+-------------------------------------------------------------------------------
+Tests run: 232, Failures: 0, Errors: 0, Skipped: 1, Time elapsed: 3.913 sec - in org.apache.http.impl.client.cache.ehcache.TestEhcacheProtocolRequirements

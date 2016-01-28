@@ -1,0 +1,6 @@
+org/apache/http/entity/mime/TestFormBodyPartBuilder.class
+org/apache/http/entity/mime/TestMultipartContentBody.class
+org/apache/http/entity/mime/TestMultipartEntityBuilder.class
+org/apache/http/entity/mime/TestMultipartForm.class
+org/apache/http/entity/mime/FormBodyPartTest.class
+org/apache/http/entity/mime/TestMultipartFormHttpEntity.class
