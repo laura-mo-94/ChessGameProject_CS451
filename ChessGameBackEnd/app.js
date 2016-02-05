@@ -36,21 +36,31 @@ if ('development' == app.get('env')) {
 app.get('/', routes.index);
 app.get('/users', user.list);
 
-http.createServer(function(request, response){
-	response.write("Hello World");
-	response.end();
-}).listen(app.get('port'), function(){
-  console.log('Express server listening on port ' + app.get('port'));
-});
-
 function sendMessageToUser(res, status, message)
 {
 	res.status(status);
 	res.send(message);
-};
+}
+
+app.get('/hello', function(req, res){
+	res.send("I was sent here");
+	res.send("Hello World");
+});
 
 app.get('/add', function incrementNum(req, res){
+	console.log('adding...');
 	number = number + 1;
 	res.send('' + number);
-	response.write("" + number)
+});
+
+/*http.createServer(function(request, response){
+	response.write("Hello World");
+	response.end();
+	
+}).listen(app.get('port'), function(){
+  console.log('Express server listening on port ' + app.get('port'));
+});*/
+
+app.listen(app.get('port'), function serverListen(){
+	console.log('listening on port ', app.get('port'));
 })

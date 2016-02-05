@@ -48,12 +48,12 @@ public class HttpURLConnectionTest {
 		URL obj = new URL(url);
 		HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 		
-		con.setRequestMethod("GET");
-		con.setRequestProperty("User-Agent", USER_AGENT);
+		//con.setRequestMethod("GET");
+		//con.setRequestProperty("User-Agent", USER_AGENT);
 		
-		int responseCode = con.getResponseCode();
+		//int responseCode = con.getResponseCode();
 		System.out.println("Sending 'GET' request to URL: " + url);
-		System.out.println("Response Code: " + responseCode);
+		//System.out.println("Response Code: " + responseCode);
 		
 		BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
 		String inputLine;
@@ -75,14 +75,16 @@ public class HttpURLConnectionTest {
 		URL obj = new URL(url);
 		HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 		
-		con.setRequestMethod("GET");
-		con.setRequestProperty("User-Agent", USER_AGENT);
+		//con.setRequestMethod("GET");
+		//con.setRequestProperty("User-Agent", USER_AGENT);
 		
-		int responseCode = con.getResponseCode();
-		System.out.println("Requesting to add a number");
-		System.out.println("Response Code: " + responseCode);
-	
+		//int responseCode = con.getResponseCode();
+		System.out.println("Requesting to add a number through " + url);
+		//System.out.println("Response Code: " + responseCode);
+		con.connect();
+		
 		BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+		
 		String inputLine;
 		StringBuffer response = new StringBuffer();
 		while((inputLine = in.readLine()) != null)
@@ -91,6 +93,7 @@ public class HttpURLConnectionTest {
 		}
 		
 		in.close();
+		System.out.println("finished");
 		System.out.println(response.toString());
 	}
 	
