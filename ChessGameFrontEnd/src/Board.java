@@ -17,13 +17,13 @@ public class Board {
 		return false;
 	}
 	 
-	//showLegalMoves: Returns a 2D arraylist of Integers each signifying different types of spaces on the board.
-	//Current Piece		0(
-	//Enemy Piece		1(
-	//Player Piece		2(
-	//Empty Space		3(
+	//showLegalMoves: Returns a 2D ArrayList of Integers each signifying different types of spaces on the board.
+	//Current Piece		0
+	//Enemy Piece		1
+	//Player Piece		2
+	//Empty Space		3
 	public ArrayList<ArrayList<Integer>> showLegalMoves(ArrayList<ArrayList<Integer>> spaces) {
-		return spaces;		
+		return spaces;	
 	}
 
 }
