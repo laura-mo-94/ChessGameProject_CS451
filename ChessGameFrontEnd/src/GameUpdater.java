@@ -11,33 +11,19 @@ public class GameUpdater implements ActionListener {
 	private String currentValue = "Nothing";
 	
 	private HttpURLConnectionTest http;
+	private String gameName;
 	
-	public GameUpdater(JLabel label)
+	public GameUpdater(JLabel label, String name)
 	{
 		this.label = label;
 		http = new HttpURLConnectionTest();
+		gameName = name;
 	}
 	
-	public void actionPerformed(ActionEvent e){
-		String url = "http://localhost:3000/getState";
-		HttpURLConnection con;
-		BufferedReader in = null;
-		StringBuffer response = new StringBuffer();
-		
-		try {
-			con = HttpURLConnectionTest.setUpConnection(url);
-			in = new BufferedReader(new InputStreamReader(con.getInputStream()));
-			String inputLine;
-			
-			
-			while((inputLine = in.readLine()) != null)
-			{
-				response.append(inputLine);
-			}
-		} catch (Exception e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
+	public void actionPerformed(ActionEvent e)
+	{
+		HttpURLConnectionTest http = new HttpURLConnectionTest();
+		String response = http.checkState("http://localhost:3000/getState", gameName);
 		
 		if(!response.toString().equals(currentValue))
 		{
