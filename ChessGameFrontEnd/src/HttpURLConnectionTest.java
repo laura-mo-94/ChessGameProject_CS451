@@ -216,7 +216,7 @@ public class HttpURLConnectionTest {
 	 * Joins the game.
 	 * Should return "Waiting for opponent..." when called
 	 *----------------------------------------------------------*/
-	private String joinGame(String name, JLabel label) throws Exception
+	public String joinGame(String name, JLabel label) throws Exception
 	{
 		String url = "http://localhost:3000/join";
 		HttpURLConnection con = setUpConnection(url);
@@ -238,7 +238,7 @@ public class HttpURLConnectionTest {
 	 * current state.
 	 *----------------------------------------------------------*/
 	
-	private String sendAction(String name) throws Exception
+	public String sendAction(String name) throws Exception
 	{	
 		String url = "http://localhost:3000/add";
 		HttpURLConnection con = setUpConnection(url);

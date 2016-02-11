@@ -4,7 +4,7 @@ import org.junit.runner.notification.Failure;
 
 public class TestRunner {
    public static void main(String[] args) {
-      Result result = JUnitCore.runClasses(BoardTest.class);
+      Result result = JUnitCore.runClasses(NetworkTest.class, BoardTest.class);
       for (Failure failure : result.getFailures()) {
          System.out.println(failure.toString());
       }
