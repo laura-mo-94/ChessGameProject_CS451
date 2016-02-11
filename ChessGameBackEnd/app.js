@@ -12,6 +12,7 @@ var express = require('express')
 
 var app = express();
 var number = 1;
+var queue = [];
 
 // all environments
 app.set('port', process.env.PORT || 3000);
@@ -42,24 +43,28 @@ function sendMessageToUser(res, status, message)
 	res.send(message);
 }
 
-app.get('/hello', function(req, res){
+app.post('/hello', function(req, res){
 	res.send("I was sent here");
 	res.send("Hello World");
 });
 
-app.get('/add', function incrementNum(req, res){
-	console.log('adding...');
-	number = number + 1;
+app.post('/add', function incrementNum(req, res){
+	console.dir(req.body);
+	number = number + parseInt(req.body.number);
 	res.send('' + number);
 });
 
-/*http.createServer(function(request, response){
-	response.write("Hello World");
-	response.end();
+app.post('/getState', function getState(req, res){
+	res.send('' + number);
+	console.log("got state");
+});
+
+app.post('/matchmaking', function(user, callback){
+	console.log('Finding opponent...');
 	
-}).listen(app.get('port'), function(){
-  console.log('Express server listening on port ' + app.get('port'));
-});*/
+	var opponent = null;
+
+});
 
 app.listen(app.get('port'), function serverListen(){
 	console.log('listening on port ', app.get('port'));
