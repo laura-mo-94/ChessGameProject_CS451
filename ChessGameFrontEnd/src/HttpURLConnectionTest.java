@@ -1,3 +1,11 @@
+/*----------------------------------------------------------
+ * HttpURLConnectionTest.java
+ * Laura Mo
+ * v1.2
+ * Tests the concepts for the nodejs server. Creates frames
+ * and sets up framework to sign in to a server then start
+ * seperate sessions of adding numbers.
+ *----------------------------------------------------------*/
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -25,6 +33,10 @@ public class HttpURLConnectionTest {
 		//buildGameFrame();
 	}
 	
+	/*----------------------------------------------------------
+	 * Builds the sign in frame.
+	 *----------------------------------------------------------*/
+	
 	private static void buildStartFrame()
 	{
 		HttpURLConnectionTest http = new HttpURLConnectionTest();
@@ -40,6 +52,9 @@ public class HttpURLConnectionTest {
 		
 		JButton b = new JButton("JOIN GAME");
 		b.setBounds(130, 150, 100, 40);
+		
+		// makes it so that on click, this button will run the joinGame function and
+		// start up a timer that constantly checks fo an opponent
 		
 		b.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e)
@@ -67,6 +82,9 @@ public class HttpURLConnectionTest {
 		startFrame.setVisible(true);
 	}
 	
+	/*----------------------------------------------------------
+	 * Builds the adding frame
+	 *----------------------------------------------------------*/
 	public static void buildGameFrame(String id)
 	{	
 		HttpURLConnectionTest http = new HttpURLConnectionTest();
@@ -82,6 +100,7 @@ public class HttpURLConnectionTest {
 		JButton b = new JButton("ADD ONE");
 		b.setBounds(130, 100, 100, 40);
 		
+		// set button to perform sendAction on click
 		b.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e)
 			{
@@ -97,6 +116,7 @@ public class HttpURLConnectionTest {
 		
 		f.add(b);
 		
+		// constantly check for updates from server
 		GameUpdater updater = new GameUpdater(label, matchName.getText());
 		Timer timer = new Timer(1000, updater);
 		timer.start();
@@ -106,6 +126,9 @@ public class HttpURLConnectionTest {
 		f.setVisible(true);
 	}
 	
+	/*----------------------------------------------------------
+	 * Set up an httpURLConnection based on an url
+	 *----------------------------------------------------------*/
 	public static HttpURLConnection setUpConnection(String url) throws Exception
 	{	
 		URL obj = new URL(url);
@@ -117,6 +140,9 @@ public class HttpURLConnectionTest {
 		return con;
 	}
 	
+	/*----------------------------------------------------------
+	 * Gets results of a post call in a string and returns it
+	 *----------------------------------------------------------*/
 	public String getResults(HttpURLConnection con)
 	{
 		String inputLine;
@@ -138,6 +164,10 @@ public class HttpURLConnectionTest {
 		return response.toString();
 	}
 	
+	/*----------------------------------------------------------
+	 * Gets results of a post call with parameters as a string
+	 * and returns it.
+	 *----------------------------------------------------------*/
 	public String getResultsWithParams(HttpURLConnection con, String params)
 	{
 		String type = "application/x-www-form-urlencoded";
@@ -158,6 +188,9 @@ public class HttpURLConnectionTest {
 		return getResults(con);
 	}
 	
+	/*----------------------------------------------------------
+	 * Encode parameters for post.
+	 *----------------------------------------------------------*/
 	private String encodeStringForPost(Map<String, String> params) throws Exception
 	{
 		String encodedParam = "";
@@ -179,7 +212,11 @@ public class HttpURLConnectionTest {
 		return encodedParam;
 	}
 	
-	private void joinGame(String name, JLabel label) throws Exception
+	/*----------------------------------------------------------
+	 * Joins the game.
+	 * Should return "Waiting for opponent..." when called
+	 *----------------------------------------------------------*/
+	private String joinGame(String name, JLabel label) throws Exception
 	{
 		String url = "http://localhost:3000/join";
 		HttpURLConnection con = setUpConnection(url);
@@ -190,7 +227,16 @@ public class HttpURLConnectionTest {
 
 		String response = getResultsWithParams(con, encodedParam);
 		label.setText(response.toString());
+		return response.toString();
 	}
+	
+	/*----------------------------------------------------------
+	 * Calls for an update to the game state.
+	 * 
+	 * Given a newly created session (name is the name of the
+	 * session), this will return 2, since it is +1 of the
+	 * current state.
+	 *----------------------------------------------------------*/
 	
 	private String sendAction(String name) throws Exception
 	{	
@@ -208,6 +254,18 @@ public class HttpURLConnectionTest {
 		return response.toString();
 	}
 	
+	/*----------------------------------------------------------
+	 * Sees if they have been placed into a game yet.
+	 * 
+	 * Given a user name, this either returns "Waiting..." when
+	 * no opponent is available, and the name of the game 
+	 * session when the player has been placed into a game. If
+	 * the first player to sign in is "Alex" and the second is 
+	 * "Bill", then the session will be called "Alex vs Bill".
+	 * Regardless of whether checkForOpponents is passed "Alex"
+	 * or "Bill", once a session has been created, this will
+	 * return "Alex vs Bill".
+	 *----------------------------------------------------------*/
 	public String checkForOpponent(String userName) throws Exception
 	{
 		String url = "http://localhost:3000/getOpponent";
@@ -222,6 +280,15 @@ public class HttpURLConnectionTest {
 		return response.toString();
 	}
 	
+	/*----------------------------------------------------------
+	 * Checks the status of the game. Url passed in should
+	 * be http://localhost:3000/getState
+	 * 
+	 * Name is the name of session, ie "Alex vs Bill".
+	 * Given this, it will return what number the state is 
+	 * currently at. If sendAction has never been called, this
+	 * should be 1. After sendAction, it should be 2.
+	 *----------------------------------------------------------*/
 	public String checkState(String url, String name)
 	{
 		HttpURLConnection con;
