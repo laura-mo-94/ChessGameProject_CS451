@@ -1,54 +1,57 @@
-import java.util.ArrayList;
+package src;
 
 public abstract class Piece {
 
-	public int x = 0;
-	public int y = 0;
-	public String color = "";
-	public String type = "";
-	public boolean isActive = true;
+	private int xpos = 0;
+	private int ypos = 0;
+	private boolean isWhite = true;
+	//private PieceType type = PAWN;
+	//private String identifier = "";  IS THIS NEEDED?
+	//private Validator validator = new Validator();
+	private boolean isActive = true;
+	
+	public Piece(int x, int y, boolean color)
+	{
+		xpos = x;
+		ypos = y;
+		isWhite = color;
+	}
 
 	public int getX() {
-		return x;
+		return xpos;
 	}
 
 	public void setX(int x) {
-		this.x = x;
+		this.xpos = x;
 	}
 
 	public int getY() {
-		return y;
+		return ypos;
 	}
 
 	public void setY(int y) {
-		this.y = y;
+		this.ypos = y;
 	}
 
-	public String getColor() {
+	public boolean getisWhite() {
+		return isWhite;
+	}
+
+	/*public void getIdentifier(String color) {
 		return color;
 	}
 
-	public void setColor(String color) {
-		this.color = color;
-	}
-
-	public String getType() {
+	public PieceType getType() {
 		return type;
-	}
+	}*/
 
-	public void setType(String type) {
-		this.type = type;
-	}
-
-	public boolean isActive() {
+	public boolean getisActive() {
 		return isActive;
 	}
 
-	public void setActive(boolean isActive) {
+	public void setisActive(boolean isActive) {
 		this.isActive = isActive;
 	}
-
-	public ArrayList<ArrayList<Integer>> getMoves(){return null;};
 	
 
 }
