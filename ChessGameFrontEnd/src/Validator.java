@@ -1,5 +1,3 @@
-package src;
-
 public abstract class Validator {
 	
 	protected boolean hasMoved;

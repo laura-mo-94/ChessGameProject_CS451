@@ -1,12 +1,10 @@
-//package src;
-
 public class Piece {
 
 	private int xPos = 0;
 	private int yPos = 0;
 	private boolean isWhite = true;
-	private PieceType type = PAWN;
-	private Validator v = new Validator();
+	private PieceType type;
+	private Validator v;
 	
 	//private boolean isActive = true; IS THIS NEEDED?
 	
