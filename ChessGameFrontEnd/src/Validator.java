@@ -1,8 +1,10 @@
+import java.util.ArrayList;
+
 public abstract class Validator {
 	
 	protected boolean hasMoved;
 	
-	public abstract void highlightBoard(int x, int y, boolean isWhite);
+	public abstract ArrayList<int []> highlightBoard(int x, int y, boolean isWhite);
 	
 	public void inCheck() {
 	}

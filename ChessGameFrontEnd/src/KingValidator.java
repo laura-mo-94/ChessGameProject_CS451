@@ -20,7 +20,8 @@ public class KingValidator extends Validator  {
 	}
 
 	@Override
-	public void highlightBoard(int x, int y, boolean isWhite) {
-
+	public ArrayList<int []> highlightBoard(int x, int y, boolean isWhite) {
+		ArrayList<int []> returnMoves = new ArrayList<int []>();
+		return returnMoves;
 	}
 }
