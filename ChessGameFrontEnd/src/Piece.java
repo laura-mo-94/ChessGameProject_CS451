@@ -1,4 +1,4 @@
-package src;
+//package src;
 
 public abstract class Piece {
 
@@ -33,7 +33,7 @@ public abstract class Piece {
 		this.ypos = y;
 	}
 
-	public boolean getisWhite() {
+	public boolean getIsWhite() {
 		return isWhite;
 	}
 
@@ -45,11 +45,11 @@ public abstract class Piece {
 		return type;
 	}*/
 
-	public boolean getisActive() {
+	public boolean getIsActive() {
 		return isActive;
 	}
 
-	public void setisActive(boolean isActive) {
+	public void setIsActive(boolean isActive) {
 		this.isActive = isActive;
 	}
 	

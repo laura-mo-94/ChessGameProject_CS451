@@ -1,5 +1,8 @@
 import java.awt.Color;
+import java.awt.event.MouseEvent;
+
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
@@ -14,8 +17,8 @@ public class ChessButton extends JButton {
     private boolean isOccupied;
     
     public ChessButton () {
-        setBorderPainted(false);
-        setFocusPainted(false);
+        setBorderPainted(true);
+        setFocusPainted(true);
 
         setContentAreaFilled(false);
         setOpaque(true);
@@ -30,43 +33,17 @@ public class ChessButton extends JButton {
                 if (getModel().isPressed()) {
                 	if(isOccupied){
                 		setBackground(pressedColor);
-                		showPossibleMoves();
+                	} else {
+                		setBackground(normalColor);
                 	}
-                } else {
-                    setBackground(normalColor);
-                    resetBoardColors();
                 }
             }
+            void mouseExited(MouseEvent e) {
+        		setBackground(normalColor);
 
-            // 0 empty
-            // 1 friendly
-            // 2 enemy
-			private void showPossibleMoves() {
-				//int[][] = getValidationOutput;
-				for (int i = 0; i < ChessGUI.chessBoardSquares.length; i++) {
-		            for (int j = 0; j < ChessGUI.chessBoardSquares[i].length; j++) {
-		            	//if(int[i][j] == 0 || int[i][j] == 2){
-		            	if(i == 3 && j == 3){
-		            		ChessGUI.chessBoardSquares[i][j].setBackground(pressedColor);
-		            	}
-		            }
-				}
-			}
-			
-			private void resetBoardColors() {
-				for (int i = 0; i < ChessGUI.chessBoardSquares.length; i++) {
-		            for (int j = 0; j < ChessGUI.chessBoardSquares[i].length; j++) {
-		            	if ((j % 2 == 1 && i % 2 == 1) || (j % 2 == 0 && i % 2 == 0)) {
-		            		ChessGUI.chessBoardSquares[i][j].setBackground(Color.WHITE);
-		            		ChessGUI.chessBoardSquares[i][j].normalColor = Color.WHITE;
-		                } else {
-		                	ChessGUI.chessBoardSquares[i][j].setBackground(Color.BLACK);
-		                	ChessGUI.chessBoardSquares[i][j].normalColor = Color.BLACK;
-		                }
-		            }
-				}
-			}
+            }
         }
+
         );
     }
     

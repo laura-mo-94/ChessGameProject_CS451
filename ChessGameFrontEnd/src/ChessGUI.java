@@ -13,7 +13,7 @@ public class ChessGUI {
     private Image[][] chessPieceImages = new Image[2][6];
     private JPanel chessBoard;
     
-    private final JLabel message = new JLabel(
+    public static JLabel message = new JLabel(
             "Chess Game is ready to play!");
     
     private static final String COLS = "ABCDEFGH";
@@ -32,8 +32,6 @@ public class ChessGUI {
 
     ChessGUI() {
         initializeGui();
-        setupNewGame();
-
     }
 
     public final void initializeGui() {
@@ -79,9 +77,7 @@ public class ChessGUI {
                 if (c == null) {
                     prefSize = new Dimension(
                             (int)d.getWidth(),(int)d.getHeight());
-                } else if (c!=null &&
-                        c.getWidth()>d.getWidth() &&
-                        c.getHeight()>d.getHeight()) {
+                } else if (c!=null && c.getWidth()>d.getWidth() && c.getHeight()>d.getHeight()) {
                     prefSize = c.getSize();
                 } else {
                     prefSize = d;
@@ -100,7 +96,7 @@ public class ChessGUI {
                 ));
         
         // Set the BG to be ochre
-        Color ochre = new Color(204,119,34);
+        Color ochre = new Color(200,120,40);
         chessBoard.setBackground(ochre);
         JPanel boardConstrain = new JPanel(new GridBagLayout());
         boardConstrain.setBackground(ochre);
@@ -113,8 +109,6 @@ public class ChessGUI {
             for (int j = 0; j < chessBoardSquares[i].length; j++) {
             	ChessButton b = new ChessButton();
                 b.setMargin(buttonMargin);
-                // our chess pieces are 64x64 px in size, so we'll
-                // 'fill this in' using a transparent icon..
                 ImageIcon icon = new ImageIcon(
                         new BufferedImage(64, 64, BufferedImage.TYPE_INT_ARGB));
                 b.setIcon(icon);
@@ -174,14 +168,10 @@ public class ChessGUI {
             e.printStackTrace();
             System.exit(1);
         }
-    }
+    
 
-    /**
-     * Initializes the icons of the initial chess board piece places
-     * Set each part of the board that has a piece to isOccupied
-     */
-    private final void setupNewGame() {
-        message.setText("Make your move!");
+    
+     //* Initializes the icons of the initial chess board piece places 
         // set up the black pieces
         for (int i = 0; i < STARTING_ROW.length; i++) {
         	chessBoardSquares[i][0].setIsOccupied(true);
@@ -209,8 +199,8 @@ public class ChessGUI {
                     chessPieceImages[WHITE][STARTING_ROW[i]]));
         }
     }
-
-    /*public static void main(String[] args) {
+/*
+    public static void main(String[] args) {
         Runnable r = new Runnable() {
 
             @Override
@@ -219,16 +209,9 @@ public class ChessGUI {
 
                 JFrame f = new JFrame("Chess Game");
                 f.add(cg.getGui());
-                // Ensures JVM closes after frame(s) closed and
-                // all non-daemon threads are finished
                 f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-                // See http://stackoverflow.com/a/7143398/418556 for demo.
                 f.setLocationByPlatform(true);
-
-                // ensures the frame is the minimum size it needs to be
-                // in order display the components within it
                 f.pack();
-                // ensures the minimum size is enforced.
                 f.setMinimumSize(f.getSize());
                 f.setVisible(true);
             }

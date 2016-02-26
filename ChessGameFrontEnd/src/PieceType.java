@@ -1,7 +1,11 @@
-package src;
+//package src;
 
 public enum PieceType
 {
 	PAWN, 
-	ROOK
+	KNIGHT,
+	ROOK,
+	BISHOP,
+	QUEEN,
+	KING
 }
