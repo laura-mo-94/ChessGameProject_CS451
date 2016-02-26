@@ -1,56 +1,49 @@
 //package src;
 
-public abstract class Piece {
+public class Piece {
 
-	private int xpos = 0;
-	private int ypos = 0;
+	private int xPos = 0;
+	private int yPos = 0;
 	private boolean isWhite = true;
-	//private PieceType type = PAWN;
-	//private String identifier = "";  IS THIS NEEDED?
-	//private Validator validator = new Validator();
-	private boolean isActive = true;
+	private PieceType type = PAWN;
+	private Validator v = new Validator();
 	
-	public Piece(int x, int y, boolean color)
+	//private boolean isActive = true; IS THIS NEEDED?
+	
+	public Piece(PieceType type, int x, int y, boolean color, Validator v)
 	{
-		xpos = x;
-		ypos = y;
+		xPos = x;
+		yPos = y;
 		isWhite = color;
 	}
 
 	public int getX() {
-		return xpos;
+		return xPos;
 	}
 
 	public void setX(int x) {
-		this.xpos = x;
+		this.xPos = x;
 	}
 
 	public int getY() {
-		return ypos;
+		return yPos;
 	}
 
 	public void setY(int y) {
-		this.ypos = y;
+		this.yPos = y;
 	}
 
 	public boolean getIsWhite() {
 		return isWhite;
 	}
 
-	/*public void getIdentifier(String color) {
-		return color;
-	}
-
 	public PieceType getType() {
 		return type;
-	}*/
-
-	public boolean getIsActive() {
-		return isActive;
 	}
-
-	public void setIsActive(boolean isActive) {
-		this.isActive = isActive;
+	
+	public void setType(PieceType t)
+	{
+		this.type = t;
 	}
 	
 
