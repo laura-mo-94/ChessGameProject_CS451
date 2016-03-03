@@ -20,8 +20,30 @@ public class KingValidator extends Validator  {
 	}
 
 	@Override
-	public ArrayList<int []> highlightBoard(int x, int y, boolean isWhite) {
-		ArrayList<int []> returnMoves = new ArrayList<int []>();
+	public ArrayList<int[]> highlightBoard(int x, int y, boolean isWhite) {
+		ArrayList<int[]> returnMoves = new ArrayList<int[]>();
+		
+		for(int i=0; i<=7; i++) {
+			if ((0 <= (xPos - 1)) && ((xPos - 1) <= 7) && (0 <= (yPos + 1)) && ((yPos + 1) <= 7)) 
+				returnMoves.add(new int[] {xPos-1, yPos+1});
+			if ((0 <= (xPos)) && ((xPos) <= 7) && (0 <= (yPos + 1)) && ((yPos + 1) <= 7)) 
+				returnMoves.add(new int[] {xPos, yPos+1});
+			if ((0 <= (xPos + 1)) && ((xPos + 1) <= 7) && (0 <= (yPos + 1)) && ((yPos + 1) <= 7)) 
+				returnMoves.add(new int[] {xPos+1, yPos+1});
+			
+			if ((0 <= (xPos - 1)) && ((xPos - 1) <= 7) && (0 <= (yPos)) && ((yPos) <= 7)) 
+				returnMoves.add(new int[] {xPos-1, yPos});
+			if ((0 <= (xPos + 1)) && ((xPos + 1) <= 7) && (0 <= (yPos)) && ((yPos) <= 7)) 
+				returnMoves.add(new int[] {xPos+1, yPos});
+			
+			if ((0 <= (xPos - 1)) && ((xPos - 1) <= 7) && (0 <= (yPos - 1)) && ((yPos - 1) <= 7)) 
+				returnMoves.add(new int[] {xPos-1, yPos-1});
+			if ((0 <= (xPos)) && ((xPos) <= 7) && (0 <= (yPos - 1)) && ((yPos - 1) <= 7)) 
+				returnMoves.add(new int[] {xPos, yPos-1});
+			if ((0 <= (xPos + 1)) && ((xPos + 1) <= 7) && (0 <= (yPos - 1)) && ((yPos - 1) <= 7)) 
+				returnMoves.add(new int[] {xPos+1, yPos-1});
+		}
+		
 		return returnMoves;
 	}
 }
