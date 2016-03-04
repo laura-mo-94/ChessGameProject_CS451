@@ -31,8 +31,14 @@ public class ChessButton extends JButton {
             @Override
             public void stateChanged(ChangeEvent evt) {
                 if (getModel().isPressed()) {
+                	//if (Board.isHighlighted) {
+                		//if a valid move from piece
+                		//move piece
+                		//else Board.clearHighlight();
+                	//}
                 	if(isOccupied){
                 		setBackground(pressedColor);
+                		//Board.isHighlighted = true;
                 	} else {
                 		setBackground(normalColor);
                 	}

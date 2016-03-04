@@ -13,11 +13,11 @@ public class ChessGUI {
     private Image[][] chessPieceImages = new Image[2][6];
     private JPanel chessBoard;
     
-    public static JLabel message = new JLabel(
+    private final JLabel message = new JLabel(
             "Chess Game is ready to play!");
     
     private static final String COLS = "ABCDEFGH";
-    
+
     public static final int QUEEN = 0, 
     						KING = 1,
     						ROOK = 2, 
@@ -57,6 +57,7 @@ public class ChessGUI {
         tools.addSeparator();
         tools.add(new JButton("Draw")); // TODO - add functionality!
         tools.addSeparator();
+        // Look into switching top message.
         tools.add(message);
 
         gui.add(new JLabel("?"), BorderLayout.LINE_START);
@@ -131,9 +132,9 @@ public class ChessGUI {
         //Blank Space
         chessBoard.add(new JLabel(""));
         // fill the top row
-        for (int ii = 0; ii < 8; ii++) {
+        for (int i = 0; i < 8; i++) {
             chessBoard.add(
-                    new JLabel(COLS.substring(ii, ii + 1),
+                    new JLabel(COLS.substring(i, i + 1),
                     SwingConstants.CENTER));
         }
         // fill the black non-pawn piece row
@@ -199,7 +200,7 @@ public class ChessGUI {
                     chessPieceImages[WHITE][STARTING_ROW[i]]));
         }
     }
-/*
+
     public static void main(String[] args) {
         Runnable r = new Runnable() {
 
@@ -219,8 +220,5 @@ public class ChessGUI {
         // Swing GUIs should be created and updated on the EDT
         // http://docs.oracle.com/javase/tutorial/uiswing/concurrency
         SwingUtilities.invokeLater(r);
-    }*/
+    }
 }
-
-//Fake frames: photography and moments
-//Fiction: Love Triangle - sin - signs; cosin - cosign.

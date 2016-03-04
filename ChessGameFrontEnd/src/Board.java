@@ -17,17 +17,10 @@ public class Board {
 	public List<Piece> whitePieces;
 
 	public int turn = 0;
+	//public static boolean isHighlighted = false; //Add
 
 	public Board() {
-		ChessGUI cg = new ChessGUI();
-
-		JFrame f = new JFrame("Chess Game");
-		f.add(cg.getGui());
-		f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		f.setLocationByPlatform(true);
-		f.pack();
-		f.setMinimumSize(f.getSize());
-		f.setVisible(true);
+		
 	}
 
 	public void updateBoard() {
@@ -70,4 +63,12 @@ public class Board {
 		// http://docs.oracle.com/javase/tutorial/uiswing/concurrency
 		SwingUtilities.invokeLater(r);
 	}
+
+//	public static void clearHighlight() {
+//		for (int i = 0; i < 8; i++) {
+//			for (int j = 0; j < 8; j++) {
+//				chessBoardSquares[i][j].setBackground(normalColor);
+//			}	
+//		}
+//	}
 }
