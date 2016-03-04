@@ -1,15 +1,7 @@
-
 public class Driver {
-
-	SignInMenu signIn;
-	ChessGUI gui;
-	Game game;
-	
-	public void setUpGame() {
-		
-	}
-	
-	public void handleGame() {
-		
+	public static void main(String[] args)
+	{
+		SignInMenu menu = new SignInMenu();
+		menu.buildStartFrame();
 	}
 }
