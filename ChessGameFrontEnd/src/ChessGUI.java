@@ -201,10 +201,9 @@ public class ChessGUI {
         }
     }
 
-    public static void main(String[] args) {
+  /*  public static void main(String[] args) {
         Runnable r = new Runnable() {
 
-            @Override
             public void run() {
                 ChessGUI cg = new ChessGUI();
 
@@ -220,5 +219,5 @@ public class ChessGUI {
         // Swing GUIs should be created and updated on the EDT
         // http://docs.oracle.com/javase/tutorial/uiswing/concurrency
         SwingUtilities.invokeLater(r);
-    }
+    }*/
 }

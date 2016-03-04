@@ -28,7 +28,7 @@ public class ChessButton extends JButton {
 
 
         addChangeListener(new ChangeListener() {
-            @Override
+            
             public void stateChanged(ChangeEvent evt) {
                 if (getModel().isPressed()) {
                 	//if (Board.isHighlighted) {
