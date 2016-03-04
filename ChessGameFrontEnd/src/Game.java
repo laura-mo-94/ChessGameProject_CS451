@@ -2,7 +2,7 @@
 public class Game {
 
 	int activePlayer;
-	Board board;
+	/*Board board;
 	String playerName;
 	String opponentName;
 	GameUpdater updater;
@@ -26,5 +26,5 @@ public class Game {
 	
 	public void draw() {
 		
-	}
+	}*/
 }

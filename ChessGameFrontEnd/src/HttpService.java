@@ -51,7 +51,7 @@ public class HttpService
 			}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			return null;
 		}
 		
 		System.out.println(response.toString());

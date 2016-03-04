@@ -60,7 +60,7 @@ public class JoinGameUpdater extends HttpService implements ActionListener {
 		return getResultsWithParams(con, encodedParam);
 	}
 	
-	private static void buildGameFrame(String gameName)
+	private void buildGameFrame(String gameName)
 	{
 		JFrame startFrame = new JFrame();
 		JLabel label = new JLabel(gameName);
@@ -77,7 +77,7 @@ public class JoinGameUpdater extends HttpService implements ActionListener {
 		JButton b = new JButton("ADD");
 		b.setBounds(130, 150, 100, 40);
 		
-		GameUpdater updater = new GameUpdater(state, message, gameName);
+		GameUpdater updater = new GameUpdater(state, message, userName, gameName);
 		
 		try{
 			Timer timer = new Timer(1000, updater);
@@ -99,7 +99,10 @@ public class JoinGameUpdater extends HttpService implements ActionListener {
 			{
 				try
 				{
-					updater.sendAction(String.valueOf((Integer.parseInt(state.getText()) + 1)));
+					if(updater.getIsActive())
+					{
+						updater.sendAction(String.valueOf((Integer.parseInt(state.getText()) + 1)));
+					}
 				}catch(Exception exp)
 				{
 					exp.printStackTrace();

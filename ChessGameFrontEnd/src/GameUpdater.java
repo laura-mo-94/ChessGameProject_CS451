@@ -10,17 +10,23 @@ public class GameUpdater extends HttpService implements ActionListener
 	private JLabel label;
 	private JLabel messageLabel;
 	private String gameName;
+	private boolean isActive = false;
 	
-	public GameUpdater(JLabel label, JLabel message, String name)
+	public GameUpdater(JLabel label, JLabel message, String name, String gname)
 	{
 		this.label = label;
 		messageLabel = message;
-		gameName = name;
+		gameName = gname;
+		String[] names = gameName.split(" ");
+		
+		if(names[0].equals(name))
+		{
+			isActive = true;
+		}
 	}
 	
 	public void actionPerformed(ActionEvent e)
 	{
-		System.out.println("Here...");
 		String response = checkState(SERVER_SITE + "/getGameMessage", gameName);
 		
 		if(!response.equals(""))
@@ -33,6 +39,8 @@ public class GameUpdater extends HttpService implements ActionListener
 		if(!response.equals(""))
 		{
 			label.setText(response);
+			System.out.println("is active " + isActive);
+			isActive = !isActive;
 		}
 	}
 	
@@ -109,5 +117,10 @@ public class GameUpdater extends HttpService implements ActionListener
 		String encodedParam = encodeStringForPost(params);
 		
 		return getResultsWithParams(con, encodedParam);
+	}
+	
+	public boolean getIsActive()
+	{
+		return isActive;
 	}
 }
