@@ -50,6 +50,7 @@ public class Board {
 	public void makeMove() {
 
 	}
+<<<<<<< HEAD
 
 	/*public static void main(String[] args) {
 		Runnable r = new Runnable() {
@@ -74,4 +75,7 @@ public class Board {
 //	}
 =======
 	}*/
+=======
+
+>>>>>>> origin/master
 }

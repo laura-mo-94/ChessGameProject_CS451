@@ -50,13 +50,15 @@ public class SignInMenu extends HttpService
 			{
 				try{
 					String name = textField.getText();
-					menu.joinGame(name, label);
-					
-					JoinGameUpdater updater = new JoinGameUpdater(startFrame, name);
-					Timer timer = new Timer(1000, updater);
-					timer.start();
-					
-					updater.attachTimer(timer);
+					String response = menu.joinGame(name, label);
+					if( response != null && response.contains("Waiting"))
+					{
+						JoinGameUpdater updater = new JoinGameUpdater(startFrame, name);
+						Timer timer = new Timer(1000, updater);
+						timer.start();
+						
+						updater.attachTimer(timer);
+					}
 				}catch(Exception exp)
 				{
 					System.out.println("Error! Failed to send button action. " + exp);
@@ -87,7 +89,16 @@ public class SignInMenu extends HttpService
 		String encodedParam = encodeStringForPost(params);
 
 		String response = getResultsWithParams(con, encodedParam);
-		label.setText(response);
+		
+		if(response == null)
+		{
+			label.setText("Error! Could not connect to network!");
+			return null;
+		}
+		else
+		{
+			label.setText(response);
+		}
 		return response;
 	}
 }

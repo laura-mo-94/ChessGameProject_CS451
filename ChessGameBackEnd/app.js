@@ -126,45 +126,52 @@ app.post('/getGameMessage', function(req, res){
 });
 
 app.post('/join', function(req, res){
-	console.log('Finding opponent...');
+	console.log(queueName.indexOf(req.body.user));
 	
 	var opponent = null;
-	queueName.push(req.body.user);
-	queueCheck.push(new Date().getTime() / 1000);
-	res.send('Waiting for opponent');
-	
-	var player1Name = "";
-	var player2Name = "";
-	console.log(queueName.length);
-	while(queueName.length > 0)
+	if(queueName.indexOf(req.body.user) >= 0 || (req.body.user in opponents))
 	{
-		var currentTime = new Date().getTime() / 1000;
-		var candidate = queueName.shift();
-		var candidateTime = queueCheck.shift();
-
-		if(player1Name == "")
+		res.send('Name is already in use!');
+	}
+	else
+	{
+		queueName.push(req.body.user);
+		queueCheck.push(new Date().getTime() / 1000);
+		res.send('Waiting for opponent');
+		
+		var player1Name = "";
+		var player2Name = "";
+		console.log(queueName.length);
+		while(queueName.length > 0)
 		{
-			if(currentTime - candidateTime < 1.5)
+			var currentTime = new Date().getTime() / 1000;
+			var candidate = queueName.shift();
+			var candidateTime = queueCheck.shift();
+	
+			if(player1Name == "")
 			{
-				player1Name = candidate;
+				if(currentTime - candidateTime < 1.5)
+				{
+					player1Name = candidate;
+				}
+				
 			}
-			
-		}
-		else if(player2Name == "")
-		{
-			console.log('Here we gooooo');
-			if(currentTime - candidateTime < 1.5)
+			else if(player2Name == "")
 			{
-				player2Name = candidate;
-				var name = player1Name + " vs " + player2Name;
-				games[name] = ['0', ''];
-				gamesMessages[name] = ['0', ''];
-				opponents[player1Name] = name;
-				opponents[player2Name] = name;
-				checkInTimes[player1Name] = new Date().getTime() / 1000;
-				checkInTimes[player2Name] = new Date().getTime()/ 1000;
-				player1Name = "";
-				player2Name = "";
+				console.log('Here we gooooo');
+				if(currentTime - candidateTime < 1.5)
+				{
+					player2Name = candidate;
+					var name = player1Name + " vs " + player2Name;
+					games[name] = ['0', ''];
+					gamesMessages[name] = ['0', ''];
+					opponents[player1Name] = name;
+					opponents[player2Name] = name;
+					checkInTimes[player1Name] = new Date().getTime() / 1000;
+					checkInTimes[player2Name] = new Date().getTime()/ 1000;
+					player1Name = "";
+					player2Name = "";
+				}
 			}
 		}
 	}
