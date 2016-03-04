@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 
 public class Driver {
 
@@ -13,3 +14,13 @@ public class Driver {
 		
 	}
 }
+=======
+
+public class Driver {
+	public static void main(String[] args)
+	{
+		SignInMenu menu = new SignInMenu();
+		menu.buildStartFrame();
+	}
+}
+>>>>>>> Stashed changes

@@ -1,6 +1,0 @@
-org/apache/http/impl/auth/win/WindowsNegotiateScheme.class
-org/apache/http/impl/auth/win/WindowsNTLMSchemeFactory.class
-org/apache/http/impl/client/WinHttpClients.class
-org/apache/http/impl/auth/win/WindowsNegotiateSchemeFactory.class
-org/apache/http/impl/auth/win/WindowsCredentialsProvider.class
-org/apache/http/impl/auth/win/CurrentWindowsCredentials.class

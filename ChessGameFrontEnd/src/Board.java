@@ -58,7 +58,7 @@ public class Board {
 
 	}
 
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		Runnable r = new Runnable() {
 
 			@Override
@@ -69,5 +69,5 @@ public class Board {
 		// Swing GUIs should be created and updated on the EDT
 		// http://docs.oracle.com/javase/tutorial/uiswing/concurrency
 		SwingUtilities.invokeLater(r);
-	}
+	}*/
 }
