@@ -77,16 +77,13 @@ public class JoinGameUpdater extends HttpService implements ActionListener {
 		JButton b = new JButton("ADD");
 		b.setBounds(130, 150, 100, 40);
 		
-		GameUpdater updater = new GameUpdater(state, gameName);
-		ChessBoardUpdater boardUpdater = new ChessBoardUpdater(message, gameName);
+		GameUpdater updater = new GameUpdater(state, message, gameName);
+		
 		try{
 			Timer timer = new Timer(1000, updater);
 			timer.start();
 			
 			updater.attachTimer(timer);
-			
-			Timer boardTimer = new Timer(1000, boardUpdater);
-			boardUpdater.attachTimer(boardTimer);
 			
 		}catch(Exception exp)
 		{
@@ -102,7 +99,7 @@ public class JoinGameUpdater extends HttpService implements ActionListener {
 			{
 				try
 				{
-					boardUpdater.sendAction(gameName, String.valueOf((Integer.parseInt(state.getText()) + 1)));
+					updater.sendAction(String.valueOf((Integer.parseInt(state.getText()) + 1)));
 				}catch(Exception exp)
 				{
 					exp.printStackTrace();

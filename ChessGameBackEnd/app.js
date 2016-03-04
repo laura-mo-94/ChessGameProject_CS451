@@ -53,12 +53,14 @@ function sendMessageToUser(res, status, message)
 }
 
 app.post('/submitMove', function saveMove(req, res){
+	console.log("submitted a move");
 	games[req.body.user][0] = 0; 
 	games[req.body.user][1] = req.body.update;
+	res.send("Move saved");
 });
 
 app.post('/getState', function getState(req, res){
-	var numViewed = parseInt(games[req.body.name][0]);
+	var numViewed = parseInt(games[req.body.user][0]);
 	if(numViewed < 2)
 	{
 		res.send(games[req.body.user][1]);
@@ -66,16 +68,24 @@ app.post('/getState', function getState(req, res){
 		numViewed = numViewed + 1;
 		games[req.body.user][0] = numViewed.toString();
 	}
+	else
+	{
+		res.send("");
+	}
 });
 
 app.post('/getGameMessage', function(req, res){
-	var numViewed = parseInt(games[req.body.name][0]);
+	var numViewed = parseInt(games[req.body.user][0]);
 	if(numViewed < 2)
 	{
-		res.send(games[req.body.user][1]);
-		console.log("got game message " + games[req.body.user][1]);
+		res.send(gamesMessages[req.body.user][1]);
+		console.log("got game message " + gamesMessages[req.body.user][1]);
 		numViewed = numViewed + 1;
-		games[req.body.user][0] = numViewed.toString();
+		gamesMessages[req.body.user][0] = numViewed.toString();
+	}
+	else
+	{
+		res.send("");
 	}
 	
 	checkInTimes[req.body.user] = new Date().getTime()/1000;
