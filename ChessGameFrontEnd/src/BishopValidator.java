@@ -25,8 +25,8 @@ public class BishopValidator extends Validator  {
 		{
 			for(int j=0; j <= 7; j++)
 			{
-				int diffRow = Math.abs(i-xPos);
-				int diffCol = Math.abs(j-yPos);
+				int diffRow = Math.abs(i-x);
+				int diffCol = Math.abs(j-y);
 				
 				if(diffRow == diffCol)
 					returnMoves.add(new int [] {i, j});

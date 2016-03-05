@@ -23,8 +23,8 @@ public class QueenValidator extends Validator  {
 		{
 			for(int j=0; j <= 7; j++)
 			{
-				int diffRow = Math.abs(i-xPos);
-				int diffCol = Math.abs(j-yPos);
+				int diffRow = Math.abs(i-x);
+				int diffCol = Math.abs(j-x);
 				
 				if(diffRow == diffCol)
 					returnMoves.add(new int [] {i, j});
@@ -33,12 +33,17 @@ public class QueenValidator extends Validator  {
 		
 		for(int i=0; i<=7; i++)
 		{
-			returnMoves.add(new int [] {xPos, i});
+			returnMoves.add(new int [] {x, i});
 		}
 		
 		for(int i=0; i<=7; i++)
 		{
-			returnMoves.add(new int [] {i, yPos});
+			returnMoves.add(new int [] {i, x});
+		}
+		
+		for (int i = 0; i < returnMoves.size(); i++) {
+			//ChessButton tempButton = ChessGUI.chessBoardSquares[returnMoves.get(i)[0]][returnMoves.get(i)[1]];
+			System.out.println("(" + returnMoves.get(i)[0] + ", " + returnMoves.get(i)[1] + ")");
 		}
 		
 		return returnMoves;

@@ -24,24 +24,24 @@ public class KingValidator extends Validator  {
 		ArrayList<int[]> returnMoves = new ArrayList<int[]>();
 		
 		for(int i=0; i<=7; i++) {
-			if ((0 <= (xPos - 1)) && ((xPos - 1) <= 7) && (0 <= (yPos + 1)) && ((yPos + 1) <= 7)) 
-				returnMoves.add(new int[] {xPos-1, yPos+1});
-			if ((0 <= (xPos)) && ((xPos) <= 7) && (0 <= (yPos + 1)) && ((yPos + 1) <= 7)) 
-				returnMoves.add(new int[] {xPos, yPos+1});
-			if ((0 <= (xPos + 1)) && ((xPos + 1) <= 7) && (0 <= (yPos + 1)) && ((yPos + 1) <= 7)) 
-				returnMoves.add(new int[] {xPos+1, yPos+1});
+			if ((0 <= (x - 1)) && ((x - 1) <= 7) && (0 <= (y + 1)) && ((y + 1) <= 7)) 
+				returnMoves.add(new int[] {x-1, y+1});
+			if ((0 <= (x)) && ((x) <= 7) && (0 <= (y + 1)) && ((y + 1) <= 7)) 
+				returnMoves.add(new int[] {x, y+1});
+			if ((0 <= (x + 1)) && ((x + 1) <= 7) && (0 <= (y + 1)) && ((y + 1) <= 7)) 
+				returnMoves.add(new int[] {x+1, y+1});
 			
-			if ((0 <= (xPos - 1)) && ((xPos - 1) <= 7) && (0 <= (yPos)) && ((yPos) <= 7)) 
-				returnMoves.add(new int[] {xPos-1, yPos});
-			if ((0 <= (xPos + 1)) && ((xPos + 1) <= 7) && (0 <= (yPos)) && ((yPos) <= 7)) 
-				returnMoves.add(new int[] {xPos+1, yPos});
+			if ((0 <= (x - 1)) && ((x - 1) <= 7) && (0 <= (y)) && ((y) <= 7)) 
+				returnMoves.add(new int[] {x-1, y});
+			if ((0 <= (x + 1)) && ((x + 1) <= 7) && (0 <= (y)) && ((y) <= 7)) 
+				returnMoves.add(new int[] {x+1, y});
 			
-			if ((0 <= (xPos - 1)) && ((xPos - 1) <= 7) && (0 <= (yPos - 1)) && ((yPos - 1) <= 7)) 
-				returnMoves.add(new int[] {xPos-1, yPos-1});
-			if ((0 <= (xPos)) && ((xPos) <= 7) && (0 <= (yPos - 1)) && ((yPos - 1) <= 7)) 
-				returnMoves.add(new int[] {xPos, yPos-1});
-			if ((0 <= (xPos + 1)) && ((xPos + 1) <= 7) && (0 <= (yPos - 1)) && ((yPos - 1) <= 7)) 
-				returnMoves.add(new int[] {xPos+1, yPos-1});
+			if ((0 <= (x - 1)) && ((x - 1) <= 7) && (0 <= (y - 1)) && ((y - 1) <= 7)) 
+				returnMoves.add(new int[] {x-1, y-1});
+			if ((0 <= (x)) && ((x) <= 7) && (0 <= (y - 1)) && ((y - 1) <= 7)) 
+				returnMoves.add(new int[] {x, y-1});
+			if ((0 <= (x + 1)) && ((x + 1) <= 7) && (0 <= (y - 1)) && ((y - 1) <= 7)) 
+				returnMoves.add(new int[] {x+1, y-1});
 		}
 		
 		return returnMoves;

@@ -1,7 +1,7 @@
 public class Piece {
 
-	private int xPos = 0;
-	private int yPos = 0;
+	private int xPos;
+	private int yPos;
 	private boolean isWhite = true;
 	private PieceType type;
 	public Validator v;

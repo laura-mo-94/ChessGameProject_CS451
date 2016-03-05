@@ -181,8 +181,8 @@ public class ChessGUI {
     	Board.boardState[0][0] = new Piece(PieceType.ROOK,0,0,false);
     	Board.boardState[1][0] = new Piece(PieceType.KNIGHT,1,0,false);
     	Board.boardState[2][0] = new Piece(PieceType.BISHOP,2,0,false);
-    	Board.boardState[3][0] = new Piece(PieceType.KING,3,0,false);
-    	Board.boardState[4][0] = new Piece(PieceType.QUEEN,4,0,false);
+    	Board.boardState[3][0] = new Piece(PieceType.QUEEN,3,0,false);
+    	Board.boardState[4][0] = new Piece(PieceType.KING,4,0,false);
     	Board.boardState[5][0] = new Piece(PieceType.BISHOP,5,0,false);
     	Board.boardState[6][0] = new Piece(PieceType.KNIGHT,6,0,false);
     	Board.boardState[7][0] = new Piece(PieceType.ROOK,7,0,false);

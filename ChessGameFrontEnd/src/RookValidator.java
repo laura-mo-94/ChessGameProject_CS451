@@ -21,12 +21,12 @@ public class RookValidator extends Validator  {
 		
 		for(int i=0; i<=7; i++)
 		{
-			returnMoves.add(new int [] {xPos, i});
+			returnMoves.add(new int [] {x, i});
 		}
 		
 		for(int i=0; i<=7; i++)
 		{
-			returnMoves.add(new int [] {i, yPos});
+			returnMoves.add(new int [] {i, y});
 		}
 		
 		return returnMoves;
