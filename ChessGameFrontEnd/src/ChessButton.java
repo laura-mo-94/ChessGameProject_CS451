@@ -73,8 +73,6 @@ public class ChessButton extends JButton {
                 			System.out.println("\t\t" + "(" + returnMoves.get(i)[0] + ", " + returnMoves.get(i)[1] + ")");
                 		}
                 		Board.isHighlighted = true;
-                	} else {
-                		setBackground(normalColor);
                 	}
                 }
             }

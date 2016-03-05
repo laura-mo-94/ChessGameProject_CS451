@@ -24,7 +24,7 @@ public class QueenValidator extends Validator  {
 			for(int j=0; j <= 7; j++)
 			{
 				int diffRow = Math.abs(i-x);
-				int diffCol = Math.abs(j-x);
+				int diffCol = Math.abs(j-y);
 				
 				if(diffRow == diffCol)
 					returnMoves.add(new int [] {i, j});
@@ -38,7 +38,7 @@ public class QueenValidator extends Validator  {
 		
 		for(int i=0; i<=7; i++)
 		{
-			returnMoves.add(new int [] {i, x});
+			returnMoves.add(new int [] {i, y});
 		}
 		
 		for (int i = 0; i < returnMoves.size(); i++) {

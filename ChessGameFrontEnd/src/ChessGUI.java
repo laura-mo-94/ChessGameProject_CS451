@@ -204,9 +204,9 @@ public class ChessGUI {
             chessBoardSquares[i][1].setIcon(new ImageIcon(
                     chessPieceImages[BLACK][PAWN]));
         }
-        
+        /*
         // set up the white pieces
-    	Board.boardState[0][6] = new Piece(PieceType.PAWN,0,6,true);
+    	//Board.boardState[0][6] = new Piece(PieceType.PAWN,0,6,true);
     	Board.boardState[1][6] = new Piece(PieceType.PAWN,1,6,true);
     	Board.boardState[2][6] = new Piece(PieceType.PAWN,2,6,true);
     	Board.boardState[3][6] = new Piece(PieceType.PAWN,3,6,true);
@@ -218,7 +218,7 @@ public class ChessGUI {
         	chessBoardSquares[i][6].setIsOccupied(true);
             chessBoardSquares[i][6].setIcon(new ImageIcon(
                     chessPieceImages[WHITE][PAWN]));
-        }
+        }*/
     	Board.boardState[0][7] = new Piece(PieceType.ROOK,0,7,true);
     	Board.boardState[1][7] = new Piece(PieceType.KNIGHT,1,7,true);
     	Board.boardState[2][7] = new Piece(PieceType.BISHOP,2,7,true);

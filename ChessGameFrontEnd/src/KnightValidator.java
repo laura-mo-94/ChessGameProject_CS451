@@ -9,7 +9,7 @@ public class KnightValidator extends Validator  {
 	
 	boolean isWhite;
 	
-	private int [][] moveRange = new int [][] {{2,1},{1,2},{1,-2},{2,-1},{-2,1},{-1,2},{-1,-2},{-2,1}};
+	private int [][] moveRange = new int [][] {{2,1},{1,2},{1,-2},{2,-1},{-2,-1},{-1,2},{-1,-2},{-2,1}};
 	
 	PieceType type;
 	
@@ -22,11 +22,13 @@ public class KnightValidator extends Validator  {
 		
 		ArrayList<int []> returnMoves = new ArrayList<int []>();
 		
-		for(int i=0; i < 7; i++)
+		for (int i=0; i <= 7; i++)
 		{
-			if((0 <= (x + moveRange[i][0])) && ((x + moveRange[i][0]) <= 7)) {
-				if((0 <= (y + moveRange[i][1])) && ((y + moveRange[i][1]) <= 7)) {
-					returnMoves.add(moveRange[i]);
+			if ((0 <= (x + moveRange[i][0])) && ((x + moveRange[i][0]) <= 7)) {
+				if ((0 <= (y + moveRange[i][1])) && ((y + moveRange[i][1]) <= 7)) {
+					System.out.println(moveRange[i][0] + ", " + moveRange[i][1] +  " added");
+					int[] tempArr = new int[] {x + moveRange[i][0], y + moveRange[i][1]};
+					returnMoves.add(tempArr);
 				}
 			}
 		}
