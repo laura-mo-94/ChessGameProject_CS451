@@ -11,16 +11,16 @@ public class Board {
 
 	private static ChessGUI gui;
 
-	private Piece[][] boardState;
+	public static Piece[][] boardState = new Piece[8][8];
 
 	public List<Piece> blackPieces;
 	public List<Piece> whitePieces;
 
 	public int turn = 0;
-	//public static boolean isHighlighted = false; //Add
+	public static boolean isHighlighted = false; //Add
 
 	public Board() {
-		
+		gui = new ChessGUI();
 	}
 
 	public void updateBoard() {
@@ -50,32 +50,4 @@ public class Board {
 	public void makeMove() {
 
 	}
-<<<<<<< HEAD
-
-	/*public static void main(String[] args) {
-		Runnable r = new Runnable() {
-
-			@Override
-			public void run() {
-				Board board = new Board();
-			}
-		};
-		// Swing GUIs should be created and updated on the EDT
-		// http://docs.oracle.com/javase/tutorial/uiswing/concurrency
-		SwingUtilities.invokeLater(r);
-<<<<<<< HEAD
-	}
-
-//	public static void clearHighlight() {
-//		for (int i = 0; i < 8; i++) {
-//			for (int j = 0; j < 8; j++) {
-//				chessBoardSquares[i][j].setBackground(normalColor);
-//			}	
-//		}
-//	}
-=======
-	}*/
-=======
-
->>>>>>> origin/master
 }

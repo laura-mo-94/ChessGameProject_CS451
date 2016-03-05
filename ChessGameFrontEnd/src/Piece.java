@@ -4,15 +4,16 @@ public class Piece {
 	private int yPos = 0;
 	private boolean isWhite = true;
 	private PieceType type;
-	private Validator v;
-	
+	public Validator v;
 	//private boolean isActive = true; IS THIS NEEDED?
 	
-	public Piece(PieceType type, int x, int y, boolean color, Validator v)
+	public Piece(PieceType type, int x, int y, boolean color)
 	{
-		xPos = x;
-		yPos = y;
-		isWhite = color;
+		this.type = type;
+		this.xPos = x;
+		this.yPos = y;
+		this.isWhite = color;
+		//v = new Validator();
 	}
 
 	public int getX() {
@@ -43,6 +44,4 @@ public class Piece {
 	{
 		this.type = t;
 	}
-	
-
 }

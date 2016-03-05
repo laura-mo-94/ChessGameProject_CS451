@@ -12,7 +12,6 @@ public class RookValidator extends Validator  {
 	
 	// Constructor
 	public RookValidator() {
-
 	}
 
 	@Override
