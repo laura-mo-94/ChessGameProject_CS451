@@ -52,7 +52,7 @@ public class PawnValidator extends Validator  {
 				enPassant = true;
 			}
 			
-			if(y-1 < -1)
+			if(y-1 > -1)
 				if(Board.boardState[x][y-1] == null)
 					returnMoves.add(new int [] {x, y-1});
 			if((x+1 < 8) && (x+1 > -1) && (y-1 < 8) && (y-1 > -1) && (x-1 < 8) && (x-1 > -1))
