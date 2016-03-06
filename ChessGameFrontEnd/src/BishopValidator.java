@@ -23,6 +23,7 @@ public class BishopValidator extends Validator  {
 		boolean breakForLoop = false;
 		if(isWhite) {
 			// UpLeft
+			breakForLoop = false;
 			for(int i=x-1; i>=0; i--) {
 				if(breakForLoop == false) {
 					for(int j=y-1; j>=0; j--) {
@@ -34,6 +35,7 @@ public class BishopValidator extends Validator  {
 							} else {
 								if(Board.boardState[i][j].getIsWhite() == false) {
 									returnMoves.add(new int [] {i, j});
+									breakForLoop = true;
 									break;
 								} else {
 									if (Board.boardState[i][j].getIsWhite() == true) {
@@ -50,6 +52,7 @@ public class BishopValidator extends Validator  {
 				}
 			}
 			// UpRight
+			breakForLoop = false;
 			for(int i=x+1; i<=7; i++) {
 				if(breakForLoop == false) {
 					for(int j=y-1; j>=0; j--) {
@@ -61,6 +64,7 @@ public class BishopValidator extends Validator  {
 							} else {
 								if(Board.boardState[i][j].getIsWhite() == false) {
 									returnMoves.add(new int [] {i, j});
+									breakForLoop = true;
 									break;
 								} else {
 									if (Board.boardState[i][j].getIsWhite() == true) {
@@ -77,6 +81,7 @@ public class BishopValidator extends Validator  {
 				}
 			}
 			// DownRight
+			breakForLoop = false;
 			for(int i=x+1; i<=7; i++) {
 				if(breakForLoop == false) {
 					for(int j=y+1; j<=7; j++) {
@@ -88,6 +93,7 @@ public class BishopValidator extends Validator  {
 							} else {
 								if(Board.boardState[i][j].getIsWhite() == false) {
 									returnMoves.add(new int [] {i, j});
+									breakForLoop = true;
 									break;
 								} else {
 									if (Board.boardState[i][j].getIsWhite() == true) {
@@ -104,6 +110,7 @@ public class BishopValidator extends Validator  {
 				}
 			}
 			// DownLeft
+			breakForLoop = false;
 			for(int i=x-1; i>=0; i--) {
 				if(breakForLoop == false) {
 					for(int j=y+1; j<=7; j++) {
@@ -115,6 +122,7 @@ public class BishopValidator extends Validator  {
 							} else {
 								if(Board.boardState[i][j].getIsWhite() == false) {
 									returnMoves.add(new int [] {i, j});
+									breakForLoop = true;
 									break;
 								} else {
 									if (Board.boardState[i][j].getIsWhite() == true) {
@@ -133,6 +141,7 @@ public class BishopValidator extends Validator  {
 		} else {
 			if(!isWhite) {
 				// UpLeft
+				breakForLoop = false;
 				for(int i=x-1; i>=0; i--) {
 					if(breakForLoop == false) {
 						for(int j=y-1; j>=0; j--) {
@@ -144,6 +153,7 @@ public class BishopValidator extends Validator  {
 								} else {
 									if(Board.boardState[i][j].getIsWhite() == true) {
 										returnMoves.add(new int [] {i, j});
+										breakForLoop = true;
 										break;
 									} else {
 										if (Board.boardState[i][j].getIsWhite() == false) {
@@ -160,6 +170,7 @@ public class BishopValidator extends Validator  {
 					}
 				}
 				// UpRight
+				breakForLoop = false;
 				for(int i=x+1; i<=7; i++) {
 					if(breakForLoop == false) {
 						for(int j=y-1; j>=0; j--) {
@@ -171,6 +182,7 @@ public class BishopValidator extends Validator  {
 								} else {
 									if(Board.boardState[i][j].getIsWhite() == true) {
 										returnMoves.add(new int [] {i, j});
+										breakForLoop = true;
 										break;
 									} else {
 										if (Board.boardState[i][j].getIsWhite() == false) {
@@ -187,6 +199,7 @@ public class BishopValidator extends Validator  {
 					}
 				}
 				// DownRight
+				breakForLoop = false;
 				for(int i=x+1; i<=7; i++) {
 					if(breakForLoop == false) {
 						for(int j=y+1; j<=7; j++) {
@@ -198,6 +211,7 @@ public class BishopValidator extends Validator  {
 								} else {
 									if(Board.boardState[i][j].getIsWhite() == true) {
 										returnMoves.add(new int [] {i, j});
+										breakForLoop = true;
 										break;
 									} else {
 										if (Board.boardState[i][j].getIsWhite() == false) {
@@ -214,6 +228,7 @@ public class BishopValidator extends Validator  {
 					}
 				}
 				// DownLeft
+				breakForLoop = false;
 				for(int i=x-1; i>=0; i--) {
 					if(breakForLoop == false) {
 						for(int j=y+1; j<=7; j++) {
@@ -225,6 +240,7 @@ public class BishopValidator extends Validator  {
 								} else {
 									if(Board.boardState[i][j].getIsWhite() == true) {
 										returnMoves.add(new int [] {i, j});
+										breakForLoop = true;
 										break;
 									} else {
 										if (Board.boardState[i][j].getIsWhite() == false) {

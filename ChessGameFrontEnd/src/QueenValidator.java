@@ -21,6 +21,7 @@ public class QueenValidator extends Validator  {
 		boolean breakForLoop = false;
 		if(isWhite) {
 			// UpLeft
+			breakForLoop = false;
 			for(int i=x-1; i>=0; i--) {
 				if(breakForLoop == false) {
 					for(int j=y-1; j>=0; j--) {
@@ -32,6 +33,7 @@ public class QueenValidator extends Validator  {
 							} else {
 								if(Board.boardState[i][j].getIsWhite() == false) {
 									returnMoves.add(new int [] {i, j});
+									breakForLoop = true;
 									break;
 								} else {
 									if (Board.boardState[i][j].getIsWhite() == true) {
@@ -48,6 +50,7 @@ public class QueenValidator extends Validator  {
 				}
 			}
 			// UpRight
+			breakForLoop = false;
 			for(int i=x+1; i<=7; i++) {
 				if(breakForLoop == false) {
 					for(int j=y-1; j>=0; j--) {
@@ -59,6 +62,8 @@ public class QueenValidator extends Validator  {
 							} else {
 								if(Board.boardState[i][j].getIsWhite() == false) {
 									returnMoves.add(new int [] {i, j});
+									breakForLoop = true;
+									System.out.println("Hit a break at X: " + i + " Y: " + j);
 									break;
 								} else {
 									if (Board.boardState[i][j].getIsWhite() == true) {
@@ -75,6 +80,7 @@ public class QueenValidator extends Validator  {
 				}
 			}
 			// DownRight
+			breakForLoop = false;
 			for(int i=x+1; i<=7; i++) {
 				if(breakForLoop == false) {
 					for(int j=y+1; j<=7; j++) {
@@ -86,6 +92,7 @@ public class QueenValidator extends Validator  {
 							} else {
 								if(Board.boardState[i][j].getIsWhite() == false) {
 									returnMoves.add(new int [] {i, j});
+									breakForLoop = true;
 									break;
 								} else {
 									if (Board.boardState[i][j].getIsWhite() == true) {
@@ -102,6 +109,7 @@ public class QueenValidator extends Validator  {
 				}
 			}
 			// DownLeft
+			breakForLoop = false;
 			for(int i=x-1; i>=0; i--) {
 				if(breakForLoop == false) {
 					for(int j=y+1; j<=7; j++) {
@@ -113,6 +121,7 @@ public class QueenValidator extends Validator  {
 							} else {
 								if(Board.boardState[i][j].getIsWhite() == false) {
 									returnMoves.add(new int [] {i, j});
+									breakForLoop = true;
 									break;
 								} else {
 									if (Board.boardState[i][j].getIsWhite() == true) {
@@ -191,6 +200,7 @@ public class QueenValidator extends Validator  {
 		} else {
 			if(!isWhite) {
 				// UpLeft
+				breakForLoop = false;
 				for(int i=x-1; i>=0; i--) {
 					if(breakForLoop == false) {
 						for(int j=y-1; j>=0; j--) {
@@ -202,6 +212,7 @@ public class QueenValidator extends Validator  {
 								} else {
 									if(Board.boardState[i][j].getIsWhite() == true) {
 										returnMoves.add(new int [] {i, j});
+										breakForLoop = true;
 										break;
 									} else {
 										if (Board.boardState[i][j].getIsWhite() == false) {
@@ -218,6 +229,7 @@ public class QueenValidator extends Validator  {
 					}
 				}
 				// UpRight
+				breakForLoop = false;
 				for(int i=x+1; i<=7; i++) {
 					if(breakForLoop == false) {
 						for(int j=y-1; j>=0; j--) {
@@ -229,6 +241,7 @@ public class QueenValidator extends Validator  {
 								} else {
 									if(Board.boardState[i][j].getIsWhite() == true) {
 										returnMoves.add(new int [] {i, j});
+										breakForLoop = true;
 										break;
 									} else {
 										if (Board.boardState[i][j].getIsWhite() == false) {
@@ -245,6 +258,7 @@ public class QueenValidator extends Validator  {
 					}
 				}
 				// DownRight
+				breakForLoop = false;
 				for(int i=x+1; i<=7; i++) {
 					if(breakForLoop == false) {
 						for(int j=y+1; j<=7; j++) {
@@ -256,6 +270,7 @@ public class QueenValidator extends Validator  {
 								} else {
 									if(Board.boardState[i][j].getIsWhite() == true) {
 										returnMoves.add(new int [] {i, j});
+										breakForLoop = true;
 										break;
 									} else {
 										if (Board.boardState[i][j].getIsWhite() == false) {
@@ -272,6 +287,7 @@ public class QueenValidator extends Validator  {
 					}
 				}
 				// DownLeft
+				breakForLoop = false;
 				for(int i=x-1; i>=0; i--) {
 					if(breakForLoop == false) {
 						for(int j=y+1; j<=7; j++) {
@@ -283,6 +299,7 @@ public class QueenValidator extends Validator  {
 								} else {
 									if(Board.boardState[i][j].getIsWhite() == true) {
 										returnMoves.add(new int [] {i, j});
+										breakForLoop = true;
 										break;
 									} else {
 										if (Board.boardState[i][j].getIsWhite() == false) {
