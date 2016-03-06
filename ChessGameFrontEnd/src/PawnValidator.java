@@ -51,7 +51,10 @@ public class PawnValidator extends Validator  {
 				enPassant = true;
 			}
 			
-			returnMoves.add(new int [] {x, y-1});
+			if(Board.boardState[x][y-1] == null)
+				returnMoves.add(new int [] {x, y-1});
+			else if(Board.boardState[x][y-1].getIsWhite() ==  false)
+				returnMoves.add(new int [] {x, y-1});
 		}
 		else if(!isWhite)
 		{
@@ -61,7 +64,10 @@ public class PawnValidator extends Validator  {
 				enPassant = true;
 			}
 			
-			returnMoves.add(new int [] {x, y+1});
+			if(Board.boardState[x][y+1] == null)
+				returnMoves.add(new int [] {x, y+1});
+			else if(Board.boardState[x][y+1].getIsWhite() ==  true)
+				returnMoves.add(new int [] {x, y+1});
 		}
 		
 		
