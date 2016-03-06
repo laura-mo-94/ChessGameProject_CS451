@@ -14,7 +14,7 @@ public class ChessButton extends JButton {
     public Color normalColor;
     private int xPos;
     private int yPos;
-    private boolean isOccupied;
+    public boolean isOccupied;
     
     public int getxPos() {
 		return xPos;
