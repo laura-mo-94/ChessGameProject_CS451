@@ -1,5 +1,4 @@
 import java.awt.*;
-import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import javax.swing.*;
 import javax.swing.border.*;
@@ -52,7 +51,7 @@ public class ChessGUI {
 //        };
 //      tools.add(newGameAction);
         tools.addSeparator();
-        tools.add(new JButton("Make Move")); // TODO - add functionality!
+        tools.add(new MakeMoveButton("Make Move")); // TODO - add functionality!
         tools.addSeparator();
         tools.add(new JButton("Forfeit")); // TODO - add functionality!
         tools.addSeparator();
@@ -115,7 +114,7 @@ public class ChessGUI {
                 b.setMargin(buttonMargin);
                 ImageIcon icon = new ImageIcon(
                         new BufferedImage(64, 64, BufferedImage.TYPE_INT_ARGB));
-                b.setIcon(icon);
+                b.setImage(icon);
                 if ((j % 2 == 1 && i % 2 == 1) || (j % 2 == 0 && i % 2 == 0)) {
                     b.setBackground(Color.WHITE);
                     b.normalColor = Color.WHITE;
@@ -188,7 +187,7 @@ public class ChessGUI {
     	Board.boardState[7][0] = new Piece(PieceType.ROOK,7,0,false);
         for (int i = 0; i < STARTING_ROW.length; i++) {
         	chessBoardSquares[i][0].setIsOccupied(true);
-            chessBoardSquares[i][0].setIcon(new ImageIcon(
+            chessBoardSquares[i][0].setImage(new ImageIcon(
                     chessPieceImages[BLACK][STARTING_ROW[i]]));
         }
         Board.boardState[0][1] = new Piece(PieceType.PAWN,0,1,false);
@@ -201,10 +200,10 @@ public class ChessGUI {
     	Board.boardState[7][1] = new Piece(PieceType.PAWN,7,1,false);
         for (int i = 0; i < STARTING_ROW.length; i++) {
         	chessBoardSquares[i][1].setIsOccupied(true);
-            chessBoardSquares[i][1].setIcon(new ImageIcon(
+            chessBoardSquares[i][1].setImage(new ImageIcon(
                     chessPieceImages[BLACK][PAWN]));
         }
-        /*
+        
         // set up the white pieces
     	//Board.boardState[0][6] = new Piece(PieceType.PAWN,0,6,true);
     	Board.boardState[1][6] = new Piece(PieceType.PAWN,1,6,true);
@@ -218,7 +217,7 @@ public class ChessGUI {
         	chessBoardSquares[i][6].setIsOccupied(true);
             chessBoardSquares[i][6].setIcon(new ImageIcon(
                     chessPieceImages[WHITE][PAWN]));
-        }*/
+        }
     	Board.boardState[0][7] = new Piece(PieceType.ROOK,0,7,true);
     	Board.boardState[1][7] = new Piece(PieceType.KNIGHT,1,7,true);
     	Board.boardState[2][7] = new Piece(PieceType.BISHOP,2,7,true);
@@ -229,7 +228,7 @@ public class ChessGUI {
     	Board.boardState[7][7] = new Piece(PieceType.ROOK,7,7,true);
         for (int i = 0; i < STARTING_ROW.length; i++) {
         	chessBoardSquares[i][7].setIsOccupied(true); 
-            chessBoardSquares[i][7].setIcon(new ImageIcon(
+            chessBoardSquares[i][7].setImage(new ImageIcon(
                     chessPieceImages[WHITE][STARTING_ROW[i]]));
         }
         
@@ -238,17 +237,17 @@ public class ChessGUI {
 				if (Board.boardState[i][j] != null) {
 					Piece tempPiece = Board.boardState[i][j];
 					if (tempPiece.getType() == PieceType.PAWN)
-						tempPiece.v = new PawnValidator();
+						tempPiece.validator = new PawnValidator();
 					if (tempPiece.getType() == PieceType.ROOK)
-						tempPiece.v = new RookValidator();
+						tempPiece.validator = new RookValidator();
 					if (tempPiece.getType() == PieceType.KNIGHT)
-						tempPiece.v = new KnightValidator();
+						tempPiece.validator = new KnightValidator();
 					if (tempPiece.getType() == PieceType.BISHOP)
-						tempPiece.v = new BishopValidator();
+						tempPiece.validator = new BishopValidator();
 					if (tempPiece.getType() == PieceType.QUEEN)
-						tempPiece.v = new QueenValidator();
+						tempPiece.validator = new QueenValidator();
 					if (tempPiece.getType() == PieceType.KING)
-						tempPiece.v = new KingValidator();
+						tempPiece.validator = new KingValidator();
 				}
 			}
         }

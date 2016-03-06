@@ -4,7 +4,7 @@ public class Piece {
 	private int yPos;
 	private boolean isWhite = true;
 	private PieceType type;
-	public Validator v;
+	public Validator validator;
 	//private boolean isActive = true; IS THIS NEEDED?
 	
 	public Piece(PieceType type, int x, int y, boolean color)
@@ -13,7 +13,32 @@ public class Piece {
 		this.xPos = x;
 		this.yPos = y;
 		this.isWhite = color;
-		//v = new Validator();
+	}
+	
+	public Piece(Piece piece)
+	{
+		this.type = piece.getType();
+		this.xPos = piece.getX();
+		this.yPos = piece.getY();
+		this.isWhite = piece.getIsWhite();
+		this.validator = piece.getValidator();
+	}
+	
+	public Piece(Piece piece, int x, int y)
+	{
+		this.type = piece.getType();
+		this.xPos = x;
+		this.yPos = y;
+		this.isWhite = piece.getIsWhite();
+		this.validator = piece.getValidator();
+	}
+
+	public Validator getValidator() {
+		return validator;
+	}
+
+	public void setValidator(Validator v) {
+		this.validator = v;
 	}
 
 	public int getX() {

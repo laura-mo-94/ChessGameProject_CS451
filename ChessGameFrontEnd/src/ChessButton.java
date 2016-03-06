@@ -1,7 +1,9 @@
 import java.awt.Color;
 import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.event.ChangeEvent;
@@ -16,8 +18,25 @@ public class ChessButton extends JButton {
     private int xPos;
     private int yPos;
     public boolean isOccupied;
+    private ImageIcon image;
     
-    public int getxPos() {
+    public ImageIcon getImage() {
+		return image;
+	}
+
+    public void setImage(ImageIcon image) {
+		this.image = image;
+		this.setIcon(image);
+	}
+    
+    public void setImage() {
+    	ImageIcon icon = new ImageIcon(
+                new BufferedImage(64, 64, BufferedImage.TYPE_INT_ARGB));
+		this.image = icon;
+		this.setIcon(icon);
+	}
+    
+	public int getxPos() {
 		return xPos;
 	}
 
@@ -51,6 +70,9 @@ public class ChessButton extends JButton {
                 	if (Board.isHighlighted) {
                 		if(getBackground() == pressedColor && Board.pendingMove == false) {
                 			setBackground(moveColor);
+                			MakeMoveButton.selectedSpaceX = xPos;
+                			MakeMoveButton.selectedSpaceY = yPos;
+                			System.out.println("Selected Space (" + xPos + ", " + yPos + ")");
                 			Board.pendingMove = true;
                 		} else {
                 			ChessGUI.clearHighlight();
@@ -61,15 +83,21 @@ public class ChessButton extends JButton {
                 		ChessGUI.clearHighlight();
                 		setBackground(pressedColor);
                 		Piece piece = Board.instance.boardState[xPos][yPos];
+
+                		//Set Selected Piece
+                		MakeMoveButton.selectedPieceX = piece.getX();
+                		MakeMoveButton.selectedPieceY = piece.getY();
+            			System.out.println("Selected Piece (" + piece.getX() + ", " + piece.getY() + ")");
+
                 		
-                		//Selection Print
+            			// Console printed statement
                 		String color = "BLACK";
                 		if (piece.getIsWhite())
                 			color = "WHITE";
                 		System.out.println(color + " " + piece.getType().toString() + " at (" + piece.getX() + ", " + piece.getY() + ") has been selected.");
                 		
-                		ArrayList<int[]> returnMoves = piece.v.highlightBoard(piece.getX(), piece.getY(), piece.getIsWhite());
-                		
+                		// Movement Validation
+                		ArrayList<int[]> returnMoves = piece.validator.highlightBoard(piece.getX(), piece.getY(), piece.getIsWhite());
                 		System.out.println("\t" + color + " " + piece.getType().toString() + " can move to:");
                 		for (int i = 0; i < returnMoves.size(); i++) {
                 			ChessGUI.chessBoardSquares[returnMoves.get(i)[0]][returnMoves.get(i)[1]].setBackground(pressedColor);
@@ -79,12 +107,16 @@ public class ChessButton extends JButton {
                 	}
                 }
             }
-        }
-
-        );
+        });
     }
     
-    public void resetSpaceColor() {
+    public ChessButton(int selectedSpaceX, int selectedSpaceY, boolean b) {
+    	xPos = selectedSpaceX;
+    	yPos = selectedSpaceY;
+    	isOccupied = b;
+    }
+
+	public void resetSpaceColor() {
     	setBackground(normalColor);
     }
     

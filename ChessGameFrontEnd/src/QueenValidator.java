@@ -51,7 +51,6 @@ public class QueenValidator extends Validator  {
 			for(int i=x+1; i<=7; i++) {
 				if(breakForLoop == false) {
 					for(int j=y-1; j>=0; j--) {
-						System.out.println("Poop!");
 						int diffRow = Math.abs(i-x);
 						int diffCol = Math.abs(j-y);
 						if(diffRow == diffCol) {
