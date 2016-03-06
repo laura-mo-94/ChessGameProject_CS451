@@ -11,6 +11,7 @@ public class ChessButton extends JButton {
 	
 	private static final long serialVersionUID = 1L;
 	private Color pressedColor = Color.GREEN;
+	private Color moveColor = Color.BLUE;
     public Color normalColor;
     private int xPos;
     private int yPos;
@@ -31,7 +32,7 @@ public class ChessButton extends JButton {
 	public void setyPos(int yPos) {
 		this.yPos = yPos;
 	}
-
+	
 	public ChessButton () {
         setBorderPainted(true);
         setFocusPainted(true);
@@ -48,6 +49,11 @@ public class ChessButton extends JButton {
             public void stateChanged(ChangeEvent evt) {
                 if (getModel().isPressed()) {
                 	if (Board.isHighlighted) {
+                		if(getBackground() == pressedColor) {
+                			setBackground(moveColor);
+                		} else {
+                			ChessGUI.clearHighlight();
+                		}
                 		//if () {
                 		//move piece
                 		//else Board.clearHighlight();
@@ -68,8 +74,9 @@ public class ChessButton extends JButton {
                 		
                 		System.out.println("\t" + color + " " + piece.getType().toString() + " can move to:");
                 		for (int i = 0; i < returnMoves.size(); i++) {
-                			ChessButton tempButton = ChessGUI.chessBoardSquares[returnMoves.get(i)[0]][returnMoves.get(i)[1]];
-                			tempButton.setBackground(tempButton.pressedColor);
+                			//ChessButton tempButton = ChessGUI.chessBoardSquares[returnMoves.get(i)[0]][returnMoves.get(i)[1]];
+                			//tempButton.setBackground(tempButton.pressedColor);
+                			ChessGUI.chessBoardSquares[returnMoves.get(i)[0]][returnMoves.get(i)[1]].setBackground(pressedColor);
                 			System.out.println("\t\t" + "(" + returnMoves.get(i)[0] + ", " + returnMoves.get(i)[1] + ")");
                 		}
                 		Board.isHighlighted = true;
