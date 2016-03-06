@@ -1,5 +1,7 @@
 import java.awt.event.*;
 import java.net.HttpURLConnection;
+
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -9,8 +11,17 @@ public class GameUpdater extends HttpService implements ActionListener
 {
 	private JLabel label;
 	private JLabel messageLabel;
+	private JFrame frame;
 	private String gameName;
+	private String userName;
 	private boolean isActive = false;
+	
+	private boolean attemptingDraw = false;
+	float timeElapsed = 0;
+	float timeLimit = 60;
+	private boolean countingDown;
+	private boolean disconnected;
+	Date startTime;
 	
 	public GameUpdater(JLabel label, JLabel message, String name, String gname)
 	{
@@ -18,7 +29,7 @@ public class GameUpdater extends HttpService implements ActionListener
 		messageLabel = message;
 		gameName = gname;
 		String[] names = gameName.split(" ");
-		
+		userName = name;
 		if(names[0].equals(name))
 		{
 			isActive = true;
@@ -27,20 +38,53 @@ public class GameUpdater extends HttpService implements ActionListener
 	
 	public void actionPerformed(ActionEvent e)
 	{
-		String response = checkState(SERVER_SITE + "/getGameMessage", gameName);
+		String response = checkState(SERVER_SITE + "/getGameMessage", gameName, userName);
 		
-		if(!response.equals(""))
+		if(response != null && !response.equals(""))
 		{
 			messageLabel.setText(response);
 		}
 		
 		response = checkBoardState(SERVER_SITE + "/getState", gameName);
 		
-		if(!response.equals(""))
+		if(response != null && !response.equals(""))
 		{
 			label.setText(response);
 			System.out.println("is active " + isActive);
 			isActive = !isActive;
+			
+			if(isActive)
+			{
+				startTime = new Date();
+			}
+		}
+		
+		if(countingDown)
+		{
+			if(timeElapsed > 0)
+			{
+				timeElapsed = timeElapsed - 1;
+				messageLabel.setText(timeElapsed + " seconds left until forfeit");
+			}
+			else
+			{
+				int input = JOptionPane.showConfirmDialog(null, "You have forfeited the game.");
+				if(input == JOptionPane.OK_OPTION)
+				{
+					timer.stop();
+					
+					if(!disconnected)
+					{
+						leaveGame();
+						sendGameMessage("Player has forfeit");
+						getAnotherGame();
+					}
+					else
+					{
+						startScreen();
+					}
+				}
+			}
 		}
 	}
 	
@@ -53,18 +97,77 @@ public class GameUpdater extends HttpService implements ActionListener
 	 * currently at. If sendAction has never been called, this
 	 * should be 1. After sendAction, it should be 2.
 	 *----------------------------------------------------------*/
-	public String checkState(String url, String name)
+	public String checkState(String url, String gameName, String userName)
 	{
 		HttpURLConnection con;
 		String response = "";
 		
 		Map<String, String> params = new HashMap<String, String>();
-		params.put("user", name);
+		params.put("userName", userName);
+		params.put("gameName", gameName);
 		
 		try {
 			con = setUpConnection(url);
 			String encodedParam = encodeStringForPost(params);
 			response = getResultsWithParams(con, encodedParam);
+			
+			if(response != null)
+			{
+				disconnected = false;
+				if(response.equals("Requesting a draw") && !attemptingDraw)
+				{
+					int input = JOptionPane.showConfirmDialog(null, "User requested a draw. Do you accept?", "Draw Request", JOptionPane.YES_NO_OPTION);
+					if(input == JOptionPane.OK_OPTION)
+					{
+						timer.stop();
+						leaveGame();
+						sendGameMessage("Draw accepted");
+						getAnotherGame();
+					}
+					else
+					{
+						sendGameMessage("Draw rejected");
+					}
+				}
+				else if(response.equals("Draw accepted") && attemptingDraw)
+				{
+					attemptingDraw = false;
+					int input = JOptionPane.showConfirmDialog(null, "Draw accepted!");
+					if(input >= 0)
+					{
+						timer.stop();
+						leaveGame();
+						endGame();
+						getAnotherGame();
+					}
+				}
+				else if(response.equals("Draw rejected") && attemptingDraw)
+				{
+					int input = JOptionPane.showConfirmDialog(null, "Draw was rejected.");
+					if(input >= 0)
+					{
+						attemptingDraw = false;
+					}
+				}
+				else if(response.equals("Player has forfeit"))
+				{
+					int input = JOptionPane.showConfirmDialog(null, "Opponented has forfeited");
+					if(input >=  0)
+					{
+						timer.stop();
+						leaveGame();
+						endGame();
+						getAnotherGame();
+					}
+				}
+				
+			}
+			else if(response == null && !countingDown)
+			{
+				JOptionPane.showConfirmDialog(null, "Network connection broken! Check connection then continue.");
+				countingDown = true;  
+				disconnected = true;
+			}
 			
 		} catch (Exception e1) {
 			// TODO Auto-generated catch block
@@ -119,8 +222,115 @@ public class GameUpdater extends HttpService implements ActionListener
 		return getResultsWithParams(con, encodedParam);
 	}
 	
+	public String sendGameMessage(String message) 
+	{
+		String url = SERVER_SITE + "/postMessage";
+		HttpURLConnection con = null;
+		String encodedParam = "";
+		
+		try{
+			con = setUpConnection(url);
+			
+			Map<String, String> params = new HashMap<String, String>();
+			params.put("update", message);
+			params.put("user", gameName);
+			
+			encodedParam = encodeStringForPost(params);
+		} catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		
+		return getResultsWithParams(con, encodedParam);
+	}
+	
 	public boolean getIsActive()
 	{
 		return isActive;
+	}
+	
+	public void setActiveFrame(JFrame f)
+	{
+		frame = f;
+	}
+	
+	public void endGame()
+	{
+		System.out.println(userName + " is ending the game");
+		String url = SERVER_SITE + "/removeGame";
+		
+		try{
+			HttpURLConnection con = setUpConnection(url);
+			
+			Map<String, String> params = new HashMap<String, String>();
+			params.put("game", gameName);
+			String encodedParam = encodeStringForPost(params);
+
+			getResultsWithParams(con, encodedParam);
+		}catch(Exception e)
+		{
+			System.out.println(e.getMessage());
+		}
+	}
+	
+	public void leaveGame()
+	{
+		System.out.println(userName + " is leaving the game");
+		String url = SERVER_SITE + "/leaveGame";
+		
+		try{
+			HttpURLConnection con = setUpConnection(url);
+			
+			Map<String, String> params = new HashMap<String, String>();
+			params.put("userName", userName);
+			String encodedParam = encodeStringForPost(params);
+
+			getResultsWithParams(con, encodedParam);
+		}catch(Exception e)
+		{
+			System.out.println(e.getMessage());
+		}
+	}
+	
+	public void getAnotherGame()
+	{
+		System.out.println(userName + " is getting another game");
+		String url = SERVER_SITE + "/join";
+		try{
+			HttpURLConnection con = setUpConnection(url);
+			
+			Map<String, String> params = new HashMap<String, String>();
+			params.put("user", userName);
+			String encodedParam = encodeStringForPost(params);
+
+			String response = getResultsWithParams(con, encodedParam);
+			
+			WaitMenuFunction waitScreen = new WaitMenuFunction(userName, frame);
+			waitScreen.buildFrame("Waiting for an opponent...");
+		}catch(Exception e)
+		{
+			System.out.println(e.getMessage());
+		}
+	}
+	
+	public void draw() throws Exception
+	{
+		sendGameMessage("Requesting a draw");
+		attemptingDraw = true;
+	}
+	
+	public void forfeit() throws Exception
+	{
+		timer.stop();
+		sendGameMessage("Player has forfeit");
+		leaveGame();
+		getAnotherGame();
+	}
+	
+	public void startScreen()
+	{
+		timer.stop();
+		SignInMenu signIn = new SignInMenu();
+		signIn.buildStartFrame(frame);
 	}
 }

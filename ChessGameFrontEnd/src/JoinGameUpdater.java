@@ -19,20 +19,24 @@ public class JoinGameUpdater extends HttpService implements ActionListener {
 	public void actionPerformed(ActionEvent e)
 	{
 		String response = "";
-		try {
-			response = checkForOpponent(userName);
-		} catch (Exception e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
 		
-		if(!response.equals("Waiting..."))
+		response = checkForOpponent(userName);
+		
+		System.out.println(response);
+		if(response == null)
 		{
-			System.out.println(response);
-			activeFrame.setEnabled(false);
-			activeFrame.setVisible(false);
+			int input = JOptionPane.showConfirmDialog(null, "Connection broken!");
+			if(input >= 0)
+			{
+				timer.stop();
+				SignInMenu menu = new SignInMenu();
+				menu.buildStartFrame(activeFrame);
+			}
+		}
+		else if(!response.equals("Waiting..."))
+		{
 			timer.stop();
-			buildGameFrame(response);
+			buildGameFrame(response, activeFrame);
 		}
 	}
 	
@@ -48,36 +52,51 @@ public class JoinGameUpdater extends HttpService implements ActionListener {
 	 * or "Bill", once a session has been created, this will
 	 * return "Alex vs Bill".
 	 *----------------------------------------------------------*/
-	public String checkForOpponent(String userName) throws Exception
+	public String checkForOpponent(String userName)
 	{
 		String url = SERVER_SITE + "/getOpponent";
-		HttpURLConnection con = setUpConnection(url);
-		
-		Map<String, String> params = new HashMap<String, String>();
-		params.put("user", userName);
-		
-		String encodedParam = encodeStringForPost(params);
-		return getResultsWithParams(con, encodedParam);
+		try
+		{
+			HttpURLConnection con = setUpConnection(url);
+			
+			Map<String, String> params = new HashMap<String, String>();
+			params.put("user", userName);
+			
+			String encodedParam = encodeStringForPost(params);
+			return getResultsWithParams(con, encodedParam);
+		} catch(Exception e)
+		{
+			return null;
+		}
 	}
 	
-	private void buildGameFrame(String gameName)
+	private void buildGameFrame(String gameName, JFrame frame)
 	{
-		JFrame startFrame = new JFrame();
+		frame.getContentPane().removeAll();
 		JLabel label = new JLabel(gameName);
 		label.setBounds(100, 40, 300, 20);
-		startFrame.add(label);
+		frame.add(label);
 		
 		JLabel state = new JLabel("0");
 		state.setBounds(100, 100, 200, 30);
 		
 		JLabel message = new JLabel("");
 		message.setBounds(100, 200, 300, 160);
-		startFrame.add(state);
+		frame.add(state);
 		
 		JButton b = new JButton("ADD");
 		b.setBounds(130, 150, 100, 40);
 		
+		JButton draw = new JButton("DRAW");
+		draw.setBounds(130, 200, 100, 40);
+		frame.add(draw);
+		
+		JButton forfeit = new JButton("FORFEIT");
+		forfeit.setBounds(130, 250, 100, 40);
+		frame.add(forfeit);
+		
 		GameUpdater updater = new GameUpdater(state, message, userName, gameName);
+		updater.setActiveFrame(frame);
 		
 		try{
 			Timer timer = new Timer(1000, updater);
@@ -111,11 +130,33 @@ public class JoinGameUpdater extends HttpService implements ActionListener {
 			}
 		});
 		
-		startFrame.add(b);
-		startFrame.setSize(400, 500);
-		startFrame.setLayout(null);
-		startFrame.setVisible(true);
-		startFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		draw.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e)
+			{
+				try{
+					updater.draw();
+				}catch(Exception exp)
+				{
+					exp.printStackTrace();
+				}
+			}
+		});
+		
+		forfeit.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e)
+			{
+				try{
+					updater.forfeit();
+				}catch(Exception exp)
+				{
+					exp.printStackTrace();
+				}
+			}
+		});
+		
+		frame.add(b);
+		frame.revalidate();
+		frame.repaint();
 	}
 	
 }

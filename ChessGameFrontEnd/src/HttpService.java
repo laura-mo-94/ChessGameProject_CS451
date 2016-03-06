@@ -37,7 +37,6 @@ public class HttpService
 	 *----------------------------------------------------------*/
 	public String getResults(HttpURLConnection con)
 	{
-		System.out.println("howdy");
 		String inputLine;
 		StringBuffer response = new StringBuffer();
 		

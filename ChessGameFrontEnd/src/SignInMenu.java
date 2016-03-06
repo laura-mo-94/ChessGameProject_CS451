@@ -26,10 +26,22 @@ public class SignInMenu extends HttpService
 	 * Builds the sign in frame.
 	 *----------------------------------------------------------*/
 	
-	public void buildStartFrame()
+	public void buildStartFrame(JFrame frame)
 	{
 		SignInMenu menu = new SignInMenu();
-		JFrame startFrame = new JFrame();
+		
+		JFrame startFrame;
+		
+		if(frame == null)
+		{
+			startFrame = new JFrame();
+		}
+		else
+		{
+			startFrame = frame;
+			startFrame.getContentPane().removeAll();
+		}
+		
 		JLabel label = new JLabel("Please enter your name");
 		label.setBounds(100, 40, 300, 20);
 		startFrame.add(label);
@@ -50,15 +62,8 @@ public class SignInMenu extends HttpService
 			{
 				try{
 					String name = textField.getText();
-					String response = menu.joinGame(name, label);
-					if( response != null && response.contains("Waiting"))
-					{
-						JoinGameUpdater updater = new JoinGameUpdater(startFrame, name);
-						Timer timer = new Timer(1000, updater);
-						timer.start();
-						
-						updater.attachTimer(timer);
-					}
+					menu.joinGame(name, label, startFrame);
+					
 				}catch(Exception exp)
 				{
 					System.out.println("Error! Failed to send button action. " + exp);
@@ -68,10 +73,19 @@ public class SignInMenu extends HttpService
 		});
 		
 		startFrame.add(b);
-		startFrame.setSize(400, 500);
-		startFrame.setLayout(null);
-		startFrame.setVisible(true);
-		startFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		if(frame == null)
+		{
+			startFrame.setSize(400, 500);
+			startFrame.setLayout(null);
+			startFrame.setVisible(true);
+			startFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		}
+		else
+		{
+			startFrame.revalidate();
+			startFrame.repaint();
+		}
 	}
 	
 	
@@ -79,7 +93,7 @@ public class SignInMenu extends HttpService
 	 * Joins the game.
 	 * Should return "Waiting for opponent..." when called
 	 *----------------------------------------------------------*/
-	public String joinGame(String name, JLabel label) throws Exception
+	public void joinGame(String name, JLabel label, JFrame frame) throws Exception
 	{
 		String url = SERVER_SITE + "/join";
 		HttpURLConnection con = setUpConnection(url);
@@ -93,12 +107,16 @@ public class SignInMenu extends HttpService
 		if(response == null)
 		{
 			label.setText("Error! Could not connect to network!");
-			return null;
+		}
+		else if(!response.contains("Waiting"))
+		{
+			label.setText("Name is in use! Please choose another.");
 		}
 		else
 		{
-			label.setText(response);
+			System.out.println("here i am");
+			WaitMenuFunction waitMenu = new WaitMenuFunction(name, frame);
+			waitMenu.buildFrame(response);
 		}
-		return response;
 	}
 }
