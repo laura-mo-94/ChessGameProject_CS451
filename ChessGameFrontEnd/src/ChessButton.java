@@ -49,15 +49,13 @@ public class ChessButton extends JButton {
             public void stateChanged(ChangeEvent evt) {
                 if (getModel().isPressed()) {
                 	if (Board.isHighlighted) {
-                		if(getBackground() == pressedColor) {
+                		if(getBackground() == pressedColor && Board.pendingMove == false) {
                 			setBackground(moveColor);
+                			Board.pendingMove = true;
                 		} else {
                 			ChessGUI.clearHighlight();
+                			Board.pendingMove = false;
                 		}
-                		//if () {
-                		//move piece
-                		//else Board.clearHighlight();
-                		//}
                 	}
                 	if(isOccupied){
                 		ChessGUI.clearHighlight();
@@ -74,8 +72,6 @@ public class ChessButton extends JButton {
                 		
                 		System.out.println("\t" + color + " " + piece.getType().toString() + " can move to:");
                 		for (int i = 0; i < returnMoves.size(); i++) {
-                			//ChessButton tempButton = ChessGUI.chessBoardSquares[returnMoves.get(i)[0]][returnMoves.get(i)[1]];
-                			//tempButton.setBackground(tempButton.pressedColor);
                 			ChessGUI.chessBoardSquares[returnMoves.get(i)[0]][returnMoves.get(i)[1]].setBackground(pressedColor);
                 			System.out.println("\t\t" + "(" + returnMoves.get(i)[0] + ", " + returnMoves.get(i)[1] + ")");
                 		}

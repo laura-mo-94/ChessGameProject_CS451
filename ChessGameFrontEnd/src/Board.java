@@ -18,7 +18,8 @@ public class Board {
 
 	public int turn = 0;
 	public static boolean isHighlighted = false; //Add
-
+	public static boolean pendingMove = false;
+	
 	public Board() {
 		gui = new ChessGUI();
 	}
