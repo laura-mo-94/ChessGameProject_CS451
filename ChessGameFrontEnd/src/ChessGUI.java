@@ -215,7 +215,7 @@ public class ChessGUI {
     	Board.boardState[7][6] = new Piece(PieceType.PAWN,7,6,true);
         for (int i = 0; i < STARTING_ROW.length; i++) {
         	chessBoardSquares[i][6].setIsOccupied(true);
-            chessBoardSquares[i][6].setIcon(new ImageIcon(
+            chessBoardSquares[i][6].setImage(new ImageIcon(
                     chessPieceImages[WHITE][PAWN]));
         }
     	Board.boardState[0][7] = new Piece(PieceType.ROOK,0,7,true);
