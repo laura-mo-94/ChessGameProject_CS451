@@ -47,8 +47,4 @@ public class Board {
 	public void incrementTurn() {
 		turn++;
 	}
-
-	public void makeMove() {
-
-	}
 }

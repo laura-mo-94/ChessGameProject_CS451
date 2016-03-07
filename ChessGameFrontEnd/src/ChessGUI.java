@@ -18,7 +18,7 @@ public class ChessGUI {
   
     private static final String COLS = "ABCDEFGH";
     
-    private GameUpdater updater;
+    private static GameUpdater updater;
     private JLabel message;
     private JLabel state;
     
@@ -245,7 +245,7 @@ public class ChessGUI {
         }
         
         // set up the white pieces
-    	//Board.boardState[0][6] = new Piece(PieceType.PAWN,0,6,true);
+    	Board.boardState[0][6] = new Piece(PieceType.PAWN,0,6,true);
     	Board.boardState[1][6] = new Piece(PieceType.PAWN,1,6,true);
     	Board.boardState[2][6] = new Piece(PieceType.PAWN,2,6,true);
     	Board.boardState[3][6] = new Piece(PieceType.PAWN,3,6,true);
@@ -292,6 +292,98 @@ public class ChessGUI {
 			}
         }
     }
+    
+    public static void makeMove(int x1, int y1, int x2, int y2) {
+		if(x1 != -1 && y1 != -1 && x2 != -1 && y2 != -1) {
+        	
+    		// Console printed statement
+        	String color = "BLACK";
+    		if (Board.boardState[x1][y1].getIsWhite())
+    			color = "WHITE";
+			System.out.println("Moving " + color + " " + Board.boardState[x1][y1].getType().toString() + 
+					" from (" + x1 + ", " + y1 +
+					") to (" + x2 + ", " + y2 + ")");
+			
+			// Get reference to the Buttons and Pieces
+			ChessButton fromChessBtn = ChessGUI.chessBoardSquares[x1][y1];
+			ChessButton toChessBtn = ChessGUI.chessBoardSquares[x2][y2];
+			Piece fromPiece = Board.boardState[x1][y1];
+			Piece toPiece = Board.boardState[x2][y2];
+			
+			// Set the button where the piece will be. (isOccupied, icon)
+			toChessBtn.isOccupied = true;
+			toChessBtn.setImage(fromChessBtn.getImage());
+			
+			// Set the button where the piece currently is. (isOccupied, icon)
+			fromChessBtn.isOccupied = false;
+			fromChessBtn.setImage();
+
+			Board.boardState[x2][y2] = new Piece(fromPiece, x2, y2);
+			Board.boardState[x1][y1] = null;
+			
+			char x1c = Character.forDigit(x1, 10);
+			char y1c = Character.forDigit(y1, 10);
+			char x2c = Character.forDigit(x2, 10);
+			char y2c = Character.forDigit(y2, 10);
+			
+			String toMove = ("" + x1c + y1c + x2c + y2c);
+			
+			try {
+				updater.sendAction(toMove);
+			} catch (Exception e) {
+				System.out.println("I TRIED TO SEND MOVE");	
+				e.printStackTrace();
+			}
+			
+			x1 = -1;
+			y1 = -1;
+			x2 = -1;
+			y2 = -1;
+    		ChessGUI.clearHighlight();
+    	}
+	}
+	
+	// Get move from other player via string.
+	public static void makeMove(String move) {
+		int x1 = (int) move.charAt(0);
+		int y1 = (int) move.charAt(1);
+		int x2 = (int) move.charAt(2);
+		int y2 = (int) move.charAt(3);
+		
+		if(x1 != -1 && y1 != -1 && x2 != -1 && y2 != -1) {
+        	
+    		// Console printed statement
+        	String color = "BLACK";
+    		if (Board.boardState[x1][y1].getIsWhite())
+    			color = "WHITE";
+			System.out.println("Moving " + color + " " + Board.boardState[x1][y1].getType().toString() + 
+					" from (" + x1 + ", " + y1 +
+					") to (" + x2 + ", " + y2 + ")");
+			
+			// Get reference to the Buttons and Pieces
+			ChessButton fromChessBtn = ChessGUI.chessBoardSquares[x1][y1];
+			ChessButton toChessBtn = ChessGUI.chessBoardSquares[x2][y2];
+			Piece fromPiece = Board.boardState[x1][y1];
+			Piece toPiece = Board.boardState[x2][y2];
+			
+			// Set the button where the piece will be. (isOccupied, icon)
+			toChessBtn.isOccupied = true;
+			toChessBtn.setImage(fromChessBtn.getImage());
+			
+			// Set the button where the piece currently is. (isOccupied, icon)
+			fromChessBtn.isOccupied = false;
+			fromChessBtn.setImage();
+
+			Board.boardState[x2][y2] = new Piece(fromPiece, x2, y2);
+			Board.boardState[x1][y1] = null;
+			
+			x1 = -1;
+			y1 = -1;
+			x2 = -1;
+			y2 = -1;
+    		ChessGUI.clearHighlight();
+    	}
+	}
     
 	public static void clearHighlight() {
 		for (int i = 0; i < 8; i++) {

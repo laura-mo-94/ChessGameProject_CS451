@@ -98,6 +98,7 @@ public class ChessButton extends JButton {
                 		
                 		// Movement Validation
                 		ArrayList<int[]> returnMoves = piece.validator.highlightBoard(piece.getX(), piece.getY(), piece.getIsWhite());
+                		
                 		System.out.println("\t" + color + " " + piece.getType().toString() + " can move to:");
                 		for (int i = 0; i < returnMoves.size(); i++) {
                 			ChessGUI.chessBoardSquares[returnMoves.get(i)[0]][returnMoves.get(i)[1]].setBackground(pressedColor);
