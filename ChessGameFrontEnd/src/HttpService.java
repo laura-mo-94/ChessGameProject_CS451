@@ -11,7 +11,7 @@ import javax.swing.*;
 public class HttpService 
 {
 	protected final static String USER_AGENT = "CHROME";
-	protected final static String SERVER_SITE =  "http://localhost:3000";
+	protected final static String SERVER_SITE =  "https://salty-ravine-74709.herokuapp.com";
 	protected Timer timer;
 	/*----------------------------------------------------------
 	 * Set up an httpURLConnection based on an url

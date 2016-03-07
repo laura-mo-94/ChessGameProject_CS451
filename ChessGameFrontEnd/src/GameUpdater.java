@@ -39,6 +39,7 @@ public class GameUpdater extends HttpService implements ActionListener
 		if(names[0].equals(name))
 		{
 			label.setText("Your turn");
+			startTime = new Date();
 			isActive = true;
 		}
 		else
@@ -49,8 +50,15 @@ public class GameUpdater extends HttpService implements ActionListener
 	
 	public void actionPerformed(ActionEvent e)
 	{
+		System.out.println("Let's go b");
 		String response = checkState(SERVER_SITE + "/getGameMessage", gameName, userName);
+		Date currentTime = new Date();
 		
+		if(countingDown && disconnected)
+		{
+			countingDown = false;
+			disconnected = false;
+		}
 		if(response != null && !response.equals(""))
 		{
 			messageLabel.setText(response);
@@ -66,6 +74,7 @@ public class GameUpdater extends HttpService implements ActionListener
 			if(isActive)
 			{
 				label.setText("Your turn");
+				startTime = new Date();
 			}
 			else
 			{
@@ -73,8 +82,17 @@ public class GameUpdater extends HttpService implements ActionListener
 			}
 		}
 		
+		if(isActive && (currentTime.getTime() - startTime.getTime())/1000 > timeLimit)
+		{
+			countingDown = true;
+			
+			JOptionPane.showConfirmDialog(null, "Are you still there?");
+			
+		}
+		
 		if(countingDown)
 		{
+			System.out.println(timeElapsed + " seconds left");
 			if(timeElapsed > 0)
 			{
 				timeElapsed = timeElapsed - 1;
@@ -181,6 +199,7 @@ public class GameUpdater extends HttpService implements ActionListener
 				JOptionPane.showConfirmDialog(null, "Network connection broken! Check connection then continue.");
 				countingDown = true;  
 				disconnected = true;
+				timeElapsed = timeLimit;
 			}
 			
 		} catch (Exception e1) {
@@ -366,7 +385,17 @@ public class GameUpdater extends HttpService implements ActionListener
 	public void startScreen()
 	{
 		timer.stop();
-		SignInMenu signIn = new SignInMenu();
-		signIn.buildStartFrame(frame);
+		frame.dispose();
+
+		Runnable r = new Runnable() {
+            public void run() {
+            	System.out.println("for " + userName);
+
+        		SignInMenu signIn = new SignInMenu();
+        		signIn.buildStartFrame(null);
+            }
+        };
+       
+        SwingUtilities.invokeLater(r);
 	}
 }

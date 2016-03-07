@@ -19,15 +19,17 @@ public class WaitMenuFunction extends HttpService{
 		state.setBounds(100, 40, 300, 20);
 		frame.add(state);
 		
-		JoinGameUpdater updater = new JoinGameUpdater(frame, playerName);
-		Timer timer = new Timer(1000, updater);
-		timer.start();
-		
 		state.setText(initialMessage);
-		updater.attachTimer(timer);
 		
 		frame.revalidate();
 		frame.repaint();
+		frame.setVisible(true);
+		
+
+		JoinGameUpdater updater = new JoinGameUpdater(frame, playerName);
+		Timer timer = new Timer(1000, updater);
+		timer.start();
+		updater.attachTimer(timer);
 		System.out.println("finished");
 	}
 	

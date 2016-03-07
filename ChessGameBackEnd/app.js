@@ -52,16 +52,25 @@ function sendMessageToUser(res, status, message)
 	res.send(message);
 }
 
-app.post('/submitMove', function saveMove(req, res){
+app.post('/submitMove', function saveMove(req, res)
+{
 	console.log("submitted a move");
-	games[req.body.user][0] = 0; 
-	games[req.body.user][1] = req.body.update;
-	res.send("Move saved");
+	if(req.body.user in games)
+	{
+		games[req.body.user][0] = 0; 
+		games[req.body.user][1] = req.body.update;
+		res.send("Move saved");
+	}
 });
 
 app.post('/postMessage', function message(req, res){
-	gamesMessages[req.body.user][0] = 0;
-	gamesMessages[req.body.user][1] = req.body.update;
+	
+	if(req.body.user in gamesMessages)
+	{
+		gamesMessages[req.body.user][0] = 0;
+		gamesMessages[req.body.user][1] = req.body.update;
+	}
+
 	res.send("Waiting for response...");
 });
 
@@ -83,11 +92,16 @@ app.post('/getState', function getState(req, res){
 			res.send("");
 		}
 	}
+	else
+	{
+		res.send("");
+	}
 
 });
 
 app.post('/getGameMessage', function(req, res){
 	checkInTimes[req.body.userName] = new Date().getTime()/1000;
+	console.log(req.body.userName + " checked in at " + checkInTimes[req.body.userName]);
 	currentCallTimes = currentCallTimes + 1;
 	
 	if(currentCallTimes >= callTimesTillCheck)
@@ -97,62 +111,71 @@ app.post('/getGameMessage', function(req, res){
 		var currentTime = new Date().getTime() / 1000;
 		for (var player in checkInTimes)
 		{
-			console.log(player + " checked in at " + checkInTimes[player]);
-			if(currentTime - checkInTimes[player] > timeLimit)
+			if(checkInTimes.hasOwnProperty(player))
 			{
-				console.log("oh shit it's been awhile");
-				var gameName = opponents[player];
-				var names = gameName.split(" ");
-				var opponent;
-				console.log(player);
-				if(player !== names[0])
+				console.log(player + " checked in at " + checkInTimes[player]);
+				if(currentTime - checkInTimes[player] > timeLimit)
 				{
-					opponent = names[0];
-				}
-				else
-				{
-					opponent = names[2];
-				}
-				
-				console.log(player + " " + opponent);
-				
-				if(currentTime - checkInTimes[opponent] > timeLimit)
-				{
-					console.log("The opponent is gone too!");
-					if(gameName in games)
+					console.log("oh shit it's been awhile");
+					var gameName = opponents[player];
+					var names = gameName.split(" ");
+					var opponent;
+					console.log(player);
+					if(player !== names[0])
 					{
-						delete games[gameName];
-						delete gamesMessages[gameName];
+						opponent = names[0];
 					}
-				}
-				else
-				{
-					console.log("But the opponent is still here " + opponent);
-					
-					if(gameName in gamesMessages)
+					else
 					{
-						console.log(opponent + " is done");
-						gamesMessages[gameName][0] = 0;
-						gamesMessages[gameName][1] = "Player has forfeit";
+						opponent = names[2];
+					}
+					
+					console.log(player + " " + opponent);
+					
+					if(currentTime - checkInTimes[opponent] > timeLimit)
+					{
+						console.log("The opponent is gone too!");
+						if(gameName in games)
+						{
+							delete games[gameName];
+							delete gamesMessages[gameName];
+						}
+					}
+					else
+					{
+						console.log("But the opponent is still here " + opponent);
+						
+						if(gameName in gamesMessages)
+						{
+							console.log(opponent + " is done");
+							gamesMessages[gameName][0] = 0;
+							gamesMessages[gameName][1] = "Player has forfeit";
+						}
 					}
 				}
 			}
 		}
 	}
 	
-	var numViewed = parseInt(gamesMessages[req.body.gameName][0]);
-	if(numViewed < 2)
+	if(req.body.gameName in gamesMessages)
 	{
-		res.send(gamesMessages[req.body.gameName][1]);
-		console.log("got game message " + gamesMessages[req.body.gameName][1]);
-		numViewed = numViewed + 1;
-		gamesMessages[req.body.gameName][0] = numViewed.toString();
+		var numViewed = parseInt(gamesMessages[req.body.gameName][0]);
+		if(numViewed < 2)
+		{
+			res.send(gamesMessages[req.body.gameName][1]);
+			console.log("got game message " + gamesMessages[req.body.gameName][1]);
+			numViewed = numViewed + 1;
+			gamesMessages[req.body.gameName][0] = numViewed.toString();
+		}
+		else
+		{
+			res.send("");
+		}
 	}
 	else
 	{
 		res.send("");
 	}
-	
 });
 
 app.post('/join', function(req, res){
