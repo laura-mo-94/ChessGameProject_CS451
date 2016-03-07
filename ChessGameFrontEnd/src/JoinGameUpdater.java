@@ -19,10 +19,9 @@ public class JoinGameUpdater extends HttpService implements ActionListener {
 	public void actionPerformed(ActionEvent e)
 	{
 		String response = "";
-		
+		System.out.println("Get it dude " + userName);
 		response = checkForOpponent(userName);
 		
-		System.out.println(response);
 		if(response == null)
 		{
 			int input = JOptionPane.showConfirmDialog(null, "Connection broken!");
@@ -36,7 +35,16 @@ public class JoinGameUpdater extends HttpService implements ActionListener {
 		else if(!response.equals("Waiting..."))
 		{
 			timer.stop();
-			buildGameFrame(response, activeFrame);
+			final String resp = response;
+			Runnable r = new Runnable() {
+	            public void run() {
+	                ChessGUI cg = new ChessGUI();
+	                cg.buildFrame(activeFrame, userName, resp);
+	               
+	            }
+	        };
+	       
+	        r.run();
 		}
 	}
 	
@@ -55,6 +63,7 @@ public class JoinGameUpdater extends HttpService implements ActionListener {
 	public String checkForOpponent(String userName)
 	{
 		String url = SERVER_SITE + "/getOpponent";
+		System.out.println("Checking for opponent for " + userName);
 		try
 		{
 			HttpURLConnection con = setUpConnection(url);
@@ -70,7 +79,7 @@ public class JoinGameUpdater extends HttpService implements ActionListener {
 		}
 	}
 	
-	private void buildGameFrame(String gameName, JFrame frame)
+	/*private void buildGameFrame(String gameName, JFrame frame)
 	{
 		frame.getContentPane().removeAll();
 		JLabel label = new JLabel(gameName);
@@ -157,6 +166,6 @@ public class JoinGameUpdater extends HttpService implements ActionListener {
 		frame.add(b);
 		frame.revalidate();
 		frame.repaint();
-	}
+	}*/
 	
 }

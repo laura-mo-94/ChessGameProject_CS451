@@ -23,16 +23,24 @@ public class GameUpdater extends HttpService implements ActionListener
 	private boolean disconnected;
 	Date startTime;
 	
-	public GameUpdater(JLabel label, JLabel message, String name, String gname)
+	public GameUpdater(JLabel state, JLabel game, String name, String gname)
 	{
-		this.label = label;
-		messageLabel = message;
+		label = state;
+		messageLabel = game;
 		gameName = gname;
 		String[] names = gameName.split(" ");
 		userName = name;
+		
+		game.setText(gameName);
+		
 		if(names[0].equals(name))
 		{
+			label.setText("Your turn");
 			isActive = true;
+		}
+		else
+		{
+			label.setText("Opponent's turn");
 		}
 	}
 	
@@ -50,12 +58,16 @@ public class GameUpdater extends HttpService implements ActionListener
 		if(response != null && !response.equals(""))
 		{
 			label.setText(response);
-			System.out.println("is active " + isActive);
+		
 			isActive = !isActive;
 			
 			if(isActive)
 			{
-				startTime = new Date();
+				label.setText("Your turn");
+			}
+			else
+			{
+				label.setText("Opponent's turn!");
 			}
 		}
 		
@@ -151,14 +163,14 @@ public class GameUpdater extends HttpService implements ActionListener
 				}
 				else if(response.equals("Player has forfeit"))
 				{
-					int input = JOptionPane.showConfirmDialog(null, "Opponented has forfeited");
-					if(input >=  0)
-					{
-						timer.stop();
-						leaveGame();
-						endGame();
-						getAnotherGame();
-					}
+					int input = JOptionPane.showConfirmDialog(null, "Opponent has forfeited");
+					System.out.println("what are you??? " + input);
+					isActive = false;
+					System.out.println(userName + " is also leaving now");
+					timer.stop();
+					leaveGame();
+					endGame();
+					getAnotherGame();
 				}
 				
 			}
@@ -209,7 +221,6 @@ public class GameUpdater extends HttpService implements ActionListener
 	
 	public String sendAction(String update) throws Exception
 	{	
-		System.out.println("Pressed the add button...");
 		String url = SERVER_SITE + "/submitMove";
 		HttpURLConnection con = setUpConnection(url);
 		
@@ -295,6 +306,9 @@ public class GameUpdater extends HttpService implements ActionListener
 	public void getAnotherGame()
 	{
 		System.out.println(userName + " is getting another game");
+		
+		frame.dispose();
+		
 		String url = SERVER_SITE + "/join";
 		try{
 			HttpURLConnection con = setUpConnection(url);
@@ -305,8 +319,22 @@ public class GameUpdater extends HttpService implements ActionListener
 
 			String response = getResultsWithParams(con, encodedParam);
 			
-			WaitMenuFunction waitScreen = new WaitMenuFunction(userName, frame);
-			waitScreen.buildFrame("Waiting for an opponent...");
+			Runnable r = new Runnable() {
+	            public void run() {
+	            	JFrame waitFrame = new JFrame("Waiting");
+	        		waitFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	        		
+	        		waitFrame.setSize(400, 500);
+	        		waitFrame.setLayout(null);
+	        		waitFrame.setVisible(true);
+	        		
+	            	WaitMenuFunction waitScreen = new WaitMenuFunction(userName, waitFrame);
+	            	waitScreen.buildFrame("Waiting for an opponent...");
+	            }
+	        };
+	       
+	        r.run();
+			
 		}catch(Exception e)
 		{
 			System.out.println(e.getMessage());

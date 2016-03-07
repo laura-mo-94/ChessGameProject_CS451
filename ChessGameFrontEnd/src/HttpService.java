@@ -53,7 +53,6 @@ public class HttpService
 			return null;
 		}
 		
-		System.out.println(response.toString());
 		return response.toString();
 	}
 	

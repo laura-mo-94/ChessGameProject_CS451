@@ -1,4 +1,7 @@
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
 import javax.swing.*;
 import javax.swing.border.*;
@@ -12,11 +15,13 @@ public class ChessGUI {
     private Image[][] chessPieceImages = new Image[2][6];
     private JPanel chessBoard;
     
-    private final JLabel message = new JLabel(
-            "Chess Game is ready to play!");
-    
+  
     private static final String COLS = "ABCDEFGH";
-
+    
+    private GameUpdater updater;
+    private JLabel message;
+    private JLabel state;
+    
     public static final int QUEEN = 0, 
     						KING = 1,
     						ROOK = 2, 
@@ -53,13 +58,48 @@ public class ChessGUI {
         tools.addSeparator();
         tools.add(new MakeMoveButton("Make Move")); // TODO - add functionality!
         tools.addSeparator();
-        tools.add(new JButton("Forfeit")); // TODO - add functionality!
-        tools.addSeparator();
-        tools.add(new JButton("Draw")); // TODO - add functionality!
+        
+        JButton forfeit = new JButton("Forfeit");
+		forfeit.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e)
+			{
+				try{
+					updater.forfeit();
+				}catch(Exception exp)
+				{
+					exp.printStackTrace();
+				}
+			}
+		});
+        
+		tools.add(forfeit); // TODO - add functionality!
+		tools.addSeparator();
+        
+		JButton draw = new JButton("Draw");
+		
+        draw.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e)
+			{
+				try{
+					updater.draw();
+				}catch(Exception exp)
+				{
+					exp.printStackTrace();
+				}
+			}
+		});
+		
+        tools.add(draw); // TODO - add functionality!
+        
         tools.addSeparator();
         // Look into switching top message.
+       
+        message = new JLabel("Welcome");
         tools.add(message);
 
+        tools.addSeparator();
+        state = new JLabel("not your turn");
+        tools.add(state);
         gui.add(new JLabel("?"), BorderLayout.LINE_START);
 
         chessBoard = new JPanel(new GridLayout(0, 9)) {
@@ -153,7 +193,7 @@ public class ChessGUI {
         }
     }
 
-    public final JComponent getGui() {
+    public final JPanel getGui() {
         return gui;
     }
 
@@ -260,24 +300,49 @@ public class ChessGUI {
 			}	
 		}
 	}
+	
+	public void buildFrame(JFrame frame, String userName, String gameName)
+	{
+		frame.dispose();
+		
+		JFrame f = new JFrame("Chess game");
+		
+		 f.getContentPane().add(getGui());
+		  
+		 updater = new GameUpdater(state, message, userName, gameName);
+		
+		 updater.setActiveFrame(f);
+			
+			try{
+				Timer timer = new Timer(1000, updater);
+				timer.start();
+				
+				updater.attachTimer(timer);
+				
+			}catch(Exception exp)
+			{
+				System.out.println("Error! Failed to send button action. " + exp);
+				exp.printStackTrace();
+			}
+		
+		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		f.setLocationByPlatform(true);
+		f.pack();
+		f.setMinimumSize(f.getSize());
+		f.setVisible(true);
+	}
 
-    public static void main(String[] args) {
+   /* public static void main(String[] args) {
         Runnable r = new Runnable() {
-
             public void run() {
                 ChessGUI cg = new ChessGUI();
 
                 JFrame f = new JFrame("Chess Game");
-                f.add(cg.getGui());
-                f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-                f.setLocationByPlatform(true);
-                f.pack();
-                f.setMinimumSize(f.getSize());
-                f.setVisible(true);
+               
             }
         };
         // Swing GUIs should be created and updated on the EDT
         // http://docs.oracle.com/javase/tutorial/uiswing/concurrency
         SwingUtilities.invokeLater(r);
-    }
+    }*/
 }

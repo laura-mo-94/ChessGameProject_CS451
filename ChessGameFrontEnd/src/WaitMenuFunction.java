@@ -10,6 +10,7 @@ public class WaitMenuFunction extends HttpService{
 		playerName = name;
 		this.frame = frame;
 	}
+	
 	public void buildFrame(String initialMessage)
 	{
 		System.out.println("eeeeeh");
@@ -27,6 +28,7 @@ public class WaitMenuFunction extends HttpService{
 		
 		frame.revalidate();
 		frame.repaint();
+		System.out.println("finished");
 	}
 	
 }

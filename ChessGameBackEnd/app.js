@@ -39,7 +39,7 @@ app.use(app.router);
 app.use(express.static(path.join(__dirname, 'public')));
 
 // development only
-if ('development' == app.get('env')) {
+if ('development' === app.get('env')) {
   app.use(express.errorHandler());
 }
 
@@ -97,27 +97,43 @@ app.post('/getGameMessage', function(req, res){
 		var currentTime = new Date().getTime() / 1000;
 		for (var player in checkInTimes)
 		{
+			console.log(player + " checked in at " + checkInTimes[player]);
 			if(currentTime - checkInTimes[player] > timeLimit)
 			{
 				console.log("oh shit it's been awhile");
-				var opponent = opponents[player];
+				var gameName = opponents[player];
+				var names = gameName.split(" ");
+				var opponent;
+				console.log(player);
+				if(player === names[0])
+				{
+					opponent = names[0];
+				}
+				else
+				{
+					opponent = names[2];
+				}
+				
+				console.log(player + " " + opponent);
 				
 				if(currentTime - checkInTimes[opponent] > timeLimit)
 				{
 					console.log("The opponent is gone too!");
-					if(req.body.gameName in games)
+					if(opponent in games)
 					{
-						delete games[req.body.gameName];
-						delete gamesMessages[req.body.gameName];
+						delete games[opponent];
+						delete gamesMessages[opponent];
 					}
 				}
 				else
 				{
-					console.log("But the opponent is still here");
-					if(req.body.gameName in gamesMessages)
+					console.log("But the opponent is still here ");
+					
+					if(opponent in gamesMessages)
 					{
-						gamesMessages[req.body.gameName][0] = 0;
-						gamesMessages[req.body.gameName][1] = "Player has forfeit";
+						console.log(opponent + " is done");
+						gamesMessages[opponent][0] = 0;
+						gamesMessages[opponent][1] = "Player has forfeit";
 					}
 				}
 			}
@@ -148,11 +164,13 @@ app.post('/join', function(req, res){
 	
 	if(queueName.indexOf(req.body.user) >= 0)
 	{
+		console.log("nope " + req.body.user);
 		valid = false;
 		res.send('Name is already in use!');
 	}
 	else if(req.body.user in opponents)
 	{
+		
 		if(currentTime - checkInTimes[req.body.user] > 1.5)
 		{
 			delete checkInTimes[req.body.user];
@@ -160,6 +178,7 @@ app.post('/join', function(req, res){
 		}
 		else
 		{
+			console.log(req.body.user + " nope");
 			res.send('Name is already in use!');
 			valid = false;
 		}
@@ -168,6 +187,7 @@ app.post('/join', function(req, res){
 	
 	if(valid)
 	{
+		console.log(req.body.user + " is gonna go look for an opponent");
 		queueName.push(req.body.user);
 		queueCheck.push(currentTime);
 		res.send('Waiting for opponent');
@@ -180,7 +200,7 @@ app.post('/join', function(req, res){
 			var candidate = queueName.shift();
 			var candidateTime = queueCheck.shift();
 	
-			if(player1Name == "")
+			if(player1Name === "")
 			{
 				if(currentTime - candidateTime < 1.5)
 				{
@@ -188,7 +208,7 @@ app.post('/join', function(req, res){
 				}
 				
 			}
-			else if(player2Name == "")
+			else if(player2Name === "")
 			{
 				console.log('Here we gooooo');
 				if(currentTime - candidateTime < 1.5)
@@ -203,22 +223,27 @@ app.post('/join', function(req, res){
 					var time = new Date().getTime() / 1000;
 					checkInTimes[player1Name] = time;
 					checkInTimes[player2Name] = time;
-					
+					console.log("New times for them are : " + time);
+					console.log(player1Name + " " + checkInTimes[player1Name]);
+					console.log(player2Name + " " + checkInTimes[player2Name]);
 					player1Name = "";
 					player2Name = "";
 				}
 			}
 		}
+		
+		if(player1Name !== "")
+		{
+			queueName.push(player1Name);
+			queueCheck.push(new Date().getTime() / 1000);
+		}
 	}
 	
-	if(player1Name != "")
-	{
-		queueName.push(player1Name);
-		queueCheck.push(new Date().getTime() / 1000);
-	}
+	console.log("maybe " + req.body.user + " is gonna find an opponent");
 });
 
 app.post('/getOpponent', function(req, res){
+	console.log(req.body.user + " is trying to get an opponent");
 	if(req.body.user in opponents)
 	{
 		var name = opponents[req.body.user];
@@ -236,9 +261,10 @@ app.post('/removeGame', function(req, res){
 	{
 		delete games[req.body.game];
 		delete gamesMessages[req.body.game];
-		
-		res.send("Finished!");
+		console.log(req.body.game + "Removed this game");
 	}
+	
+	res.send("Finished!");
 });
 
 app.post('/leaveGame', function(req, res){
@@ -246,9 +272,10 @@ app.post('/leaveGame', function(req, res){
 	{
 		delete opponents[req.body.userName];
 		delete checkInTimes[req.body.userName];
+		console.log(req.body.userName + " left this game");
 	}
 	
-	res.send("Removed");
+	res.send(" Removed");
 });
 
 app.listen(app.get('port'), function serverListen(){
