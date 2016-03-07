@@ -21,6 +21,9 @@ public class GameUpdater extends HttpService implements ActionListener
 	float timeLimit = 60;
 	private boolean countingDown;
 	private boolean disconnected;
+	
+	private ChessGUI gui;
+	
 	Date startTime;
 	
 	public GameUpdater(JLabel state, JLabel game, String name, String gname)
@@ -57,10 +60,9 @@ public class GameUpdater extends HttpService implements ActionListener
 		
 		if(response != null && !response.equals(""))
 		{
-			label.setText(response);
-		
-			isActive = !isActive;
 			
+			isActive = !isActive;
+			gui.makeMove(response);
 			if(isActive)
 			{
 				label.setText("Your turn");
@@ -265,6 +267,11 @@ public class GameUpdater extends HttpService implements ActionListener
 		frame = f;
 	}
 	
+	public void setChessGui(ChessGUI g)
+	{
+		gui = g;
+	}
+	
 	public void endGame()
 	{
 		System.out.println(userName + " is ending the game");
@@ -321,6 +328,7 @@ public class GameUpdater extends HttpService implements ActionListener
 			
 			Runnable r = new Runnable() {
 	            public void run() {
+	            	System.out.println("for " + userName);
 	            	JFrame waitFrame = new JFrame("Waiting");
 	        		waitFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	        		
@@ -333,7 +341,7 @@ public class GameUpdater extends HttpService implements ActionListener
 	            }
 	        };
 	       
-	        r.run();
+	        SwingUtilities.invokeLater(r);
 			
 		}catch(Exception e)
 		{

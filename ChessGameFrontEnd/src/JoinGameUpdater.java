@@ -44,7 +44,7 @@ public class JoinGameUpdater extends HttpService implements ActionListener {
 	            }
 	        };
 	       
-	        r.run();
+	        SwingUtilities.invokeLater(r);
 		}
 	}
 	

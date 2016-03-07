@@ -105,7 +105,7 @@ app.post('/getGameMessage', function(req, res){
 				var names = gameName.split(" ");
 				var opponent;
 				console.log(player);
-				if(player === names[0])
+				if(player !== names[0])
 				{
 					opponent = names[0];
 				}
@@ -119,21 +119,21 @@ app.post('/getGameMessage', function(req, res){
 				if(currentTime - checkInTimes[opponent] > timeLimit)
 				{
 					console.log("The opponent is gone too!");
-					if(opponent in games)
+					if(gameName in games)
 					{
-						delete games[opponent];
-						delete gamesMessages[opponent];
+						delete games[gameName];
+						delete gamesMessages[gameName];
 					}
 				}
 				else
 				{
-					console.log("But the opponent is still here ");
+					console.log("But the opponent is still here " + opponent);
 					
-					if(opponent in gamesMessages)
+					if(gameName in gamesMessages)
 					{
 						console.log(opponent + " is done");
-						gamesMessages[opponent][0] = 0;
-						gamesMessages[opponent][1] = "Player has forfeit";
+						gamesMessages[gameName][0] = 0;
+						gamesMessages[gameName][1] = "Player has forfeit";
 					}
 				}
 			}
