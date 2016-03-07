@@ -9,7 +9,6 @@ import javax.swing.event.ChangeListener;
 public class MakeMoveButton extends JButton {
 
 	private static final long serialVersionUID = 1L;
-	ChessGUI gui = Board.gui;
 	public static int selectedPieceX = -1;
 	public static int selectedPieceY = -1;
 	public static int selectedSpaceX = -1;
@@ -23,8 +22,10 @@ public class MakeMoveButton extends JButton {
             
             public void stateChanged(ChangeEvent evt) {
                 if (getModel().isPressed()) {
-                	if (gui.updater.getIsActive()) {
-                		gui.makeMove(selectedPieceX, selectedPieceY, selectedSpaceX, selectedSpaceY);
+                	if(selectedPieceX != -1 && selectedPieceY != -1 && selectedSpaceX != -1 && selectedSpaceY != -1) {
+                		if (ChessGUI.updater.getIsActive()) {                		
+                			Board.gui.makeMove(selectedPieceX, selectedPieceY, selectedSpaceX, selectedSpaceY);
+                		}
                 	}
         		}
             }

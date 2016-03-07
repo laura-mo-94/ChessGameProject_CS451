@@ -18,7 +18,7 @@ public class ChessGUI {
   
     private static final String COLS = "ABCDEFGH";
     
-    public GameUpdater updater;
+    public static GameUpdater updater;
     private JLabel message;
     private JLabel state;
     
@@ -293,96 +293,96 @@ public class ChessGUI {
         }
     }
     
-    public void makeMove(int x1, int y1, int x2, int y2) {
-		if(x1 != -1 && y1 != -1 && x2 != -1 && y2 != -1) {
-        	
-    		// Console printed statement
-        	String color = "BLACK";
-    		if (Board.boardState[x1][y1].getIsWhite())
-    			color = "WHITE";
-			System.out.println("Moving " + color + " " + Board.boardState[x1][y1].getType().toString() + 
-					" from (" + x1 + ", " + y1 +
-					") to (" + x2 + ", " + y2 + ")");
-			
-			// Get reference to the Buttons and Pieces
-			ChessButton fromChessBtn = ChessGUI.chessBoardSquares[x1][y1];
-			ChessButton toChessBtn = ChessGUI.chessBoardSquares[x2][y2];
-			Piece fromPiece = Board.boardState[x1][y1];
-			Piece toPiece = Board.boardState[x2][y2];
-			
-			// Set the button where the piece will be. (isOccupied, icon)
-			toChessBtn.isOccupied = true;
-			toChessBtn.setImage(fromChessBtn.getImage());
-			
-			// Set the button where the piece currently is. (isOccupied, icon)
-			fromChessBtn.isOccupied = false;
-			fromChessBtn.setImage();
+    public static void makeMove(int x1, int y1, int x2, int y2) {
 
-			Board.boardState[x2][y2] = new Piece(fromPiece, x2, y2);
-			Board.boardState[x1][y1] = null;
-			
-			char x1c = Character.forDigit(x1, 10);
-			char y1c = Character.forDigit(y1, 10);
-			char x2c = Character.forDigit(x2, 10);
-			char y2c = Character.forDigit(y2, 10);
-			
-			String toMove = ("" + x1c + y1c + x2c + y2c);
-			
-			try {
-				updater.sendAction(toMove);
-			} catch (Exception e) {
-				System.out.println("I TRIED TO SEND MOVE");	
-				e.printStackTrace();
-			}
-			
-			x1 = -1;
-			y1 = -1;
-			x2 = -1;
-			y2 = -1;
-    		ChessGUI.clearHighlight();
-    	}
+		// Console printed statement
+    	String color = "BLACK";
+		if (Board.boardState[x1][y1].getIsWhite())
+			color = "WHITE";
+		System.out.println("Moving " + color + " " + Board.boardState[x1][y1].getType().toString() + 
+				" from (" + x1 + ", " + y1 +
+				") to (" + x2 + ", " + y2 + ")");
+		
+		// Get reference to the Buttons and Pieces
+		ChessButton fromChessBtn = chessBoardSquares[x1][y1];
+		ChessButton toChessBtn = chessBoardSquares[x2][y2];
+		Piece fromPiece = Board.boardState[x1][y1];
+		Piece toPiece = Board.boardState[x2][y2];
+		
+		// Set the button where the piece will be. (isOccupied, icon)
+		toChessBtn.isOccupied = true;
+		toChessBtn.setImage(fromChessBtn.getImage());
+		
+		// Set the button where the piece currently is. (isOccupied, icon)
+		fromChessBtn.isOccupied = false;
+		fromChessBtn.setImage();
+
+		Board.boardState[x2][y2] = new Piece(fromPiece, x2, y2);
+		Board.boardState[x1][y1] = null;
+		
+		// Convert to string
+		String x1c = Integer.toString(x1);
+		String y1c = Integer.toString(y1);
+		String x2c = Integer.toString(x2);
+		String y2c = Integer.toString(y2);
+				
+		String toMove = (x1c + y1c + x2c + y2c);
+		
+		try {
+			updater.sendAction(toMove);
+		} catch (Exception e) {
+			System.out.println("I TRIED TO SEND MOVE");	
+			e.printStackTrace();
+		}
+		
+		x1 = -1;
+		y1 = -1;
+		x2 = -1;
+		y2 = -1;
+		ChessGUI.clearHighlight();
 	}
 	
 	// Get move from other player via string.
-	public void makeMove(String move) {
-		int x1 = (int) move.charAt(0);
-		int y1 = (int) move.charAt(1);
-		int x2 = (int) move.charAt(2);
-		int y2 = (int) move.charAt(3);
+	public static void makeMove(String move) {
 		
-		if(x1 != -1 && y1 != -1 && x2 != -1 && y2 != -1) {
-        	
-    		// Console printed statement
-        	String color = "BLACK";
-    		if (Board.boardState[x1][y1].getIsWhite())
-    			color = "WHITE";
-			System.out.println("Moving " + color + " " + Board.boardState[x1][y1].getType().toString() + 
-					" from (" + x1 + ", " + y1 +
-					") to (" + x2 + ", " + y2 + ")");
-			
-			// Get reference to the Buttons and Pieces
-			ChessButton fromChessBtn = ChessGUI.chessBoardSquares[x1][y1];
-			ChessButton toChessBtn = ChessGUI.chessBoardSquares[x2][y2];
-			Piece fromPiece = Board.boardState[x1][y1];
-			Piece toPiece = Board.boardState[x2][y2];
-			
-			// Set the button where the piece will be. (isOccupied, icon)
-			toChessBtn.isOccupied = true;
-			toChessBtn.setImage(fromChessBtn.getImage());
-			
-			// Set the button where the piece currently is. (isOccupied, icon)
-			fromChessBtn.isOccupied = false;
-			fromChessBtn.setImage();
+		// Parse from string		
+		int x1 = Integer.parseInt(move.substring(0,1));
+		int y1 = Integer.parseInt(move.substring(1,2));
+		int x2 = Integer.parseInt(move.substring(2,3));
+		int y2 = Integer.parseInt(move.substring(3,4));
+				       
+		System.out.println(x1 + ", " + y1 + " to " + x2 + ", " + y2);
+		
+		// Console printed statement
+    	String color = "BLACK";
+		if (Board.boardState[x1][y1].getIsWhite())
+			color = "WHITE";
+		System.out.println("Moving " + color + " " + Board.boardState[x1][y1].getType().toString() + 
+				" from (" + x1 + ", " + y1 +
+				") to (" + x2 + ", " + y2 + ")");
+		
+		// Get reference to the Buttons and Pieces
+		ChessButton fromChessBtn = ChessGUI.chessBoardSquares[x1][y1];
+		ChessButton toChessBtn = ChessGUI.chessBoardSquares[x2][y2];
+		Piece fromPiece = Board.boardState[x1][y1];
+		Piece toPiece = Board.boardState[x2][y2];
+		
+		// Set the button where the piece will be. (isOccupied, icon)
+		toChessBtn.isOccupied = true;
+		toChessBtn.setImage(fromChessBtn.getImage());
+		
+		// Set the button where the piece currently is. (isOccupied, icon)
+		fromChessBtn.isOccupied = false;
+		fromChessBtn.setImage();
 
-			Board.boardState[x2][y2] = new Piece(fromPiece, x2, y2);
-			Board.boardState[x1][y1] = null;
-			
-			x1 = -1;
-			y1 = -1;
-			x2 = -1;
-			y2 = -1;
-    		ChessGUI.clearHighlight();
-    	}
+		Board.boardState[x2][y2] = new Piece(fromPiece, x2, y2);
+		Board.boardState[x1][y1] = null;
+		
+		x1 = -1;
+		y1 = -1;
+		x2 = -1;
+		y2 = -1;
+		ChessGUI.clearHighlight();
 	}
     
 	public static void clearHighlight() {
@@ -423,14 +423,20 @@ public class ChessGUI {
 		f.setMinimumSize(f.getSize());
 		f.setVisible(true);
 	}
-
-   /* public static void main(String[] args) {
+/*
+ *	Used strictly to test board alone
+    public static void main(String[] args) {
         Runnable r = new Runnable() {
             public void run() {
                 ChessGUI cg = new ChessGUI();
 
                 JFrame f = new JFrame("Chess Game");
-               
+                f.add(cg.getGui());
+                f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        		f.setLocationByPlatform(true);
+        		f.pack();
+        		f.setMinimumSize(f.getSize());
+        		f.setVisible(true);
             }
         };
         // Swing GUIs should be created and updated on the EDT
