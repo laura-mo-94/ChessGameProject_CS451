@@ -50,7 +50,7 @@ public class GameUpdater extends HttpService implements ActionListener
 	
 	public void actionPerformed(ActionEvent e)
 	{
-		System.out.println("Let's go b");
+		System.out.print(".");
 		String response = checkState(SERVER_SITE + "/getGameMessage", gameName, userName);
 		Date currentTime = new Date();
 		
