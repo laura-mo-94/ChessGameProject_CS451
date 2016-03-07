@@ -18,7 +18,7 @@ public class ChessGUI {
   
     private static final String COLS = "ABCDEFGH";
     
-    private static GameUpdater updater;
+    public GameUpdater updater;
     private JLabel message;
     private JLabel state;
     
@@ -293,7 +293,7 @@ public class ChessGUI {
         }
     }
     
-    public static void makeMove(int x1, int y1, int x2, int y2) {
+    public void makeMove(int x1, int y1, int x2, int y2) {
 		if(x1 != -1 && y1 != -1 && x2 != -1 && y2 != -1) {
         	
     		// Console printed statement
@@ -344,7 +344,7 @@ public class ChessGUI {
 	}
 	
 	// Get move from other player via string.
-	public static void makeMove(String move) {
+	public void makeMove(String move) {
 		int x1 = (int) move.charAt(0);
 		int y1 = (int) move.charAt(1);
 		int x2 = (int) move.charAt(2);

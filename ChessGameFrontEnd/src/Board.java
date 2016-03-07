@@ -9,7 +9,7 @@ public class Board {
 
 	public static Board instance;
 
-	private static ChessGUI gui;
+	public static ChessGUI gui;
 
 	public static Piece[][] boardState = new Piece[8][8];
 
