@@ -85,7 +85,7 @@ public class ChessButton extends JButton {
                 	// Select piece
                 	if (isOccupied && (ChessGUI.updater.getIsWhite() == Board.instance.boardState[xPos][yPos].getIsWhite())){
                 		ChessGUI.clearHighlight();
-                		MakeMoveButton.resetSelection();
+                		//MakeMoveButton.resetSelection();
                 		setBackground(pressedColor);
                 		Piece piece = Board.instance.boardState[xPos][yPos];
 

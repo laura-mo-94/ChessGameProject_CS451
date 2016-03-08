@@ -74,7 +74,7 @@ public class PawnValidator extends Validator  {
 			}
 			if(y == 6 && canMoveTwo == true)
 			{
-				if(Board.boardState[x][y-2] == null) {
+				if(Board.boardState[x][y-2] == null && Board.boardState[x][y-1] == null) {
 					returnMoves.add(new int [] {x, y-2});
 					enPassant = true;
 				}
@@ -82,7 +82,6 @@ public class PawnValidator extends Validator  {
 			if(y == 3) {
 				if(x == 0) {
 					if((Board.boardState[x+1][y] != null) && (Board.boardState[x+1][y].getIsWhite() == false) && (Board.boardState[x+1][y].getType() == PieceType.PAWN)) {
-						System.out.println("YEEEEEEEEEEEEEEEEEEEAAAAAAAAAAAAAAAAAAAHHHHHHHHHHHHHHHHHHHH!" + Board.boardState[x+1][y].getValidator().getEnPassant());
 						if(Board.boardState[x+1][y].getValidator().getEnPassant()) {
 							returnMoves.add(new int [] {x+1, y});
 						}
@@ -139,7 +138,7 @@ public class PawnValidator extends Validator  {
 			}
 			if(y == 1 && canMoveTwo == true)
 			{
-				if(Board.boardState[x][y+2] == null) {
+				if(Board.boardState[x][y+2] == null && Board.boardState[x][y+1] == null) {
 					returnMoves.add(new int [] {x, y+2});
 					enPassant = true;
 				}
@@ -173,10 +172,6 @@ public class PawnValidator extends Validator  {
 				}
 			}
 		}
-		
-		
-		
-		
 		return returnMoves;
 	}
 }

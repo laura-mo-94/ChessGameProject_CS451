@@ -12,8 +12,9 @@ public class ChessGUI {
 
     private final JPanel gui = new JPanel(new BorderLayout(3, 3));
     public static ChessButton[][] chessBoardSquares = new ChessButton[8][8];
-    private Image[][] chessPieceImages = new Image[2][6];
+    private static Image[][] chessPieceImages = new Image[2][6];
     private JPanel chessBoard;
+    private ImageIcon queen; 
     
   
     private static final String COLS = "ABCDEFGH";
@@ -21,7 +22,6 @@ public class ChessGUI {
     public static GameUpdater updater;
     private JLabel message;
     private JLabel state;
-	private static JLabel check;
     
     public static final int QUEEN = 0, 
     						KING = 1,
@@ -101,11 +101,6 @@ public class ChessGUI {
         tools.addSeparator();
         state = new JLabel("not your turn");
         tools.add(state);
-        
-        tools.addSeparator();
-        check = new JLabel("");
-        tools.add(check);
-        
         gui.add(new JLabel("?"), BorderLayout.LINE_START);
 
         chessBoard = new JPanel(new GridLayout(0, 9)) {
@@ -250,12 +245,6 @@ public class ChessGUI {
                     chessPieceImages[BLACK][PAWN]));
         }
         
-        for (int i = 2; i <= 5; i++) {
-        	for (int j = 0; j <= 7; j++) {
-        		Board.boardState[j][i] = null;
-        	}
-        }
-        
         // set up the white pieces
     	Board.boardState[0][6] = new Piece(PieceType.PAWN,0,6,true);
     	Board.boardState[1][6] = new Piece(PieceType.PAWN,1,6,true);
@@ -309,7 +298,7 @@ public class ChessGUI {
 
 		// Console printed statement
     	String color = "BLACK";
-    	if (Board.boardState[x1][y1] != null) {
+    	if (Board.boardState[x1][y1] != null && !Board.isChecked()) {
 			if (Board.boardState[x1][y1].getIsWhite())
 				color = "WHITE";
 			System.out.println("Moving " + color + " " + Board.boardState[x1][y1].getType().toString() + 
@@ -331,7 +320,6 @@ public class ChessGUI {
 			fromChessBtn.setImage();
 	
 			Board.boardState[x2][y2] = new Piece(fromPiece, x2, y2);
-			Board.boardState[x1][y1] = null;
 			
 			// Convert to string
 			String x1c = Integer.toString(x1);
@@ -347,7 +335,48 @@ public class ChessGUI {
 				System.out.println("I TRIED TO SEND MOVE");	
 				e.printStackTrace();
 			}
+
+			if (fromPiece.getType() == PieceType.PAWN) {
+				if (fromPiece.getIsWhite()) {
+					if (y2 == 0) {
+						Board.boardState[x2][y2] = null;
+						Board.boardState[x2][y2] = new Piece(PieceType.QUEEN, x2, y2, true);
+						Board.boardState[x2][y2].validator = new QueenValidator();
+						chessBoardSquares[x2][y2].setImage(new ImageIcon(
+			                    chessPieceImages[WHITE][STARTING_ROW[3]]));
+					}
+					if (y1 == y2) {
+						Board.boardState[x2][y2] = null;
+						chessBoardSquares[x2][y2].isOccupied = false;
+						chessBoardSquares[x2][y2].setImage();
+						chessBoardSquares[x2][y2-1].isOccupied = true;
+						Board.boardState[x2][y2-1] = new Piece(fromPiece, x2, y2-1);
+						chessBoardSquares[x2][y2-1].setImage(new ImageIcon(
+			                    chessPieceImages[WHITE][PAWN]));
+					}
+				}
+				if (!fromPiece.getIsWhite()) {
+					if (y2 == 7) {
+						Board.boardState[x2][y2] = null;
+						Board.boardState[x2][y2] = new Piece(PieceType.QUEEN, x2, y2, false);
+						Board.boardState[x2][y2].validator = new QueenValidator();
+						chessBoardSquares[x2][y2].setImage(new ImageIcon(
+			                    chessPieceImages[BLACK][STARTING_ROW[3]]));
+					}
+					if (y1 == y2) {
+						Board.boardState[x2][y2] = null;
+						chessBoardSquares[x2][y2].isOccupied = false;
+						chessBoardSquares[x2][y2].setImage();
+						chessBoardSquares[x2][y2-1].isOccupied = true;
+						Board.boardState[x2][y2+1] = new Piece(fromPiece, x2, y2-1);
+						chessBoardSquares[x2][y2+1].setImage(new ImageIcon(
+			                    chessPieceImages[BLACK][PAWN]));
+					}
+				}
+			}
 			
+			Board.boardState[x1][y1] = null;
+
 			if (fromPiece.getType().toString() == "KING") {
 				if (fromPiece.getIsWhite()) {
 					Board.whiteKingX = x2;
@@ -358,8 +387,6 @@ public class ChessGUI {
 				}
 			}
     	}
-    	
-    	
     	MakeMoveButton.resetSelection();
 		ChessGUI.clearHighlight();
 	}
@@ -374,7 +401,7 @@ public class ChessGUI {
 		int y2 = Integer.parseInt(move.substring(3,4));
 				       
 		System.out.println(x1 + ", " + y1 + " to " + x2 + ", " + y2);
-		if (Board.boardState[x1][y1] != null) {
+		if (Board.boardState[x1][y1] != null && !Board.isChecked()) {
 		
 			// Console printed statement
 	    	String color = "BLACK";
@@ -401,7 +428,42 @@ public class ChessGUI {
 			Board.boardState[x2][y2] = new Piece(fromPiece, x2, y2);
 			Board.boardState[x1][y1] = null;
 			
-			
+			if (fromPiece.getType() == PieceType.PAWN) {
+				if (fromPiece.getIsWhite()) {
+					if (y2 == 0) {
+						Board.boardState[x2][y2] = null;
+						Board.boardState[x2][y2] = new Piece(PieceType.QUEEN, x2, y2, true);
+						Board.boardState[x2][y2].validator = new QueenValidator();
+						chessBoardSquares[x2][y2].setImage(new ImageIcon(
+			                    chessPieceImages[WHITE][STARTING_ROW[3]]));
+					}
+					if (y1 == y2) {
+						Board.boardState[x2][y1] = null;
+						chessBoardSquares[x2][y2].isOccupied = false;
+						chessBoardSquares[x2][y2].setImage();
+						Board.boardState[x2][y1-1] = new Piece(fromPiece, x2, y2-1);
+						chessBoardSquares[x2][y2-1].setImage(new ImageIcon(
+			                    chessPieceImages[WHITE][PAWN]));
+					}
+				}
+				if (!fromPiece.getIsWhite()) {
+					if (y2 == 7) {
+						Board.boardState[x2][y2] = null;
+						Board.boardState[x2][y2] = new Piece(PieceType.QUEEN, x2, y2, false);
+						Board.boardState[x2][y2].validator = new QueenValidator();
+						chessBoardSquares[x2][y2].setImage(new ImageIcon(
+			                    chessPieceImages[BLACK][STARTING_ROW[3]]));
+					}
+					if (y1 == y2) {
+						Board.boardState[x2][y1] = null;
+						chessBoardSquares[x2][y2].isOccupied = false;
+						chessBoardSquares[x2][y2].setImage();
+						Board.boardState[x2][y1+1] = new Piece(fromPiece, x2, y2-1);
+						chessBoardSquares[x2][y2+1].setImage(new ImageIcon(
+			                    chessPieceImages[BLACK][PAWN]));
+					}
+				}
+			}
 			if (fromPiece.getType().toString() == "KING") {
 				if (fromPiece.getIsWhite()) {
 					Board.whiteKingX = x2;
@@ -411,22 +473,8 @@ public class ChessGUI {
 					Board.blackKingY = y2;
 				}
 			}
-		}
-				
-		if(Board.isChecked())
-		{
-			check.setText("In Check");
-			if(Board.isCheckMate())
-			{
-				check.setText("Checkmate. You Lose");
-			}
-		}
-		else
-		{
-			check.setText("");
-		}
-		
-		MakeMoveButton.resetSelection();
+    	}
+    	MakeMoveButton.resetSelection();
 		ChessGUI.clearHighlight();
 	}
     
