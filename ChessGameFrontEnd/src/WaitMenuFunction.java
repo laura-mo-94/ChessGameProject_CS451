@@ -13,7 +13,6 @@ public class WaitMenuFunction extends HttpService{
 	
 	public void buildFrame(String initialMessage)
 	{
-		System.out.println("eeeeeh");
 		frame.getContentPane().removeAll();
 		JLabel state = new JLabel(initialMessage);
 		state.setBounds(100, 40, 300, 20);
@@ -30,7 +29,6 @@ public class WaitMenuFunction extends HttpService{
 		Timer timer = new Timer(1000, updater);
 		timer.start();
 		updater.attachTimer(timer);
-		System.out.println("finished");
 	}
 	
 }

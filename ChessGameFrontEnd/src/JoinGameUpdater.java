@@ -19,7 +19,6 @@ public class JoinGameUpdater extends HttpService implements ActionListener {
 	public void actionPerformed(ActionEvent e)
 	{
 		String response = "";
-		System.out.println("Get it dude " + userName);
 		response = checkForOpponent(userName);
 		System.out.println(response + " resp");
 		if(response == null)
@@ -78,94 +77,5 @@ public class JoinGameUpdater extends HttpService implements ActionListener {
 			return null;
 		}
 	}
-	
-	/*private void buildGameFrame(String gameName, JFrame frame)
-	{
-		frame.getContentPane().removeAll();
-		JLabel label = new JLabel(gameName);
-		label.setBounds(100, 40, 300, 20);
-		frame.add(label);
-		
-		JLabel state = new JLabel("0");
-		state.setBounds(100, 100, 200, 30);
-		
-		JLabel message = new JLabel("");
-		message.setBounds(100, 200, 300, 160);
-		frame.add(state);
-		
-		JButton b = new JButton("ADD");
-		b.setBounds(130, 150, 100, 40);
-		
-		JButton draw = new JButton("DRAW");
-		draw.setBounds(130, 200, 100, 40);
-		frame.add(draw);
-		
-		JButton forfeit = new JButton("FORFEIT");
-		forfeit.setBounds(130, 250, 100, 40);
-		frame.add(forfeit);
-		
-		GameUpdater updater = new GameUpdater(state, message, userName, gameName);
-		updater.setActiveFrame(frame);
-		
-		try{
-			Timer timer = new Timer(1000, updater);
-			timer.start();
-			
-			updater.attachTimer(timer);
-			
-		}catch(Exception exp)
-		{
-			System.out.println("Error! Failed to send button action. " + exp);
-			exp.printStackTrace();
-		}
-	
-		// makes it so that on click, this button will run the joinGame function and
-		// start up a timer that constantly checks fo an opponent
-		
-		b.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e)
-			{
-				try
-				{
-					if(updater.getIsActive())
-					{
-						updater.sendAction(String.valueOf((Integer.parseInt(state.getText()) + 1)));
-					}
-				}catch(Exception exp)
-				{
-					exp.printStackTrace();
-				}
-				
-			}
-		});
-		
-		draw.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent e)
-			{
-				try{
-					updater.draw();
-				}catch(Exception exp)
-				{
-					exp.printStackTrace();
-				}
-			}
-		});
-		
-		forfeit.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent e)
-			{
-				try{
-					updater.forfeit();
-				}catch(Exception exp)
-				{
-					exp.printStackTrace();
-				}
-			}
-		});
-		
-		frame.add(b);
-		frame.revalidate();
-		frame.repaint();
-	}*/
 	
 }

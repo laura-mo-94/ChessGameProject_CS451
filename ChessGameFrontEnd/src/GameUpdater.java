@@ -18,7 +18,7 @@ public class GameUpdater extends HttpService implements ActionListener
 	
 	private boolean attemptingDraw = false;
 	float timeElapsed = 0;
-	float timeLimit = 60;
+	float timeLimit = 300;
 	private boolean countingDown;
 	private boolean disconnected;
 	

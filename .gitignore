@@ -88,10 +88,15 @@ ChessGameBackEnd/node_modules
 httpcomponents-client-4.5.1
 
 #sonarqube
-sonar-scanner-2.5
-sonarqube-5.3
+./sonar-scanner-2.5
+./sonarqube-5.3
 
 ChessGameBackEnd/.settings
 ChessGameBackEnd/test
 
 ChessGameBackEnd/.project
+ChessGameBackEnd/.sonar
+ChessGameFrontEnd/.sonar
+
+sonar-scanner-2.5
+sonarqube-4.5.6

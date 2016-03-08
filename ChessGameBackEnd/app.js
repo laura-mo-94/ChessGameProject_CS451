@@ -21,7 +21,7 @@ var gamesMessages = {};
 
 var callTimesTillCheck = 10;
 var currentCallTimes = 0;
-var timeLimit = 10;
+var timeLimit = 300;
 
 // all environments
 app.set('port', process.env.PORT || 3000);
@@ -46,11 +46,10 @@ if ('development' === app.get('env')) {
 app.get('/', routes.index);
 app.get('/users', user.list);
 
-function sendMessageToUser(res, status, message)
-{
-	res.status(status);
-	res.send(message);
-}
+// a game is identified by a name, and each game contains
+// two parts: 1) how many have seen this new update 2) the new move update
+// so if a name is in the list of games, then the new move is put in there
+// and the number of people who have seen the update is marked as zero
 
 app.post('/submitMove', function saveMove(req, res)
 {
@@ -59,10 +58,11 @@ app.post('/submitMove', function saveMove(req, res)
 	{
 		games[req.body.user][0] = 0; 
 		games[req.body.user][1] = req.body.update;
-		res.send("Move saved");
 	}
+	res.send("Move saved");
 });
 
+//a message is posted in gamesMessages under a game id
 app.post('/postMessage', function message(req, res){
 	
 	if(req.body.user in gamesMessages)
@@ -74,6 +74,9 @@ app.post('/postMessage', function message(req, res){
 	res.send("Waiting for response...");
 });
 
+// gets chess board updates
+// if numViewed is 2 or greater, then this is an old update
+// and nothing is returned
 
 app.post('/getState', function getState(req, res){
 	
@@ -99,6 +102,10 @@ app.post('/getState', function getState(req, res){
 
 });
 
+// gets the game message if there is one
+// calling this function will also check in the user
+// once this function has been called enough time it will go through and check all active users
+// if it been too long since that user has checked in, then they are purged from the system
 app.post('/getGameMessage', function(req, res){
 	checkInTimes[req.body.userName] = new Date().getTime()/1000;
 	console.log(req.body.userName + " checked in at " + checkInTimes[req.body.userName]);
@@ -116,7 +123,6 @@ app.post('/getGameMessage', function(req, res){
 				console.log(player + " checked in at " + checkInTimes[player]);
 				if(currentTime - checkInTimes[player] > timeLimit)
 				{
-					console.log("oh shit it's been awhile");
 					var gameName = opponents[player];
 					var names = gameName.split(" ");
 					var opponent;
@@ -178,6 +184,10 @@ app.post('/getGameMessage', function(req, res){
 	}
 });
 
+// given a name, it is put into the queue to be matched into a game
+// if the name given is already in use, a message is returned stating that
+// once more than 2 players have joined the queue, this function will start pairing
+// off the players
 app.post('/join', function(req, res){
 	console.log(queueName.indexOf(req.body.user));
 	
@@ -187,14 +197,13 @@ app.post('/join', function(req, res){
 	
 	if(queueName.indexOf(req.body.user) >= 0)
 	{
-		console.log("nope " + req.body.user);
 		valid = false;
 		res.send('Name is already in use!');
 	}
 	else if(req.body.user in opponents)
 	{
 		
-		if(currentTime - checkInTimes[req.body.user] > 1.5)
+		if(currentTime - checkInTimes[req.body.user] > timeLimit)
 		{
 			delete checkInTimes[req.body.user];
 			delete opponents[req.body.user];
@@ -210,7 +219,6 @@ app.post('/join', function(req, res){
 	
 	if(valid)
 	{
-		console.log(req.body.user + " is gonna go look for an opponent");
 		queueName.push(req.body.user);
 		queueCheck.push(currentTime);
 		res.send('Waiting for opponent');
@@ -218,6 +226,8 @@ app.post('/join', function(req, res){
 		var player1Name = "";
 		var player2Name = "";
 		console.log(queueName.length);
+		
+		// pairs off players in queue
 		while(queueName.length > 0)
 		{
 			var candidate = queueName.shift();
@@ -233,7 +243,6 @@ app.post('/join', function(req, res){
 			}
 			else if(player2Name === "")
 			{
-				console.log('Here we gooooo');
 				if(currentTime - candidateTime < 1.5)
 				{
 					player2Name = candidate;
@@ -246,7 +255,7 @@ app.post('/join', function(req, res){
 					var time = new Date().getTime() / 1000;
 					checkInTimes[player1Name] = time;
 					checkInTimes[player2Name] = time;
-					console.log("New times for them are : " + time);
+					
 					console.log(player1Name + " " + checkInTimes[player1Name]);
 					console.log(player2Name + " " + checkInTimes[player2Name]);
 					player1Name = "";
@@ -261,12 +270,13 @@ app.post('/join', function(req, res){
 			queueCheck.push(new Date().getTime() / 1000);
 		}
 	}
-	
-	console.log("maybe " + req.body.user + " is gonna find an opponent");
 });
 
+// if the player has been placed into a game, then this function, given a player's name
+// will return that game id, otherwise it notifies the user that it's still waiting to
+// be paired off
+
 app.post('/getOpponent', function(req, res){
-	console.log(req.body.user + " is trying to get an opponent");
 	if(req.body.user in opponents)
 	{
 		var name = opponents[req.body.user];
@@ -279,6 +289,7 @@ app.post('/getOpponent', function(req, res){
 	}
 });
 
+// all information about the game is removed from the system
 app.post('/removeGame', function(req, res){
 	if(req.body.game in games)
 	{
@@ -290,6 +301,7 @@ app.post('/removeGame', function(req, res){
 	res.send("Finished!");
 });
 
+// player leaves the game
 app.post('/leaveGame', function(req, res){
 	if(req.body.userName in opponents)
 	{
@@ -298,7 +310,7 @@ app.post('/leaveGame', function(req, res){
 		console.log(req.body.userName + " left this game");
 	}
 	
-	res.send(" Removed");
+	res.send("Removed");
 });
 
 app.listen(app.get('port'), function serverListen(){

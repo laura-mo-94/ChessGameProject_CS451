@@ -468,24 +468,4 @@ public class ChessGUI {
 		f.setMinimumSize(f.getSize());
 		f.setVisible(true);
 	}
-/*
- *	Used strictly to test board alone
-    public static void main(String[] args) {
-        Runnable r = new Runnable() {
-            public void run() {
-                ChessGUI cg = new ChessGUI();
-
-                JFrame f = new JFrame("Chess Game");
-                f.add(cg.getGui());
-                f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        		f.setLocationByPlatform(true);
-        		f.pack();
-        		f.setMinimumSize(f.getSize());
-        		f.setVisible(true);
-            }
-        };
-        // Swing GUIs should be created and updated on the EDT
-        // http://docs.oracle.com/javase/tutorial/uiswing/concurrency
-        SwingUtilities.invokeLater(r);
-    }*/
 }
