@@ -20,4 +20,7 @@ public abstract class Validator {
 		// TODO Auto-generated method stub
 		
 	}
+	public boolean getEnPassant() {
+		return false;
+	}
 }
