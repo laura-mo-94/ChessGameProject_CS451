@@ -26,16 +26,11 @@ public class PawnValidator extends Validator  {
 	{
 		return enPassant;
 	}
-	
+	@Override
 	public void setEnPassant(boolean b)
 	{
 		this.enPassant = b;
 	}
-	
-	public boolean enPassant() {
-		return isWhite;
-	}
-	
 	public void promotion() {
 		
 	}

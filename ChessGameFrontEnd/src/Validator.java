@@ -15,12 +15,12 @@ public abstract class Validator {
 	public void setHasMoved(boolean moved) {
 		hasMoved = moved;
 	}
-
-	public void print() {
-		// TODO Auto-generated method stub
-		
-	}
 	public boolean getEnPassant() {
+		return false;
+	}
+	public void setEnPassant(boolean b) {
+	}
+	public boolean canCastle() {
 		return false;
 	}
 }

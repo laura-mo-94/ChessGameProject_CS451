@@ -14,7 +14,7 @@ public class KingValidator extends Validator  {
 	public KingValidator() {
 
 	}
-	
+	@Override
 	public boolean canCastle() {
 		return isWhite;
 	}
