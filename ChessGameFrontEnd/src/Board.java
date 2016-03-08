@@ -93,16 +93,16 @@ public class Board {
 		{
 			ArrayList<int []> kingMoves = new ArrayList<int []>();
 			kingMoves = Board.boardState[whiteKingX][whiteKingY].getValidator().highlightBoard(whiteKingX, whiteKingY, true);
-			if(kingMoves.size() < 1)
+			if((kingMoves.size() < 1) || ((kingMoves.get(0)[0] == 0) && (kingMoves.get(0)[1] == 0)))
 			{
 				return true;
 			}
 		}
-		if(!ChessGUI.updater.getIsWhite())
+		if(!(ChessGUI.updater.getIsWhite()))
 		{
 			ArrayList<int []> kingMoves = new ArrayList<int []>();
 			kingMoves = Board.boardState[blackKingX][blackKingY].getValidator().highlightBoard(blackKingX, blackKingY, false);
-			if(kingMoves.size() < 1)
+			if(kingMoves.size() < 1 || ((kingMoves.get(0)[0] == 0) && (kingMoves.get(0)[1] == 0)))
 			{
 				return true;
 			}
