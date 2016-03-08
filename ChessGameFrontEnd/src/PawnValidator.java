@@ -11,6 +11,7 @@ public class PawnValidator extends Validator  {
 	int yPos;
 	
 	boolean isWhite;
+	boolean canMoveTwo = false;
 	
 	PieceType type;
 	
@@ -50,6 +51,7 @@ public class PawnValidator extends Validator  {
 				{
 					enPassant = false;
 					returnMoves.add(new int [] {x, y-1});
+					canMoveTwo = true;
 				}
 			if((x+1 < 8) && (x+1 > -1) && (y-1 < 8) && (y-1 > -1) && (x-1 < 8) && (x-1 > -1))
 			{
@@ -58,11 +60,17 @@ public class PawnValidator extends Validator  {
 				if((Board.boardState[x+1][y-1] != null) && (Board.boardState[x+1][y-1].getIsWhite() == false) && (x+1 < 8))
 					returnMoves.add(new int [] {x+1, y-1});
 			}
-			if(y == 6)
+			if(y == 6 && canMoveTwo == true)
 			{
 				if(Board.boardState[x][y-2] == null)
 					returnMoves.add(new int [] {x, y-2});
 				enPassant = true;
+			}
+			if(y == 3) {
+				if((Board.boardState[x+1][y] != null) && (Board.boardState[x+1][y].getIsWhite() == false) && (Board.boardState[x+1][y].getType() == PieceType.PAWN))
+					returnMoves.add(new int [] {x+1, y});
+				if((Board.boardState[x-1][y] != null) && (Board.boardState[x-1][y].getIsWhite() == false) && (Board.boardState[x-1][y].getType() == PieceType.PAWN))
+					returnMoves.add(new int [] {x-1, y});
 			}
 		}
 		else if(!isWhite)
@@ -72,6 +80,7 @@ public class PawnValidator extends Validator  {
 				{	
 					enPassant = false;
 					returnMoves.add(new int [] {x, y+1});
+					canMoveTwo = true;
 				}
 			if((x+1 < 8) && (x+1 > -1) && (y+1 < 8) && (y+1 > -1) && (x-1 < 8) && (x-1 > -1))
 			{
@@ -80,11 +89,14 @@ public class PawnValidator extends Validator  {
 				if((Board.boardState[x+1][y+1] != null) && (Board.boardState[x+1][y+1].getIsWhite() == true))
 					returnMoves.add(new int [] {x+1, y+1});
 			}
-			if(y == 1)
+			if(y == 1 && canMoveTwo == true)
 			{
 				if(Board.boardState[x][y+2] == null)
 					returnMoves.add(new int [] {x, y+2});
 				enPassant = true;
+			}
+			if(y == 4) {
+				
 			}
 		}
 		
