@@ -213,8 +213,6 @@ public class ChessGUI {
             System.exit(1);
         }
     
-
-    
         // Initializes the icons of the initial chess board piece places 
         // Initializing the boardState 2Darray
         // set up the black pieces

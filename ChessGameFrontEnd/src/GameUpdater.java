@@ -413,4 +413,16 @@ public class GameUpdater extends HttpService implements ActionListener
 	{
 		return isWhite;
 	}
+	
+	public void showCheckMate()
+	{
+		int input = JOptionPane.showConfirmDialog(null, "Check mate!");
+		if(input >= 0)
+		{
+			timer.stop();
+			leaveGame();
+			endGame();
+			getAnotherGame();
+		}
+	}
 }
