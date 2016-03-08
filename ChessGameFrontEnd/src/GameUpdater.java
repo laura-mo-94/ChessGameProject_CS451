@@ -74,12 +74,6 @@ public class GameUpdater extends HttpService implements ActionListener
 		
 		if(response != null && !response.equals(""))
 		{
-			
-			if(Board.isCheckMate() && Board.isChecked())
-				showCheckMate();
-			if(!Board.kingExists())
-				showCheckMate();
-			
 			isActive = !isActive;
 			gui.makeMove(response);
 			
@@ -97,12 +91,22 @@ public class GameUpdater extends HttpService implements ActionListener
 			disconnected = false;
 		}
 		
+		if(Board.isCheckMate() && Board.isChecked())
+		{
+			sendGameMessage("Check mate");
+			showCheckMate();
+		}
+		if(!Board.kingExists())
+		{
+			sendGameMessage("Check mate");
+			showCheckMate();
+		}
+		
 		if(isActive && (currentTime.getTime() - startTime.getTime())/1000 > timeLimit && !countingDown)
 		{
 			countingDown = true;
 			timeElapsed = timeLimit;
-			JOptionPane.showConfirmDialog(null, "Are you still there?");
-			
+			JOptionPane.showConfirmDialog(null, "Are you still there?");		
 		}
 		
 		if(countingDown)
@@ -206,6 +210,11 @@ public class GameUpdater extends HttpService implements ActionListener
 					leaveGame();
 					endGame();
 					getAnotherGame();
+				}
+				else if(response.equals("Check mate"))
+				{
+					endGame();
+					showCheckMate();
 				}
 				
 			}
@@ -426,7 +435,6 @@ public class GameUpdater extends HttpService implements ActionListener
 		{
 			timer.stop();
 			leaveGame();
-			endGame();
 			getAnotherGame();
 		}
 	}
