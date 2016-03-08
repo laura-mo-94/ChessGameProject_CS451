@@ -86,7 +86,7 @@ public class KingValidator extends Validator  {
 					//check if is opponent piece
 					if(Board.boardState[i][j] != null)
 					{
-						if(Board.boardState[i][j].getIsWhite() == false)
+						if(!Board.boardState[i][j].getIsWhite())
 						{
 							//AVOID INFINITE LOOPS just s'cause
 							if(Board.boardState[i][j].getType().toString() == "KING")
@@ -112,7 +112,8 @@ public class KingValidator extends Validator  {
 											{
 												System.out.println("\n" + "\n" + "--------------------------" + "\n" + "THIS SHIT IS HERE");
 												System.out.println(oppMoves.get(l));
-												interferingMoves.add(oppMoves.get(l));
+												tempArr.get(k)[0] = xPos;
+												tempArr.get(k)[1] = yPos;
 											}
 										}
 									}
@@ -160,7 +161,9 @@ public class KingValidator extends Validator  {
 											{
 												System.out.println("\n" + "\n" + "--------------------------" + "\n" + "THIS SHIT IS HERE");
 												System.out.println(oppMoves.get(l));
-												interferingMoves.add(oppMoves.get(l));
+												tempArr.get(k)[0] = xPos;
+												tempArr.get(k)[1] = yPos;
+												//interferingMoves.add(oppMoves.get(l));
 											}
 										}
 									}
@@ -173,7 +176,7 @@ public class KingValidator extends Validator  {
 		}
 		
 		
-		ArrayList<int []> temperTempArr = new ArrayList<int []>();
+		/*ArrayList<int []> temperTempArr = new ArrayList<int []>();
 		
 		for(int i=0; i<tempArr.size(); i++)
 		{
@@ -189,9 +192,9 @@ public class KingValidator extends Validator  {
 				}
 						
 			}
-		}
+		}*/
 		
-		returnMoves = temperTempArr;
+		returnMoves = tempArr;
 		
 		return returnMoves;
 	}
