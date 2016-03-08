@@ -100,6 +100,7 @@ public class ChessGUI {
         tools.addSeparator();
         state = new JLabel("not your turn");
         tools.add(state);
+        
         gui.add(new JLabel("?"), BorderLayout.LINE_START);
 
         chessBoard = new JPanel(new GridLayout(0, 9)) {
@@ -335,16 +336,16 @@ public class ChessGUI {
 				System.out.println("I TRIED TO SEND MOVE");	
 				e.printStackTrace();
 			}
-			/* TODO: Add back when synced.
-			if (toPiece.getType() == PieceType.KING) {
-				if (toPiece.getIsWhite()) {
+			
+			if (fromPiece.getType().toString() == "KING") {
+				if (fromPiece.getIsWhite()) {
 					Board.whiteKingX = x2;
 					Board.whiteKingY = y2;
 				} else {
 					Board.blackKingX = x2;
 					Board.blackKingY = y2;
 				}
-			}*/
+			}
     	}
     	MakeMoveButton.resetSelection();
 		ChessGUI.clearHighlight();
@@ -387,17 +388,23 @@ public class ChessGUI {
 			Board.boardState[x2][y2] = new Piece(fromPiece, x2, y2);
 			Board.boardState[x1][y1] = null;
 			
-			/* TODO: Add back when synced.
-			if (toPiece.getType() == PieceType.KING) {
-				if (toPiece.getIsWhite()) {
+			
+			if (fromPiece.getType().toString() == "KING") {
+				if (fromPiece.getIsWhite()) {
 					Board.whiteKingX = x2;
 					Board.whiteKingY = y2;
 				} else {
 					Board.blackKingX = x2;
 					Board.blackKingY = y2;
 				}
-			}*/
+			}
 		}
+				
+		if(Board.isChecked())
+		{
+			
+		}
+		
 		MakeMoveButton.resetSelection();
 		ChessGUI.clearHighlight();
 	}

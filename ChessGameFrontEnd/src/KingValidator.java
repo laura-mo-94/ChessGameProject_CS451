@@ -93,7 +93,8 @@ public class KingValidator extends Validator  {
 							{
 								System.out.println("LOL");
 							}
-							else {
+							else 
+							{
 								//save array of opponent possible moves
 								ArrayList<int []> oppMoves = new ArrayList<int []>();
 								oppMoves = Board.boardState[i][j].getValidator().highlightBoard(i, j, false);

@@ -12,6 +12,11 @@ public class Board {
 	public static ChessGUI gui;
 
 	public static Piece[][] boardState = new Piece[8][8];
+	
+	public static int blackKingX = 4;
+	public static int blackKingY = 0;
+	public static int whiteKingX = 4;
+	public static int whiteKingY = 7;
 
 	public List<Piece> blackPieces;
 	public List<Piece> whitePieces;
@@ -28,11 +33,80 @@ public class Board {
 
 	}
 
-	public boolean isChecked(int player) {
+	public static boolean isChecked() {
+		if(ChessGUI.updater.getIsWhite())
+		{
+			//iterates through rows
+			for(int i=0; i<8; i++)
+			{
+				//iterates through columns
+				for(int j=0; j < 8; j++)
+				{
+					//check if is opponent piece
+					if(Board.boardState[i][j] != null)
+					{
+						if(Board.boardState[i][j].getIsWhite() == false)
+						{
+							ArrayList<int []> oppMoves = new ArrayList<int []>();
+							oppMoves = Board.boardState[i][j].getValidator().highlightBoard(i, j, false);
+							for(int k=0; k<oppMoves.size(); k++)
+							{
+								if((oppMoves.get(k)[0] == whiteKingX) && (oppMoves.get(k)[1] == whiteKingY))
+									return true;
+							}
+						}
+					}
+				}
+			}
+		}
+		
+		if(!(ChessGUI.updater.getIsWhite()))
+		{
+			//iterates through rows
+			for(int i=0; i<8; i++)
+			{
+				//iterates through columns
+				for(int j=0; j < 8; j++)
+				{
+					//check if is opponent piece
+					if(Board.boardState[i][j] != null)
+					{
+						if(Board.boardState[i][j].getIsWhite() == true)
+						{
+							ArrayList<int []> oppMoves = new ArrayList<int []>();
+							oppMoves = Board.boardState[i][j].getValidator().highlightBoard(i, j, true);
+							for(int k=0; k<oppMoves.size(); k++)
+							{
+								if((oppMoves.get(k)[0] == blackKingX) && (oppMoves.get(k)[1] == blackKingY))
+									return true;
+							}
+						}
+					}
+				}
+			}
+		}
 		return false;
 	}
 
-	public boolean isCheckMate(int player) {
+	public boolean isCheckMate() {
+		if(ChessGUI.updater.getIsWhite())
+		{
+			ArrayList<int []> kingMoves = new ArrayList<int []>();
+			kingMoves = Board.boardState[whiteKingX][whiteKingY].getValidator().highlightBoard(whiteKingX, whiteKingY, true);
+			if(kingMoves.size() < 1)
+			{
+				return true;
+			}
+		}
+		if(!ChessGUI.updater.getIsWhite())
+		{
+			ArrayList<int []> kingMoves = new ArrayList<int []>();
+			kingMoves = Board.boardState[blackKingX][blackKingY].getValidator().highlightBoard(blackKingX, blackKingY, false);
+			if(kingMoves.size() < 1)
+			{
+				return true;
+			}
+		}
 		return false;
 	}
 
