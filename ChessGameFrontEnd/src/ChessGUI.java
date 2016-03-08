@@ -22,6 +22,7 @@ public class ChessGUI {
     public static GameUpdater updater;
     private JLabel message;
     private JLabel state;
+	private static JLabel check;
     
     public static final int QUEEN = 0, 
     						KING = 1,
@@ -102,6 +103,9 @@ public class ChessGUI {
         state = new JLabel("not your turn");
         tools.add(state);
         gui.add(new JLabel("?"), BorderLayout.LINE_START);
+        tools.addSeparator();
+        check = new JLabel("");
+        tools.add(check);
 
         chessBoard = new JPanel(new GridLayout(0, 9)) {
 
@@ -472,6 +476,19 @@ public class ChessGUI {
 				}
 			}
     	}
+		if(Board.isChecked())
+		{
+			
+			check.setText("In Check");
+			if(Board.isCheckMate())
+			{
+				check.setText("Checkmate. You Lose");
+			}
+		}
+		else
+		{
+			check.setText("");
+		}
     	MakeMoveButton.resetSelection();
 		ChessGUI.clearHighlight();
 	}

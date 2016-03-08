@@ -109,6 +109,21 @@ public class Board {
 		}
 		return false;
 	}
+	
+	public static boolean kingExists() {
+		int numKings = 0;;
+		for (int i = 0; i <= 7; i++) {
+			for (int j = 0; j <= 7; j++) {
+				if(boardState[i][j] != null) {
+					if(boardState[i][j].getType() == PieceType.KING)
+						numKings++;
+				}
+			}
+		}
+		if(numKings < 2)
+			return false;
+		return true;
+	}
 
 	public ArrayList<ArrayList<Integer>> getMoves(ArrayList<ArrayList<Integer>> spaces) {
 		return spaces;

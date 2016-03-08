@@ -75,6 +75,11 @@ public class GameUpdater extends HttpService implements ActionListener
 		if(response != null && !response.equals(""))
 		{
 			
+			if(Board.isCheckMate() && Board.isChecked())
+				showCheckMate();
+			if(!Board.kingExists())
+				showCheckMate();
+			
 			isActive = !isActive;
 			gui.makeMove(response);
 			
