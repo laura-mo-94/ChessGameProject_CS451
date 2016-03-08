@@ -17,6 +17,7 @@ public class ChessButton extends JButton {
     public Color normalColor;
     private int xPos;
     private int yPos;
+    private boolean selected = false;
     public boolean isOccupied;
     private ImageIcon image;
     
@@ -74,22 +75,26 @@ public class ChessButton extends JButton {
                 			MakeMoveButton.selectedSpaceY = yPos;
                 			System.out.println("Selected Space (" + xPos + ", " + yPos + ")");
                 			Board.pendingMove = true;
+                			selected = true;
                 		} else {
                 			ChessGUI.clearHighlight();
                 			Board.pendingMove = false;
                 		}
                 	}
-                	if(isOccupied){
+                	
+                	// Select piece
+                	if (isOccupied && (ChessGUI.updater.getIsWhite() == Board.instance.boardState[xPos][yPos].getIsWhite())){
                 		ChessGUI.clearHighlight();
+                		MakeMoveButton.resetSelection();
                 		setBackground(pressedColor);
                 		Piece piece = Board.instance.boardState[xPos][yPos];
 
+            			System.out.println("Selected Piece (" + piece.getX() + ", " + piece.getY() + ")");
+                		
                 		//Set Selected Piece
                 		MakeMoveButton.selectedPieceX = piece.getX();
                 		MakeMoveButton.selectedPieceY = piece.getY();
-            			System.out.println("Selected Piece (" + piece.getX() + ", " + piece.getY() + ")");
 
-                		
             			// Console printed statement
                 		String color = "BLACK";
                 		if (piece.getIsWhite())
@@ -105,6 +110,32 @@ public class ChessButton extends JButton {
                 			System.out.println("\t\t" + "(" + returnMoves.get(i)[0] + ", " + returnMoves.get(i)[1] + ")");
                 		}
                 		Board.isHighlighted = true;
+                	}
+                	else if (isOccupied && (ChessGUI.updater.getIsWhite() != Board.instance.boardState[xPos][yPos].getIsWhite()) && (getBackground() != Color.YELLOW) && !selected){
+                		ChessGUI.clearHighlight();
+                		setBackground(Color.RED);
+                		Piece piece = Board.instance.boardState[xPos][yPos];
+
+            			System.out.println("Selected Enemy (" + piece.getX() + ", " + piece.getY() + ")");
+
+            			// Console printed statement
+                		String color = "BLACK";
+                		if (piece.getIsWhite())
+                			color = "WHITE";
+                		System.out.println(color + " " + piece.getType().toString() + " at (" + piece.getX() + ", " + piece.getY() + ") has been selected.");
+                		
+                		// Movement Validation
+                		ArrayList<int[]> returnMoves = piece.validator.highlightBoard(piece.getX(), piece.getY(), piece.getIsWhite());
+                		
+                		System.out.println("\t" + color + " " + piece.getType().toString() + " can move to:");
+                		for (int i = 0; i < returnMoves.size(); i++) {
+                			ChessGUI.chessBoardSquares[returnMoves.get(i)[0]][returnMoves.get(i)[1]].setBackground(Color.RED);
+                			System.out.println("\t\t" + "(" + returnMoves.get(i)[0] + ", " + returnMoves.get(i)[1] + ")");
+                		}
+                		MakeMoveButton.resetSelection();
+                		Board.isHighlighted = true;
+                	} else {
+                		selected = false;
                 	}
                 }
             }

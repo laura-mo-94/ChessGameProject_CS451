@@ -22,13 +22,24 @@ public class MakeMoveButton extends JButton {
             
             public void stateChanged(ChangeEvent evt) {
                 if (getModel().isPressed()) {
-                	if(selectedPieceX != -1 && selectedPieceY != -1 && selectedSpaceX != -1 && selectedSpaceY != -1) {
-                		if (ChessGUI.updater.getIsActive()) {                		
-                			Board.gui.makeMove(selectedPieceX, selectedPieceY, selectedSpaceX, selectedSpaceY);
+                	if (selectedPieceX != -1 && selectedPieceY != -1 && selectedSpaceX != -1 && selectedSpaceY != -1) {
+                		System.out.println(selectedPieceX+ ", " +selectedPieceY+ " to " + selectedSpaceX+ ", " +selectedSpaceY);
+                		if (!((selectedPieceX == selectedSpaceX) && (selectedPieceY == selectedSpaceY))) {
+	                		if (ChessGUI.updater.getIsActive()) {                		
+	                			Board.gui.makeMove(selectedPieceX, selectedPieceY, selectedSpaceX, selectedSpaceY);
+	                		}
                 		}
                 	}
         		}
             }
         });
+	}
+	
+	// Reset selections back to -1
+	public static void resetSelection() {
+		selectedPieceX = -1;
+		selectedPieceY = -1;
+		selectedSpaceX = -1;
+		selectedSpaceY = -1;
 	}
 }

@@ -335,11 +335,18 @@ public class ChessGUI {
 				System.out.println("I TRIED TO SEND MOVE");	
 				e.printStackTrace();
 			}
+			/* TODO: Add back when synced.
+			if (toPiece.getType() == PieceType.KING) {
+				if (toPiece.getIsWhite()) {
+					Board.whiteKingX = x2;
+					Board.whiteKingY = y2;
+				} else {
+					Board.blackKingX = x2;
+					Board.blackKingY = y2;
+				}
+			}*/
     	}
-		x1 = -1;
-		y1 = -1;
-		x2 = -1;
-		y2 = -1;
+    	MakeMoveButton.resetSelection();
 		ChessGUI.clearHighlight();
 	}
 	
@@ -379,11 +386,19 @@ public class ChessGUI {
 	
 			Board.boardState[x2][y2] = new Piece(fromPiece, x2, y2);
 			Board.boardState[x1][y1] = null;
+			
+			/* TODO: Add back when synced.
+			if (toPiece.getType() == PieceType.KING) {
+				if (toPiece.getIsWhite()) {
+					Board.whiteKingX = x2;
+					Board.whiteKingY = y2;
+				} else {
+					Board.blackKingX = x2;
+					Board.blackKingY = y2;
+				}
+			}*/
 		}
-		x1 = -1;
-		y1 = -1;
-		x2 = -1;
-		y2 = -1;
+		MakeMoveButton.resetSelection();
 		ChessGUI.clearHighlight();
 	}
     
