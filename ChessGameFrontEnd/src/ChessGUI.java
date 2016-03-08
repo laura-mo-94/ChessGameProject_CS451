@@ -296,7 +296,7 @@ public class ChessGUI {
 
 		// Console printed statement
     	String color = "BLACK";
-    	if (Board.boardState[x1][y1] != null && !Board.isChecked()) {
+    	if (Board.boardState[x1][y1] != null) {
 			if (Board.boardState[x1][y1].getIsWhite())
 				color = "WHITE";
 			System.out.println("Moving " + color + " " + Board.boardState[x1][y1].getType().toString() + 
@@ -399,7 +399,7 @@ public class ChessGUI {
 		int y2 = Integer.parseInt(move.substring(3,4));
 				       
 		System.out.println(x1 + ", " + y1 + " to " + x2 + ", " + y2);
-		if (Board.boardState[x1][y1] != null && !Board.isChecked()) {
+		if (Board.boardState[x1][y1] != null) {
 		
 			// Console printed statement
 	    	String color = "BLACK";
