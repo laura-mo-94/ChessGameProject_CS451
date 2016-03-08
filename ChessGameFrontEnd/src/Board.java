@@ -88,7 +88,7 @@ public class Board {
 		return false;
 	}
 
-	public boolean isCheckMate() {
+	public static boolean isCheckMate() {
 		if(ChessGUI.updater.getIsWhite())
 		{
 			ArrayList<int []> kingMoves = new ArrayList<int []>();
