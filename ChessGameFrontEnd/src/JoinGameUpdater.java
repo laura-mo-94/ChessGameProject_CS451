@@ -21,7 +21,7 @@ public class JoinGameUpdater extends HttpService implements ActionListener {
 		String response = "";
 		System.out.println("Get it dude " + userName);
 		response = checkForOpponent(userName);
-		
+		System.out.println(response + " resp");
 		if(response == null)
 		{
 			int input = JOptionPane.showConfirmDialog(null, "Connection broken!");

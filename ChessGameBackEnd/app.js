@@ -77,7 +77,7 @@ app.post('/postMessage', function message(req, res){
 
 app.post('/getState', function getState(req, res){
 	
-	if(req.body.user in games)
+	if(games.hasOwnProperty(req.body.user))
 	{
 		var numViewed = parseInt(games[req.body.user][0]);
 		if(numViewed < 2)
@@ -157,7 +157,7 @@ app.post('/getGameMessage', function(req, res){
 		}
 	}
 	
-	if(req.body.gameName in gamesMessages)
+	if(gamesMessages.hasOwnProperty(req.body.gameName))
 	{
 		var numViewed = parseInt(gamesMessages[req.body.gameName][0]);
 		if(numViewed < 2)

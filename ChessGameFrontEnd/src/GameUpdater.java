@@ -23,6 +23,7 @@ public class GameUpdater extends HttpService implements ActionListener
 	private boolean disconnected;
 	
 	private ChessGUI gui;
+	private boolean isWhite;
 	
 	Date startTime;
 	
@@ -41,6 +42,7 @@ public class GameUpdater extends HttpService implements ActionListener
 			label.setText("Your turn");
 			startTime = new Date();
 			isActive = true;
+			isWhite = true;
 		}
 		else
 		{
@@ -63,6 +65,10 @@ public class GameUpdater extends HttpService implements ActionListener
 		{
 			messageLabel.setText(response);
 		}
+		else
+		{
+			messageLabel.setText(gameName);
+		}
 		
 		response = checkBoardState(SERVER_SITE + "/getState", gameName);
 		
@@ -71,6 +77,7 @@ public class GameUpdater extends HttpService implements ActionListener
 			
 			isActive = !isActive;
 			gui.makeMove(response);
+			
 			if(isActive)
 			{
 				label.setText("Your turn");
@@ -80,12 +87,15 @@ public class GameUpdater extends HttpService implements ActionListener
 			{
 				label.setText("Opponent's turn!");
 			}
+			
+			countingDown = false;
+			disconnected = false;
 		}
 		
-		if(isActive && (currentTime.getTime() - startTime.getTime())/1000 > timeLimit)
+		if(isActive && (currentTime.getTime() - startTime.getTime())/1000 > timeLimit && !countingDown)
 		{
 			countingDown = true;
-			
+			timeElapsed = timeLimit;
 			JOptionPane.showConfirmDialog(null, "Are you still there?");
 			
 		}
@@ -397,5 +407,10 @@ public class GameUpdater extends HttpService implements ActionListener
         };
        
         SwingUtilities.invokeLater(r);
+	}
+	
+	public boolean getIsWhite()
+	{
+		return isWhite;
 	}
 }
