@@ -1,11 +1,11 @@
 import org.junit.Test;
 
 public class BoardTest {
-	@Test
+	/*@Test
 	public void DriverTest() {
 		Driver d = new Driver();
 		Driver.main(new String[] {"arg1", "arg2", "arg3"});
-	}
+	}*/
 	@Test
 	public void ValidatorTest() {
 		Board b = new Board();
